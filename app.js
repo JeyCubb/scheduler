@@ -519,16 +519,6 @@ function renderScheduleGrid() {
 
   const { activeEvents, conflictingIndices: conflicts, eventConflictsMap } = getScheduleConflicts();
 
-  const conflictWarning = document.getElementById('sched-conflict-warning');
-  if (conflictWarning) {
-    if (conflicts.size > 0) {
-      conflictWarning.style.display = 'block';
-      conflictWarning.textContent = `⚠️ ${Math.floor(conflicts.size / 2)} Time Conflict(s)!`;
-    } else {
-      conflictWarning.style.display = 'none';
-    }
-  }
-
   let earliestSlotStart = 450; // 7:30 AM default
   let latestSlotEnd = 990;     // 4:30 PM default
 
