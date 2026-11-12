@@ -1282,49 +1282,56 @@ html, body {
   }
 
   .sched-event-block {
-    padding: 2px 2.5px !important;
+    padding: 1.5px 2px !important;
     border-radius: 3.5px !important;
     border-left-width: 2.5px !important;
     box-shadow: 0 1px 2px rgba(0,0,0,0.35) !important;
     min-width: 0 !important;
     overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
   }
 
   .sched-event-title-main {
-    font-size: 0.62rem !important;
+    font-size: 0.60rem !important;
     font-weight: 800 !important;
     line-height: 1.08 !important;
     display: block !important;
     white-space: normal !important;
-    word-break: keep-all !important;
-    overflow-wrap: normal !important;
-    text-wrap: balance !important;
-    text-wrap: pretty !important;
-    hyphens: none !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
   }
 
   .sched-event-meta {
-    font-size: 0.56rem !important;
-    gap: 1.5px !important;
+    font-size: 0.52rem !important;
+    gap: 2px !important;
+    margin-top: auto !important;
     padding-top: 1px !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
     min-width: 0 !important;
   }
 
   .sched-event-sec-badge {
-    font-size: 0.56rem !important;
-    padding: 0.03rem 0.14rem !important;
+    font-size: 0.52rem !important;
+    padding: 0.02rem 0.14rem !important;
     border-radius: 2px !important;
+    line-height: 1.1 !important;
+    flex-shrink: 0 !important;
   }
 
   .sched-event-room {
-    font-size: 0.54rem !important;
-    line-height: 1 !important;
+    font-size: 0.50rem !important;
+    line-height: 1.1 !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     max-width: 100% !important;
+    flex-shrink: 1 !important;
   }
 
   /* ==========================================================================
@@ -1447,10 +1454,10 @@ html, body {
     width: 100% !important;
     min-width: 0 !important;
     max-width: 100% !important;
-    min-height: 42px !important;
+    min-height: 48px !important;
     height: auto !important;
     box-sizing: border-box !important;
-    padding: 0.2rem 0.12rem !important;
+    padding: 0.15rem 0.1rem 0.2rem 0.1rem !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -1461,7 +1468,7 @@ html, body {
   }
 
   .sched-pill .pill-sec {
-    font-size: 0.85rem !important;
+    font-size: 0.80rem !important;
     font-weight: 800 !important;
     letter-spacing: 0.01em !important;
     line-height: 1.1 !important;
@@ -1478,22 +1485,22 @@ html, body {
     align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
-    margin-top: 1.5px !important;
-    line-height: 1.08 !important;
+    margin-top: 1px !important;
+    line-height: 1.05 !important;
     gap: 0 !important;
   }
 
   .sched-pill .pill-day {
-    font-size: 0.65rem !important;
+    font-size: 0.60rem !important;
     font-weight: 700 !important;
     opacity: 0.9 !important;
     white-space: nowrap !important;
     display: block !important;
-    line-height: 1.08 !important;
+    line-height: 1.05 !important;
   }
 
   .sched-pill .pill-time {
-    font-size: 0.58rem !important;
+    font-size: 0.54rem !important;
     font-weight: 500 !important;
     opacity: 0.88 !important;
     white-space: nowrap !important;
@@ -1501,7 +1508,7 @@ html, body {
     text-overflow: ellipsis !important;
     max-width: 100% !important;
     display: block !important;
-    line-height: 1.08 !important;
+    line-height: 1.05 !important;
   }
 
   /* Pinned Bottom Header Bar on phone */

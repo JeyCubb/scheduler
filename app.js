@@ -626,10 +626,11 @@ function renderScheduleGrid() {
 
 function fitScheduleEventTitles() {
   const isMobile = window.innerWidth <= 768;
-  const minSize = isMobile ? 6.0 : 7.5;
+  const minSize = isMobile ? 5.8 : 7.5;
   const cards = document.querySelectorAll('.sched-event-block');
   cards.forEach(card => {
     const titleEl = card.querySelector('.sched-event-title-main');
+    const metaEl = card.querySelector('.sched-event-meta');
     if (!titleEl) return;
 
     titleEl.style.removeProperty('font-size');
@@ -639,7 +640,22 @@ function fitScheduleEventTitles() {
 
     let computedSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || (isMobile ? 8.5 : 11.5);
 
-    while ((card.scrollHeight > card.clientHeight + 1 || titleEl.scrollHeight > titleEl.clientHeight + 1) && computedSize > minSize) {
+    const checkOverflow = () => {
+      // 1. Overall card scroll overflow
+      if (card.scrollHeight > card.clientHeight + 1) return true;
+      // 2. Title element scroll overflow
+      if (titleEl.scrollHeight > titleEl.clientHeight + 1) return true;
+      // 3. Horizontal overflow (title width exceeding card client width)
+      if (titleEl.scrollWidth > card.clientWidth - 4) return true;
+      // 4. Combined vertical height exceeding available card space
+      const metaH = metaEl ? metaEl.offsetHeight : 0;
+      if (titleEl.offsetHeight + metaH > card.clientHeight - 2) return true;
+      // 5. Vertical collision between title and meta
+      if (metaEl && metaEl.offsetTop < titleEl.offsetTop + titleEl.offsetHeight) return true;
+      return false;
+    };
+
+    while (checkOverflow() && computedSize > minSize) {
       computedSize -= 0.25;
       titleEl.style.setProperty('font-size', computedSize + 'px', 'important');
     }
