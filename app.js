@@ -525,7 +525,7 @@ function formatEventTitleHtml(title, tag) {
     lines = ['Materials Science', 'and Engineering', tag ? `for ME (${tag})` : 'for ME'];
     tag = null;
   } else if (title === 'Mechanical Engineering Lab 1') {
-    lines = ['Mechanical Engineering', 'Lab 1'];
+    lines = ['Mechanical', 'Engineering', 'Lab 1'];
   } else if (title === 'Engineering Management') {
     lines = ['Engineering', 'Management'];
   } else if (title === 'Combustion Engineering') {
@@ -536,6 +536,8 @@ function formatEventTitleHtml(title, tag) {
     lines = ['Control', 'Engineering'];
   } else if (title === 'Machine Design 1') {
     lines = ['Machine', 'Design 1'];
+  } else if (title === 'Refrigeration Systems') {
+    lines = ['Refrigeration', 'Systems'];
   } else {
     lines = [title];
   }
@@ -617,6 +619,8 @@ function renderScheduleGrid() {
     card.dataset.day = ev.day;
     card.dataset.start = ev.start;
     card.dataset.end = ev.end;
+    card.dataset.spanSteps = spanSteps;
+    card.dataset.duration = ev.end - ev.start;
 
     card.style.background = ev.color;
     card.style.borderLeftColor = isConflict ? '#f43f5e' : ev.border;
@@ -666,6 +670,7 @@ function fitScheduleEventTitles() {
   const isMobile = window.innerWidth <= 768;
   const isZenDesktop = !isMobile && document.body.classList.contains('sched-focus-autohide');
   const cards = document.querySelectorAll('.sched-event-block');
+
   cards.forEach(card => {
     const titleEl = card.querySelector('.sched-event-title-main');
     const metaEl = card.querySelector('.sched-event-meta');
@@ -673,7 +678,9 @@ function fitScheduleEventTitles() {
     const maxW = card.clientWidth;
     if (maxH <= 0 || maxW <= 0) return;
 
-    // 1. Shrink to fit section and room number (metaEl)
+    const spanSteps = parseInt(card.dataset.spanSteps, 10) || (card.classList.contains('sched-event-span-1hr') ? 2 : 4);
+
+    // 1. Proportional sizing for section badge and room number (metaEl)
     if (metaEl) {
       metaEl.style.removeProperty('font-size');
       const badgeEl = metaEl.querySelector('.sched-event-sec-badge');
@@ -681,12 +688,32 @@ function fitScheduleEventTitles() {
       if (badgeEl) badgeEl.style.removeProperty('font-size');
       if (roomEl) roomEl.style.removeProperty('font-size');
 
-      const maxMeta = isMobile ? 8.5 : (isZenDesktop ? 15.0 : 11.0);
-      const minMeta = isMobile ? 4.5 : (isZenDesktop ? 9.5 : 6.5);
+      let maxMeta;
+      let minMeta;
+      if (isMobile) {
+        maxMeta = spanSteps <= 2 ? 8.5 : 9.5;
+        minMeta = 4.5;
+      } else if (isZenDesktop) {
+        if (spanSteps <= 2) maxMeta = 13.0;
+        else if (spanSteps <= 3) maxMeta = 15.0;
+        else maxMeta = 17.0;
+        minMeta = 9.0;
+      } else {
+        // Regular Desktop
+        if (spanSteps <= 2) maxMeta = 11.0;
+        else if (spanSteps <= 3) maxMeta = 12.5;
+        else if (spanSteps <= 4) maxMeta = 14.0;
+        else maxMeta = 15.0;
+        minMeta = 6.5;
+      }
+
       let metaSize = maxMeta;
-      metaEl.style.setProperty('font-size', metaSize + 'px', 'important');
-      if (badgeEl) badgeEl.style.setProperty('font-size', metaSize + 'px', 'important');
-      if (roomEl) roomEl.style.setProperty('font-size', metaSize + 'px', 'important');
+      const setMetaSize = (sz) => {
+        metaEl.style.setProperty('font-size', sz + 'px', 'important');
+        if (badgeEl) badgeEl.style.setProperty('font-size', sz + 'px', 'important');
+        if (roomEl) roomEl.style.setProperty('font-size', sz + 'px', 'important');
+      };
+      setMetaSize(metaSize);
 
       const checkMetaOverflow = () => {
         if (metaEl.scrollWidth > card.clientWidth - 4) return true;
@@ -696,21 +723,57 @@ function fitScheduleEventTitles() {
 
       while (checkMetaOverflow() && metaSize > minMeta) {
         metaSize = Math.max(minMeta, Math.round((metaSize - 0.25) * 100) / 100);
-        metaEl.style.setProperty('font-size', metaSize + 'px', 'important');
-        if (badgeEl) badgeEl.style.setProperty('font-size', metaSize + 'px', 'important');
-        if (roomEl) roomEl.style.setProperty('font-size', metaSize + 'px', 'important');
+        setMetaSize(metaSize);
       }
     }
 
-    // 2. Maximize course title space up to max font before paragraph line breaks
+    // 2. Maximize course title space (Grow to fit / Reverse shrink-to-fit)
     if (!titleEl) return;
     titleEl.style.removeProperty('font-size');
 
-    const is1Hr = card.classList.contains('sched-event-span-1hr');
-    const maxTitleSize = isMobile ? (is1Hr ? 10.5 : 12.5) : (isZenDesktop ? (is1Hr ? 23.0 : 30.0) : (is1Hr ? 16.0 : 22.0));
-    const minTitleSize = isMobile ? 4.8 : (isZenDesktop ? (is1Hr ? 10.5 : 12.5) : 6.8);
-    let computedSize = maxTitleSize;
-    titleEl.style.setProperty('font-size', computedSize + 'px', 'important');
+    let maxTitleSize;
+    let minTitleSize;
+    if (isMobile) {
+      if (spanSteps <= 2) {
+        maxTitleSize = 13.0;
+        minTitleSize = 4.8;
+      } else if (spanSteps <= 3) {
+        maxTitleSize = 16.5;
+        minTitleSize = 5.0;
+      } else {
+        maxTitleSize = 20.0;
+        minTitleSize = 5.2;
+      }
+    } else if (isZenDesktop) {
+      if (spanSteps <= 2) {
+        maxTitleSize = 26.0;
+        minTitleSize = 10.0;
+      } else if (spanSteps <= 3) {
+        maxTitleSize = 34.0;
+        minTitleSize = 11.0;
+      } else if (spanSteps <= 4) {
+        maxTitleSize = 42.0;
+        minTitleSize = 12.0;
+      } else {
+        maxTitleSize = 50.0;
+        minTitleSize = 13.0;
+      }
+    } else {
+      // Regular desktop: maximize aggressively according to available card block space
+      if (spanSteps <= 2) {
+        maxTitleSize = 20.0;
+        minTitleSize = 6.8;
+      } else if (spanSteps <= 3) {
+        maxTitleSize = 26.0;
+        minTitleSize = 7.0;
+      } else if (spanSteps <= 4) {
+        maxTitleSize = 34.0;
+        minTitleSize = 7.5;
+      } else {
+        maxTitleSize = 42.0;
+        minTitleSize = 8.0;
+      }
+    }
 
     const checkOverflow = () => {
       // 1. Overall card scroll overflow
@@ -719,23 +782,44 @@ function fitScheduleEventTitles() {
       if (card.scrollWidth > card.clientWidth + 1) return true;
       // 3. Title element scroll overflow
       if (titleEl.scrollHeight > titleEl.clientHeight + 1) return true;
-      // 4. Horizontal overflow of any paragraph line (prevent line break before paragraph ending)
+      // 4. Horizontal overflow of any paragraph line
       const lineEls = titleEl.querySelectorAll('.sched-title-line');
       for (let i = 0; i < lineEls.length; i++) {
         if (lineEls[i].scrollWidth > card.clientWidth - 4) return true;
+        if (lineEls[i].scrollWidth > titleEl.clientWidth + 0.5) return true;
       }
       if (titleEl.scrollWidth > card.clientWidth - 4) return true;
       // 5. Combined vertical height exceeding available card space
       const metaH = metaEl ? metaEl.offsetHeight : 0;
-      if (titleEl.offsetHeight + metaH > card.clientHeight - 2) return true;
+      if (titleEl.offsetHeight + metaH > card.clientHeight - 3) return true;
       // 6. Vertical collision between title and meta
       if (metaEl && metaEl.offsetTop < titleEl.offsetTop + titleEl.offsetHeight) return true;
       return false;
     };
 
-    while (checkOverflow() && computedSize > minTitleSize) {
-      computedSize = Math.max(minTitleSize, Math.round((computedSize - 0.25) * 100) / 100);
-      titleEl.style.setProperty('font-size', computedSize + 'px', 'important');
+    // Binary search for exact maximum fitting font size to fill the card space
+    let low = minTitleSize;
+    let high = maxTitleSize;
+    let bestSize = minTitleSize;
+
+    for (let iter = 0; iter < 12; iter++) {
+      if (high - low < 0.2) break;
+      const mid = Math.round(((low + high) / 2) * 10) / 10;
+      titleEl.style.setProperty('font-size', mid + 'px', 'important');
+      if (checkOverflow()) {
+        high = mid - 0.2;
+      } else {
+        bestSize = mid;
+        low = mid + 0.2;
+      }
+    }
+
+    titleEl.style.setProperty('font-size', bestSize + 'px', 'important');
+
+    // Safe adjustment step if edge condition
+    while (checkOverflow() && bestSize > minTitleSize) {
+      bestSize = Math.max(minTitleSize, Math.round((bestSize - 0.25) * 100) / 100);
+      titleEl.style.setProperty('font-size', bestSize + 'px', 'important');
     }
   });
 }
