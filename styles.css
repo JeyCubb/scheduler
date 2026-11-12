@@ -1271,20 +1271,25 @@ html, body {
   }
 
   body.sched-focus-autohide .sched-event-meta {
-    font-size: 1.24rem !important; /* 200% of 0.62rem */
-    gap: 8px !important;
-    padding-top: 4px !important;
+    font-size: 1.10rem !important;
+    gap: 6px !important;
+    padding-top: 3px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
   }
 
   body.sched-focus-autohide .sched-event-sec-badge {
-    font-size: 1.20rem !important; /* 200% of 0.60rem */
-    padding: 0.14rem 0.5rem !important;
+    font-size: 1.05rem !important;
+    padding: 0.10rem 0.40rem !important;
     border-radius: 4px !important;
-    letter-spacing: 0.03em !important;
+    letter-spacing: 0.02em !important;
+    flex-shrink: 0 !important;
   }
 
   body.sched-focus-autohide .sched-event-room {
-    font-size: 1.26rem !important; /* 200% of 0.63rem */
+    font-size: 1.10rem !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
   }
 
   /* Compact Meta & Padding for 1-hour slots in Zen Mode to maximize Title Size */
@@ -1297,19 +1302,20 @@ html, body {
   }
 
   body.sched-focus-autohide .sched-event-block.sched-event-span-1hr .sched-event-meta {
-    font-size: 0.85rem !important;
-    gap: 5px !important;
+    font-size: 0.82rem !important;
+    gap: 4px !important;
     padding-top: 2px !important;
+    white-space: nowrap !important;
   }
 
   body.sched-focus-autohide .sched-event-block.sched-event-span-1hr .sched-event-sec-badge {
-    font-size: 0.82rem !important;
-    padding: 0.05rem 0.35rem !important;
-    border-radius: 3.5px !important;
+    font-size: 0.80rem !important;
+    padding: 0.04rem 0.30rem !important;
+    border-radius: 3px !important;
   }
 
   body.sched-focus-autohide .sched-event-block.sched-event-span-1hr .sched-event-room {
-    font-size: 0.85rem !important;
+    font-size: 0.82rem !important;
   }
 }
 

@@ -665,12 +665,38 @@ function fitScheduleEventTitles() {
   cards.forEach(card => {
     const titleEl = card.querySelector('.sched-event-title-main');
     const metaEl = card.querySelector('.sched-event-meta');
-    if (!titleEl) return;
-
-    titleEl.style.removeProperty('font-size');
     const maxH = card.clientHeight;
     const maxW = card.clientWidth;
     if (maxH <= 0 || maxW <= 0) return;
+
+    // 1. Shrink to fit section and room number (metaEl)
+    if (metaEl) {
+      metaEl.style.removeProperty('font-size');
+      const badgeEl = metaEl.querySelector('.sched-event-sec-badge');
+      const roomEl = metaEl.querySelector('.sched-event-room');
+      if (badgeEl) badgeEl.style.removeProperty('font-size');
+      if (roomEl) roomEl.style.removeProperty('font-size');
+
+      let metaSize = parseFloat(window.getComputedStyle(metaEl).fontSize) || (isMobile ? 8 : (isZenDesktop ? 17.5 : 10));
+      const minMetaSize = isMobile ? 4.5 : 7.0;
+
+      const checkMetaOverflow = () => {
+        if (metaEl.scrollWidth > card.clientWidth - 4) return true;
+        if (metaEl.scrollWidth > metaEl.clientWidth + 0.5) return true;
+        return false;
+      };
+
+      while (checkMetaOverflow() && metaSize > minMetaSize) {
+        metaSize = Math.max(minMetaSize, Math.round((metaSize - 0.2) * 10) / 10);
+        metaEl.style.setProperty('font-size', metaSize + 'px', 'important');
+        if (badgeEl) badgeEl.style.setProperty('font-size', metaSize + 'px', 'important');
+        if (roomEl) roomEl.style.setProperty('font-size', metaSize + 'px', 'important');
+      }
+    }
+
+    // 2. Shrink to fit course title (titleEl)
+    if (!titleEl) return;
+    titleEl.style.removeProperty('font-size');
 
     const is1Hr = card.classList.contains('sched-event-span-1hr');
     const minSize = isMobile ? 4.8 : (isZenDesktop ? (is1Hr ? 7.8 : 9.0) : 6.8);
