@@ -621,12 +621,13 @@ function renderScheduleGrid() {
 
   requestAnimationFrame(() => {
     fitScheduleEventTitles();
+    setTimeout(fitScheduleEventTitles, 50);
   });
 }
 
 function fitScheduleEventTitles() {
   const isMobile = window.innerWidth <= 768;
-  const minSize = isMobile ? 5.8 : 7.5;
+  const minSize = isMobile ? 4.8 : 6.8;
   const cards = document.querySelectorAll('.sched-event-block');
   cards.forEach(card => {
     const titleEl = card.querySelector('.sched-event-title-main');
@@ -643,20 +644,23 @@ function fitScheduleEventTitles() {
     const checkOverflow = () => {
       // 1. Overall card scroll overflow
       if (card.scrollHeight > card.clientHeight + 1) return true;
-      // 2. Title element scroll overflow
+      // 2. Card horizontal scroll overflow
+      if (card.scrollWidth > card.clientWidth + 1) return true;
+      // 3. Title element scroll overflow
       if (titleEl.scrollHeight > titleEl.clientHeight + 1) return true;
-      // 3. Horizontal overflow (title width exceeding card client width)
+      // 4. Horizontal overflow (title width exceeding card client width)
       if (titleEl.scrollWidth > card.clientWidth - 4) return true;
-      // 4. Combined vertical height exceeding available card space
+      if (titleEl.scrollWidth > titleEl.clientWidth + 0.5) return true;
+      // 5. Combined vertical height exceeding available card space
       const metaH = metaEl ? metaEl.offsetHeight : 0;
       if (titleEl.offsetHeight + metaH > card.clientHeight - 2) return true;
-      // 5. Vertical collision between title and meta
+      // 6. Vertical collision between title and meta
       if (metaEl && metaEl.offsetTop < titleEl.offsetTop + titleEl.offsetHeight) return true;
       return false;
     };
 
     while (checkOverflow() && computedSize > minSize) {
-      computedSize -= 0.25;
+      computedSize = Math.max(minSize, Math.round((computedSize - 0.2) * 10) / 10);
       titleEl.style.setProperty('font-size', computedSize + 'px', 'important');
     }
   });
@@ -831,8 +835,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 window.addEventListener('resize', () => {
-  fitScheduleEventTitles();
   renderScheduleGrid();
+});
+
+window.addEventListener('orientationchange', () => {
+  setTimeout(renderScheduleGrid, 100);
 });
 
 // ==========================================================================
