@@ -954,24 +954,20 @@ let lastClientY = null;
 function enterFocusMode() {
   if (!document.body.classList.contains('sched-focus-autohide')) {
     document.body.classList.add('sched-focus-autohide');
+    // Settle fit after the transition completes smoothly (no mid-animation layout thrashing)
     setTimeout(() => {
       fitScheduleEventTitles();
-    }, 120);
-    setTimeout(() => {
-      fitScheduleEventTitles();
-    }, 460);
+    }, 420);
   }
 }
 
 function exitFocusMode() {
   if (document.body.classList.contains('sched-focus-autohide')) {
     document.body.classList.remove('sched-focus-autohide');
+    // Settle fit after the transition completes smoothly
     setTimeout(() => {
       fitScheduleEventTitles();
-    }, 120);
-    setTimeout(() => {
-      fitScheduleEventTitles();
-    }, 460);
+    }, 420);
   }
 }
 
