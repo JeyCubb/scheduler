@@ -1,0 +1,1042 @@
+/* ==========================================================================
+   Design System & Design Tokens (Solid Coppery Orange & Minimal White Theme)
+   ========================================================================== */
+:root {
+  --bg-main: #0e0d0c;
+  --bg-header: rgba(26, 22, 19, 0.95);
+  --bg-card: #1a1613;
+  --bg-card-hover: #26201b;
+  --bg-input: #12100e;
+  --border-color: rgba(249, 115, 22, 0.16);
+  --border-color-hover: rgba(249, 115, 22, 0.35);
+
+  --text-primary: #fcf8f5;
+  --text-secondary: #a89a90;
+  --text-muted: #6e625a;
+
+  /* Solid Coppery Orange Primary Accent */
+  --accent-primary: #f97316;
+  --accent-primary-hover: #ea580c;
+  --accent-glow: rgba(249, 115, 22, 0.25);
+
+  --color-success: #10b981;
+  --color-success-bg: rgba(16, 185, 129, 0.15);
+  --color-error: #ef4444;
+  --color-error-bg: rgba(239, 68, 68, 0.15);
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.15);
+
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.6);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+  --bg-main: #f3efe9;
+  --bg-header: rgba(255, 255, 255, 0.96);
+  --bg-card: #ffffff;
+  --bg-card-hover: #faf4ed;
+  --bg-input: #f8eee7;
+  --border-color: #e2d7ce;
+  --border-color-hover: #d2c1b4;
+
+  --text-primary: #1c1510;
+  --text-secondary: #57483e;
+  --text-muted: #8c796d;
+
+  --accent-primary: #ea580c;
+  --accent-primary-hover: #c2410c;
+  --accent-glow: rgba(234, 88, 12, 0.2);
+
+  --color-success: #059669;
+  --color-success-bg: rgba(5, 150, 105, 0.12);
+  --color-error: #e11d48;
+  --color-error-bg: rgba(225, 29, 72, 0.12);
+  --color-warning: #d97706;
+  --color-warning-bg: rgba(217, 119, 6, 0.12);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   Base Styles & Reset
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  padding: 0.35rem 0.65rem;
+  box-sizing: border-box;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 1800px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  gap: 0.35rem;
+}
+
+/* ==========================================================================
+   App Header Toolbar (Sits at the Bottom of Page, matching Grade Calculator)
+   ========================================================================== */
+.app-header {
+  order: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.35rem 0.65rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  z-index: 50;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+/* Symmetrical Brand Navigation Buttons (Calculator 🖩, Reviewer 📖, Schedule 📅) */
+.brand-nav-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 9px !important;
+  background: rgba(249, 115, 22, 0.1) !important;
+  border: 1.5px solid rgba(249, 115, 22, 0.38) !important;
+  color: var(--accent-primary) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.2rem !important;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+  flex-shrink: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+  position: relative !important;
+}
+
+.brand-nav-btn:hover {
+  background: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) scale(1.14) !important;
+  box-shadow: 0 6px 16px var(--accent-glow) !important;
+  z-index: 5 !important;
+}
+
+.brand-nav-btn:active {
+  transform: translateY(0) scale(0.96) !important;
+}
+
+.brand-nav-btn.active {
+  background: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 12px var(--accent-glow) !important;
+}
+
+.brand-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.brand-calc-emoji {
+  width: 20px;
+  height: 20px;
+}
+
+/* Schedule Header Toolbar Controls */
+.sched-header-toolbar {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  min-width: 0;
+  gap: 0.65rem;
+}
+
+.sched-preset-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.sched-preset-btn {
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.24rem 0.55rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.sched-preset-btn:hover {
+  background: rgba(249, 115, 22, 0.12);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.sched-preset-btn:active {
+  transform: scale(0.97);
+}
+
+.sched-btn-sub {
+  font-weight: 500;
+  opacity: 0.8;
+  font-size: 0.68rem;
+}
+
+.sched-toolbar-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sched-stat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.sched-stat-badge {
+  color: var(--accent-primary);
+  font-weight: 800;
+  background: rgba(249, 115, 22, 0.12);
+  padding: 0.12rem 0.45rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+}
+
+.sched-conflict-alert {
+  display: none;
+  background: rgba(244, 63, 94, 0.14);
+  border: 1px solid rgba(244, 63, 94, 0.5);
+  color: #fb7185;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: 0.22rem 0.55rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.75rem;
+  animation: pulseConflict 1.5s infinite;
+}
+
+@keyframes pulseConflict {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(0.98); }
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-color-hover);
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   Main Schedule Layout & Two Columns (Desktop 100vh Level Cards)
+   ========================================================================== */
+#sched-view-container {
+  order: 1;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  overflow: hidden !important;
+  gap: 0.35rem !important;
+}
+
+.sched-main-layout {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.8fr) minmax(420px, 1.1fr) !important;
+  gap: 0.65rem !important;
+  align-items: stretch !important;
+  overflow: hidden !important;
+}
+
+/* Left Column: Visual Timetable Calendar */
+.sched-calendar-card {
+  height: 100% !important;
+  max-height: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  padding: 0.35rem 0.65rem !important;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.sched-grid-wrapper {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  position: relative;
+}
+
+.sched-grid-header {
+  display: grid !important;
+  grid-template-columns: 76px repeat(5, 1fr) !important;
+  gap: 3px !important;
+  border-bottom: 2px solid var(--border-color) !important;
+  padding-bottom: 0.2rem !important;
+  margin-bottom: 0.2rem !important;
+  flex-shrink: 0 !important;
+}
+
+.sched-day-label {
+  text-align: center;
+  font-size: 0.74rem !important;
+  font-weight: 800;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.12rem !important;
+}
+
+.day-short {
+  display: none;
+}
+
+.sched-grid-body {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  display: grid !important;
+  grid-template-columns: 76px repeat(5, 1fr) !important;
+  grid-auto-rows: minmax(0, 1fr) !important;
+  gap: 2px !important;
+  position: relative;
+}
+
+.sched-time-label {
+  font-size: 0.65rem !important;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 0.35rem !important;
+  border-right: 1px solid var(--border-color);
+  user-select: none;
+  white-space: nowrap;
+  line-height: 1 !important;
+}
+
+.sched-grid-slot {
+  border: 1px dashed rgba(255, 255, 255, 0.04);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.12);
+  transition: background 0.1s;
+}
+
+.sched-grid-slot:hover {
+  background: rgba(249, 115, 22, 0.04);
+}
+
+/* Event Blocks on Grid */
+.sched-event-block {
+  min-height: 0 !important;
+  border-radius: 5px;
+  padding: 0.18rem 0.35rem !important;
+  color: #fff;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.35);
+  border-left: 3.5px solid;
+  z-index: 2;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  box-sizing: border-box !important;
+}
+
+.sched-event-block:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  z-index: 5;
+}
+
+.sched-event-title-main {
+  font-size: 0.72rem;
+  font-weight: 800 !important;
+  line-height: 1.12 !important;
+  display: block !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  text-wrap: balance !important;
+  text-wrap: pretty !important;
+  hyphens: none !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+}
+
+.sched-event-meta {
+  font-size: 0.62rem !important;
+  line-height: 1.1 !important;
+  margin-top: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+}
+
+.sched-event-sec-badge {
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.35);
+  padding: 0.08rem 0.32rem;
+  border-radius: 3px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.sched-event-room {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.sched-event-conflict {
+  opacity: 0.65 !important;
+  border: 1.5px dashed #f43f5e !important;
+  border-left: 3.5px solid #f43f5e !important;
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.4) !important;
+  z-index: 2 !important;
+  transition: opacity 0.15s ease, z-index 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.sched-event-conflict:hover {
+  opacity: 0.96 !important;
+  z-index: 15 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 12px rgba(244, 63, 94, 0.5) !important;
+  transform: scale(1.02) !important;
+}
+
+.sched-event-block.sched-partner-focused {
+  outline: 2.5px solid #f43f5e !important;
+  outline-offset: 1px !important;
+  box-shadow: 0 0 14px rgba(244, 63, 94, 0.6) !important;
+  z-index: 40 !important;
+  opacity: 0.98 !important;
+  transform: scale(1.02) !important;
+}
+
+.sched-event-block.sched-event-interfered-hover {
+  border: 2px solid #f43f5e !important;
+  border-left: 4.5px solid #f43f5e !important;
+  box-shadow: 0 0 14px rgba(244, 63, 94, 0.5) !important;
+  transform: scale(1.02) !important;
+  opacity: 0.98 !important;
+  z-index: 35 !important;
+}
+
+/* ==========================================================================
+   Right Column: Subject & Section Toggle List
+   ========================================================================== */
+.sched-sidebar-card {
+  height: 100% !important;
+  max-height: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  padding: 0.35rem 0.65rem !important;
+  gap: 0.35rem !important;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  scroll-snap-type: y mandatory !important;
+  -webkit-scroll-snap-type: y mandatory !important;
+  scroll-padding-top: 0px !important;
+  scroll-behavior: smooth !important;
+  overscroll-behavior-y: contain !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sched-sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.35rem;
+  flex-shrink: 0 !important;
+}
+
+.sched-sidebar-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+#sched-subject-list {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.35rem !important;
+  padding-right: 2px;
+}
+
+/* Course Row in Sidebar */
+.sched-course-row {
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: all 0.15s ease;
+  scroll-snap-align: start;
+}
+
+.sched-course-row:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-color-hover);
+}
+
+.sched-course-row.active {
+  border-color: rgba(249, 115, 22, 0.4);
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.2);
+}
+
+.sched-course-row.has-conflict {
+  border-color: rgba(244, 63, 94, 0.45);
+}
+
+.sched-course-row.sched-partner-focused {
+  border-color: #f43f5e !important;
+  box-shadow: 0 0 0 2px #f43f5e, 0 0 12px rgba(244, 63, 94, 0.4) !important;
+}
+
+.sched-course-header-new {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.sched-course-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.sched-course-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sched-course-title-main {
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sched-course-subgroup {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sched-course-code-grey {
+  font-weight: 700;
+}
+
+.sched-course-units-grey {
+  font-weight: 500;
+}
+
+/* Conflict Badges & Tooltips */
+.sched-conflict-badge-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.sched-conflict-badge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #fb7185;
+  background: rgba(244, 63, 94, 0.15);
+  border: 1px solid rgba(244, 63, 94, 0.4);
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+  cursor: help;
+}
+
+.sched-conflict-tooltip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: #181310;
+  border: 1px solid #f43f5e;
+  color: #fff;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.68rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 10px rgba(244, 63, 94, 0.3);
+  z-index: 100;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.sched-conflict-badge-wrap:hover .sched-conflict-tooltip {
+  display: block;
+}
+
+.sched-tooltip-head {
+  font-weight: 800;
+  color: #fb7185;
+  margin-bottom: 0.25rem;
+}
+
+.sched-tooltip-row {
+  color: var(--text-secondary);
+  font-size: 0.64rem;
+  line-height: 1.3;
+}
+
+/* Section Pills */
+.sched-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+}
+
+.sched-pill {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.2rem 0.45rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.sched-pill:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+  transform: translateY(-1px);
+}
+
+.sched-pill.active {
+  background: rgba(249, 115, 22, 0.18);
+  border-color: var(--accent-primary);
+  color: #fff;
+  font-weight: 700;
+}
+
+.sched-pill .pill-sec {
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.sched-pill .pill-desc {
+  font-size: 0.62rem;
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+.sched-pill-conflict {
+  background: rgba(244, 63, 94, 0.15) !important;
+  border-color: #f43f5e !important;
+  color: #fca5a5 !important;
+}
+
+.sched-pill-potential-conflict {
+  border-style: dashed !important;
+  border-color: rgba(244, 63, 94, 0.5) !important;
+}
+
+/* ==========================================================================
+   Light Theme Overrides
+   ========================================================================== */
+[data-theme="light"] body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .brand-nav-btn {
+  background: rgba(234, 88, 12, 0.08) !important;
+  border: 1.5px solid rgba(234, 88, 12, 0.28) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme="light"] .theme-toggle-btn {
+  background: #ffffff !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="light"] .theme-toggle-btn:hover {
+  background: var(--bg-card-hover) !important;
+  border-color: var(--border-color-hover) !important;
+}
+
+[data-theme="light"] .sched-course-row {
+  background: #faf7f4 !important;
+  border: 1px solid #e8ded6 !important;
+}
+
+[data-theme="light"] .sched-course-row:hover {
+  background: #f5ede5 !important;
+  border-color: #d8c7ba !important;
+}
+
+[data-theme="light"] .sched-course-row.active {
+  background: #fff8f3 !important;
+  border-color: rgba(234, 88, 12, 0.45) !important;
+}
+
+[data-theme="light"] .sched-pill {
+  background: #ffffff !important;
+  border: 1px solid #e2d7ce !important;
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="light"] .sched-pill:hover {
+  background: #fef8f4 !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="light"] .sched-grid-slot {
+  background: #fbf9f6 !important;
+  border: 1px dashed rgba(0, 0, 0, 0.07) !important;
+}
+
+[data-theme="light"] .sched-grid-slot:hover {
+  background: rgba(234, 88, 12, 0.05) !important;
+}
+
+[data-theme="light"] .sched-grid-header {
+  border-bottom: 2px solid var(--border-color) !important;
+}
+
+[data-theme="light"] .sched-day-label,
+[data-theme="light"] .sched-time-label {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="light"] .sched-preset-btn {
+  background: #ffffff !important;
+  border: 1px solid #e2d7ce !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="light"] .sched-preset-btn:hover {
+  background: var(--accent-primary) !important;
+  color: #ffffff !important;
+  border-color: var(--accent-primary) !important;
+}
+
+[data-theme="light"] .sched-stat-badge {
+  background: #f5ede5 !important;
+  border-color: #e2d7ce !important;
+  color: var(--accent-primary) !important;
+}
+
+[data-theme="light"] .sched-conflict-alert,
+[data-theme="light"] .sched-conflict-badge {
+  background: rgba(225, 29, 72, 0.1) !important;
+  border-color: rgba(225, 29, 72, 0.45) !important;
+  color: #be123c !important;
+}
+
+[data-theme="light"] .sched-pill-conflict {
+  background: rgba(225, 29, 72, 0.1) !important;
+  border-color: #e11d48 !important;
+  color: #9f1239 !important;
+}
+
+[data-theme="light"] .sched-conflict-tooltip {
+  background: #ffffff !important;
+  border: 1px solid #fecdd3 !important;
+  color: #1c1510 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 0 10px rgba(225, 29, 72, 0.15) !important;
+}
+
+[data-theme="light"] .sched-tooltip-row {
+  color: #334155 !important;
+  border-top: 1px solid #f1f5f9 !important;
+}
+
+/* ==========================================================================
+   Mobile Phone Responsive Styles (Zoom-Out Full Week Fits on Screen)
+   ========================================================================== */
+@media (max-width: 768px) {
+  html, body {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    max-height: none !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    padding: 0.2rem 0.2rem 0.6rem 0.2rem !important;
+  }
+
+  .app-container {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    gap: 0.35rem !important;
+  }
+
+  .day-full {
+    display: none !important;
+  }
+  .day-short {
+    display: inline !important;
+  }
+
+  #sched-view-container {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .sched-main-layout {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Timetable Card Zoomed-Out to fit full 5-day week on mobile phone screen */
+  .sched-calendar-card {
+    height: auto !important;
+    max-height: none !important;
+    padding: 0.35rem 0.2rem !important;
+    border-radius: var(--radius-sm) !important;
+    overflow: hidden !important;
+  }
+
+  .sched-grid-wrapper {
+    height: auto !important;
+    overflow: hidden !important;
+  }
+
+  .sched-grid-header {
+    grid-template-columns: 36px repeat(5, minmax(0, 1fr)) !important;
+    gap: 1.5px !important;
+    padding-bottom: 0.25rem !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  .sched-day-label {
+    font-size: 0.60rem !important;
+    font-weight: 800 !important;
+    padding: 0.15rem 0 !important;
+  }
+
+  .sched-grid-body {
+    grid-template-columns: 36px repeat(5, minmax(0, 1fr)) !important;
+    grid-auto-rows: 23px !important;
+    gap: 1.5px !important;
+    height: auto !important;
+  }
+
+  .sched-time-label {
+    font-size: 0.46rem !important;
+    font-weight: 700 !important;
+    padding-right: 0.18rem !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  .sched-grid-slot {
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.04) !important;
+    border-right: 1px dashed rgba(255, 255, 255, 0.04) !important;
+  }
+
+  .sched-event-block {
+    padding: 2px 2px !important;
+    border-radius: 3px !important;
+    border-left-width: 2px !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+  }
+
+  .sched-event-title-main {
+    font-size: 0.48rem !important;
+    font-weight: 800 !important;
+    line-height: 1.06 !important;
+    word-break: keep-all !important;
+  }
+
+  .sched-event-meta {
+    font-size: 0.44rem !important;
+    gap: 1px !important;
+    padding-top: 1px !important;
+  }
+
+  .sched-event-sec-badge {
+    font-size: 0.44rem !important;
+    padding: 0.02rem 0.18rem !important;
+  }
+
+  .sched-event-room {
+    display: none !important;
+  }
+
+  /* Sidebar on phone */
+  .sched-sidebar-card {
+    height: auto !important;
+    max-height: 600px !important;
+    padding: 0.5rem !important;
+  }
+
+  /* Schedule Header Toolbar on phone */
+  .app-header {
+    padding: 0.35rem 0.45rem !important;
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+  }
+
+  .brand-nav-btn {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    font-size: 0.95rem !important;
+  }
+
+  .brand-calc-emoji {
+    width: 17px !important;
+    height: 17px !important;
+  }
+
+  .theme-toggle-btn {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+  }
+
+  .sched-header-toolbar {
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+  }
+
+  .sched-preset-btn {
+    font-size: 0.68rem !important;
+    padding: 0.18rem 0.4rem !important;
+  }
+
+  .sched-btn-sub {
+    display: none !important;
+  }
+
+  .sched-toolbar-stats {
+    font-size: 0.68rem !important;
+    gap: 0.35rem !important;
+  }
+}

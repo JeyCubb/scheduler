@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <linearGradient id="calSheet" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+  </defs>
+  <!-- Orange Squircle Base (unified with Grade Calculator & Reviewer) -->
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#bodyGrad)"/>
+  <rect x="4.5" y="4.5" width="55" height="55" rx="13.5" fill="none" stroke="#ffffff" stroke-opacity="0.3" stroke-width="1"/>
+  
+  <!-- Calendar Body -->
+  <rect x="11" y="13" width="42" height="40" rx="6" fill="url(#calSheet)" filter="drop-shadow(0 2px 5px rgba(0,0,0,0.25))"/>
+  
+  <!-- Calendar Header Bar -->
+  <path d="M11 19 C11 15.686 13.686 13 17 13 L47 13 C50.314 13 53 15.686 53 19 L53 25 L11 25 Z" fill="url(#headerGrad)"/>
+  
+  <!-- Binder Rings -->
+  <rect x="19" y="10" width="4" height="6" rx="2" fill="#e2e8f0" stroke="#0f172a" stroke-width="0.75"/>
+  <rect x="41" y="10" width="4" height="6" rx="2" fill="#e2e8f0" stroke="#0f172a" stroke-width="0.75"/>
+  
+  <!-- Calendar Grid Dots / Mini Events -->
+  <rect x="16" y="29" width="5" height="4" rx="1" fill="#cbd5e1"/>
+  <rect x="24" y="29" width="5" height="4" rx="1" fill="#cbd5e1"/>
+  <rect x="32" y="29" width="5" height="4" rx="1" fill="#38bdf8"/>
+  <rect x="40" y="29" width="5" height="4" rx="1" fill="#cbd5e1"/>
+  
+  <rect x="16" y="36" width="5" height="4" rx="1" fill="#cbd5e1"/>
+  <rect x="24" y="36" width="5" height="4" rx="1" fill="#818cf8"/>
+  <rect x="32" y="36" width="5" height="4" rx="1" fill="#cbd5e1"/>
+  <rect x="40" y="36" width="5" height="4" rx="1" fill="#f472b6"/>
+  
+  <rect x="16" y="43" width="5" height="4" rx="1" fill="#cbd5e1"/>
+  <rect x="24" y="43" width="5" height="4" rx="1" fill="#cbd5e1"/>
+  <rect x="32" y="43" width="5" height="4" rx="1" fill="#fbbf24"/>
+  <rect x="40" y="43" width="5" height="4" rx="1" fill="#cbd5e1"/>
+</svg>

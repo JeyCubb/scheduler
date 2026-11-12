@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Schedule Creator</title>
+  <meta name="description" content="Visual course schedule creator with real-time timetable calendar, section conflict detection, and curriculum blocks." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Main Schedule Creator View -->
+    <div id="sched-view-container">
+      <div class="sched-main-layout">
+        <!-- Left Column: Visual Calendar -->
+        <div class="sched-calendar-card">
+          <div class="sched-grid-wrapper">
+            <div class="sched-grid-header">
+              <div class="sched-day-label">Time</div>
+              <div class="sched-day-label"><span class="day-full">Monday</span><span class="day-short">Mon</span></div>
+              <div class="sched-day-label"><span class="day-full">Tuesday</span><span class="day-short">Tue</span></div>
+              <div class="sched-day-label"><span class="day-full">Wednesday</span><span class="day-short">Wed</span></div>
+              <div class="sched-day-label"><span class="day-full">Thursday</span><span class="day-short">Thu</span></div>
+              <div class="sched-day-label"><span class="day-full">Friday</span><span class="day-short">Fri</span></div>
+            </div>
+            <div class="sched-grid-body" id="sched-calendar-grid">
+              <!-- Dynamically populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Subject & Section Toggle List -->
+        <div class="sched-sidebar-card">
+          <div class="sched-sidebar-header">
+            <div class="sched-sidebar-title">Subjects &amp; Sections</div>
+          </div>
+          <div id="sched-subject-list">
+            <!-- Dynamically populated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- App Header & Navigation Toolbar (Symmetrical Brand Trio & Controls) -->
+    <header class="app-header">
+      <div class="brand-group">
+        <a href="https://jeycubb.github.io/TIP-Grade-Calculator/" target="_self" class="brand-nav-btn" id="btn-header-calc" title="Open TIP Grade Calculator (GWA & Target Calculator)" aria-label="Open TIP Grade Calculator">
+          <span class="brand-emoji">
+            <svg class="brand-calc-emoji" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="calc-body-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#475569"/>
+                  <stop offset="100%" stop-color="#1e293b"/>
+                </linearGradient>
+                <linearGradient id="calc-bevel-gloss" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="calc-lcd-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#0f172a"/>
+                  <stop offset="100%" stop-color="#020617"/>
+                </linearGradient>
+                <linearGradient id="calc-btn-num-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#f8fafc"/>
+                  <stop offset="100%" stop-color="#cbd5e1"/>
+                </linearGradient>
+                <linearGradient id="calc-btn-fn-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#94a3b8"/>
+                  <stop offset="100%" stop-color="#64748b"/>
+                </linearGradient>
+                <linearGradient id="calc-btn-accent" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#fb923c"/>
+                  <stop offset="100%" stop-color="#ea580c"/>
+                </linearGradient>
+              </defs>
+              <rect x="5" y="3" width="26" height="30" rx="5.5" fill="url(#calc-body-grad)" stroke="#64748b" stroke-width="0.75"/>
+              <rect x="5.5" y="3.5" width="25" height="12" rx="4.8" fill="url(#calc-bevel-gloss)"/>
+              <rect x="7.5" y="5.5" width="21" height="7.5" rx="2" fill="url(#calc-lcd-grad)" stroke="#090d16" stroke-width="0.75"/>
+              <rect x="23.5" y="7.8" width="3.2" height="3" rx="0.5" fill="#38bdf8"/>
+              <text x="21" y="11" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="5" font-weight="800" fill="#38bdf8" text-anchor="end">12</text>
+              <rect x="8" y="15" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-fn-grad)"/>
+              <rect x="13.2" y="15" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-fn-grad)"/>
+              <rect x="18.5" y="15" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-fn-grad)"/>
+              <rect x="23.8" y="15" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-accent)"/>
+              <rect x="8" y="19.2" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+              <rect x="13.2" y="19.2" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+              <rect x="18.5" y="19.2" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+              <rect x="23.8" y="19.2" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-accent)"/>
+              <rect x="8" y="23.4" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+              <rect x="13.2" y="23.4" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+              <rect x="18.5" y="23.4" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+              <rect x="23.8" y="23.4" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-accent)"/>
+              <rect x="8" y="27.6" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+              <rect x="13.2" y="27.6" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+              <rect x="18.5" y="27.6" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+              <rect x="23.8" y="27.6" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-accent)"/>
+            </svg>
+          </span>
+        </a>
+        <a href="https://jeycubb.github.io/JeyCub-terms-reviewer/" target="_self" class="brand-nav-btn" id="btn-header-reviewer" title="Open JeyCub Terms Reviewer" aria-label="Open JeyCub Terms Reviewer">
+          <span class="brand-emoji">📖</span>
+        </a>
+        <a href="https://jeycubb.github.io/scheduler/" target="_self" class="brand-nav-btn active" id="btn-header-sched" title="Schedule Creator (Current App)" aria-label="Schedule Creator">
+          <span class="brand-emoji">📅</span>
+        </a>
+      </div>
+
+      <!-- Schedule Preset & Stats Toolbar -->
+      <div class="sched-header-toolbar" id="sched-header-toolbar">
+        <div class="sched-preset-group">
+          <button type="button" class="sched-preset-btn" id="btn-preset-choice-a" title="Load recommended ME32S1 pure block">
+            ⚡ Choice A<span class="sched-btn-sub"> (ME32S1 Block)</span>
+          </button>
+          <button type="button" class="sched-preset-btn" id="btn-preset-choice-b" title="Load Choice B (ME32S2 Fluid Machineries)">
+            🔄 Choice B<span class="sched-btn-sub"> (ME32S2 Fluid)</span>
+          </button>
+          <button type="button" class="sched-preset-btn" id="btn-sched-clear-all" title="Deselect all sections">
+            🧹 Clear All
+          </button>
+        </div>
+        <div class="sched-toolbar-stats">
+          <div id="sched-conflict-warning" class="sched-conflict-alert">⚠️ Time Conflict!</div>
+          <div class="sched-stat-item">Enrolled: <span class="sched-stat-badge" id="sched-stat-courses">0 / 11</span></div>
+          <div class="sched-stat-item">Units: <span class="sched-stat-badge" id="sched-stat-units">0 / 27</span></div>
+        </div>
+      </div>
+
+      <!-- Theme Controls -->
+      <div style="display: flex; align-items: center; gap: 0.35rem; margin-left: auto;">
+        <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Light/Dark Theme">
+          <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
