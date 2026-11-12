@@ -514,33 +514,37 @@ Room: ${sec.room}${pillConflictTitle}"
 // RENDER CALENDAR GRID
 // ==========================================================================
 function formatEventTitleHtml(title, tag) {
-  let formatted = title;
+  let lines = [];
   if (title === 'General Education Elective 2') {
-    formatted = 'General Education<br>Elective 2';
+    lines = ['General Education', 'Elective 2'];
   } else if (title === 'General Education Elective 3') {
-    formatted = 'General Education<br>Elective 3';
+    lines = ['General Education', 'Elective 3'];
   } else if (title === 'Methods of Research for ME') {
-    formatted = 'Methods of Research<br>for ME';
+    lines = ['Methods of Research', 'for ME'];
   } else if (title === 'Materials Science and Engineering for ME') {
-    formatted = 'Materials Science<br>and Engineering<br>for ME';
+    lines = ['Materials Science', 'and Engineering', tag ? `for ME (${tag})` : 'for ME'];
+    tag = null;
   } else if (title === 'Mechanical Engineering Lab 1') {
-    formatted = 'Mechanical Engineering<br>Lab 1';
+    lines = ['Mechanical Engineering', 'Lab 1'];
   } else if (title === 'Engineering Management') {
-    formatted = 'Engineering<br>Management';
+    lines = ['Engineering', 'Management'];
   } else if (title === 'Combustion Engineering') {
-    formatted = 'Combustion<br>Engineering';
+    lines = ['Combustion', 'Engineering'];
   } else if (title === 'Fluid Machineries') {
-    formatted = 'Fluid<br>Machineries';
+    lines = ['Fluid', 'Machineries'];
   } else if (title === 'Control Engineering') {
-    formatted = 'Control<br>Engineering';
+    lines = ['Control', 'Engineering'];
   } else if (title === 'Machine Design 1') {
-    formatted = 'Machine<br>Design 1';
+    lines = ['Machine', 'Design 1'];
+  } else {
+    lines = [title];
   }
 
   if (tag) {
-    formatted += ` (${tag})`;
+    lines.push(`(${tag})`);
   }
-  return formatted;
+
+  return lines.map(l => `<span class="sched-title-line">${l}</span>`).join('');
 }
 
 function renderScheduleGrid() {
@@ -677,8 +681,12 @@ function fitScheduleEventTitles() {
       if (badgeEl) badgeEl.style.removeProperty('font-size');
       if (roomEl) roomEl.style.removeProperty('font-size');
 
-      let metaSize = parseFloat(window.getComputedStyle(metaEl).fontSize) || (isMobile ? 8 : (isZenDesktop ? 13.5 : 10));
-      const minMetaSize = isMobile ? 4.5 : (isZenDesktop ? 10 : 7.0);
+      const maxMeta = isMobile ? 8.5 : (isZenDesktop ? 15.0 : 11.0);
+      const minMeta = isMobile ? 4.5 : (isZenDesktop ? 9.5 : 6.5);
+      let metaSize = maxMeta;
+      metaEl.style.setProperty('font-size', metaSize + 'px', 'important');
+      if (badgeEl) badgeEl.style.setProperty('font-size', metaSize + 'px', 'important');
+      if (roomEl) roomEl.style.setProperty('font-size', metaSize + 'px', 'important');
 
       const checkMetaOverflow = () => {
         if (metaEl.scrollWidth > card.clientWidth - 4) return true;
@@ -686,21 +694,23 @@ function fitScheduleEventTitles() {
         return false;
       };
 
-      while (checkMetaOverflow() && metaSize > minMetaSize) {
-        metaSize = Math.max(minMetaSize, Math.round((metaSize - 0.2) * 10) / 10);
+      while (checkMetaOverflow() && metaSize > minMeta) {
+        metaSize = Math.max(minMeta, Math.round((metaSize - 0.25) * 100) / 100);
         metaEl.style.setProperty('font-size', metaSize + 'px', 'important');
         if (badgeEl) badgeEl.style.setProperty('font-size', metaSize + 'px', 'important');
         if (roomEl) roomEl.style.setProperty('font-size', metaSize + 'px', 'important');
       }
     }
 
-    // 2. Shrink to fit course title (titleEl)
+    // 2. Maximize course title space up to max font before paragraph line breaks
     if (!titleEl) return;
     titleEl.style.removeProperty('font-size');
 
     const is1Hr = card.classList.contains('sched-event-span-1hr');
-    const minSize = isMobile ? 4.8 : (isZenDesktop ? (is1Hr ? 11.5 : 13.0) : 6.8);
-    let computedSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || (isMobile ? 8.5 : (isZenDesktop ? (is1Hr ? 15.5 : 17.5) : 11.5));
+    const maxTitleSize = isMobile ? (is1Hr ? 10.5 : 12.5) : (isZenDesktop ? (is1Hr ? 23.0 : 30.0) : (is1Hr ? 16.0 : 22.0));
+    const minTitleSize = isMobile ? 4.8 : (isZenDesktop ? (is1Hr ? 10.5 : 12.5) : 6.8);
+    let computedSize = maxTitleSize;
+    titleEl.style.setProperty('font-size', computedSize + 'px', 'important');
 
     const checkOverflow = () => {
       // 1. Overall card scroll overflow
@@ -709,9 +719,12 @@ function fitScheduleEventTitles() {
       if (card.scrollWidth > card.clientWidth + 1) return true;
       // 3. Title element scroll overflow
       if (titleEl.scrollHeight > titleEl.clientHeight + 1) return true;
-      // 4. Horizontal overflow (title width exceeding card client width)
+      // 4. Horizontal overflow of any paragraph line (prevent line break before paragraph ending)
+      const lineEls = titleEl.querySelectorAll('.sched-title-line');
+      for (let i = 0; i < lineEls.length; i++) {
+        if (lineEls[i].scrollWidth > card.clientWidth - 4) return true;
+      }
       if (titleEl.scrollWidth > card.clientWidth - 4) return true;
-      if (titleEl.scrollWidth > titleEl.clientWidth + 0.5) return true;
       // 5. Combined vertical height exceeding available card space
       const metaH = metaEl ? metaEl.offsetHeight : 0;
       if (titleEl.offsetHeight + metaH > card.clientHeight - 2) return true;
@@ -720,8 +733,8 @@ function fitScheduleEventTitles() {
       return false;
     };
 
-    while (checkOverflow() && computedSize > minSize) {
-      computedSize = Math.max(minSize, Math.round((computedSize - 0.2) * 10) / 10);
+    while (checkOverflow() && computedSize > minTitleSize) {
+      computedSize = Math.max(minTitleSize, Math.round((computedSize - 0.25) * 100) / 100);
       titleEl.style.setProperty('font-size', computedSize + 'px', 'important');
     }
   });
