@@ -522,7 +522,7 @@ function formatEventTitleHtml(title, tag) {
   } else if (title === 'Methods of Research for ME') {
     formatted = 'Methods of Research<br>for ME';
   } else if (title === 'Materials Science and Engineering for ME') {
-    formatted = 'Materials Science and<br>Engineering for ME';
+    formatted = 'Materials Science<br>and Engineering<br>for ME';
   } else if (title === 'Mechanical Engineering Lab 1') {
     formatted = 'Mechanical Engineering<br>Lab 1';
   } else if (title === 'Engineering Management') {
@@ -677,8 +677,8 @@ function fitScheduleEventTitles() {
       if (badgeEl) badgeEl.style.removeProperty('font-size');
       if (roomEl) roomEl.style.removeProperty('font-size');
 
-      let metaSize = parseFloat(window.getComputedStyle(metaEl).fontSize) || (isMobile ? 8 : (isZenDesktop ? 17.5 : 10));
-      const minMetaSize = isMobile ? 4.5 : 7.0;
+      let metaSize = parseFloat(window.getComputedStyle(metaEl).fontSize) || (isMobile ? 8 : (isZenDesktop ? 13.5 : 10));
+      const minMetaSize = isMobile ? 4.5 : (isZenDesktop ? 10 : 7.0);
 
       const checkMetaOverflow = () => {
         if (metaEl.scrollWidth > card.clientWidth - 4) return true;
@@ -699,8 +699,8 @@ function fitScheduleEventTitles() {
     titleEl.style.removeProperty('font-size');
 
     const is1Hr = card.classList.contains('sched-event-span-1hr');
-    const minSize = isMobile ? 4.8 : (isZenDesktop ? (is1Hr ? 7.8 : 9.0) : 6.8);
-    let computedSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || (isMobile ? 8.5 : (isZenDesktop ? 23.5 : 11.5));
+    const minSize = isMobile ? 4.8 : (isZenDesktop ? (is1Hr ? 11.5 : 13.0) : 6.8);
+    let computedSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || (isMobile ? 8.5 : (isZenDesktop ? (is1Hr ? 15.5 : 17.5) : 11.5));
 
     const checkOverflow = () => {
       // 1. Overall card scroll overflow
