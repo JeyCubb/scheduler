@@ -492,35 +492,11 @@ Room: ${sec.room}${pillConflictTitle}"
       ? `color: ${course.color}; font-weight: 800;`
       : `color: ${course.border};`;
 
-    let conflictBadgeHtml = '';
-    if (hasConflict) {
-      const partnerConflicts = conflicts.courseConflictsMap[course.code] || [];
-      const partnerCodes = [...new Set(partnerConflicts.map(p => p.withCode))];
-      const uniqueSummaries = [...new Set(partnerConflicts.map(p => `${p.withTitle} (${p.withSection}) &bull; ${p.overlapTimeStr}`))];
-      const textSummaries = [...new Set(partnerConflicts.map(p => `• ${p.withTitle} (${p.withSection}) - ${p.overlapTimeStr}`))];
-      const badgeTitle = `⚠️ Time Conflict:\n${textSummaries.join('\n')}`;
-
-      conflictBadgeHtml = `
-        <div class="sched-conflict-badge-wrap"
-             onmouseenter="highlightConflictPartners(${JSON.stringify(partnerCodes)})"
-             onmouseleave="clearConflictPartners()">
-          <span class="sched-conflict-badge" title="${badgeTitle.replace(/"/g, '&quot;')}">
-            ⚠️ Conflict
-          </span>
-          <div class="sched-conflict-tooltip">
-            <div class="sched-tooltip-head">⚠️ Conflicting Subject${uniqueSummaries.length > 1 ? 's' : ''}</div>
-            ${uniqueSummaries.map(s => `<div class="sched-tooltip-row">${s}</div>`).join('')}
-          </div>
-        </div>
-      `;
-    }
-
     row.innerHTML = `
       <div class="sched-course-header-new">
         <div class="sched-course-title-group">
           <span class="sched-course-dot" style="${dotStyle}"></span>
           <span class="sched-course-title-main" style="${titleStyle}">${course.title}</span>
-          ${conflictBadgeHtml}
         </div>
         <div class="sched-course-subgroup">
           <span class="sched-course-code-grey">${course.code}</span>
