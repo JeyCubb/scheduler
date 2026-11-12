@@ -568,7 +568,7 @@ function renderScheduleGrid() {
   gridEl.innerHTML = '';
   const isMob = window.innerWidth <= 768;
   gridEl.style.gridTemplateRows = isMob
-    ? `repeat(${totalSteps}, 23px)`
+    ? `repeat(${totalSteps}, 16px)`
     : `repeat(${totalSteps}, minmax(0, 1fr))`;
   gridEl.style.height = isMob ? 'auto' : '100%';
 
@@ -892,4 +892,14 @@ window.addEventListener('keydown', (e) => {
 // 6. Prevent double-click zoom
 window.addEventListener('dblclick', (e) => {
   e.preventDefault();
+}, { passive: false });
+
+// 7. Ensure on mobile only the subject selector ribbon can scroll
+document.addEventListener('touchmove', (e) => {
+  if (window.innerWidth <= 768) {
+    const isInsideRibbon = e.target.closest('.sched-sidebar-card');
+    if (!isInsideRibbon) {
+      if (e.cancelable) e.preventDefault();
+    }
+  }
 }, { passive: false });
