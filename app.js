@@ -568,7 +568,7 @@ function renderScheduleGrid() {
   gridEl.innerHTML = '';
   const isMob = window.innerWidth <= 768;
   gridEl.style.gridTemplateRows = isMob
-    ? `repeat(${totalSteps}, 16px)`
+    ? `repeat(${totalSteps}, 15px)`
     : `repeat(${totalSteps}, minmax(0, 1fr))`;
   gridEl.style.height = isMob ? 'auto' : '100%';
 
@@ -875,19 +875,9 @@ window.addEventListener('resize', () => {
 });
 
 // ==========================================================================
-// DISABLE ALL ZOOMING & DOUBLE-TAP / DOUBLE-CLICK ZOOM
+// DISABLE ALL ZOOMING & GESTURE ZOOM (WITHOUT BREAKING TAPS OR SCROLLING)
 // ==========================================================================
-// 1. Prevent double-tap to zoom on mobile / touch devices
-let lastTouchEnd = 0;
-document.addEventListener('touchend', (e) => {
-  const now = Date.now();
-  if (now - lastTouchEnd <= 300) {
-    e.preventDefault();
-  }
-  lastTouchEnd = now;
-}, { passive: false });
-
-// 2. Prevent multi-finger pinch zooming on touchscreens
+// 1. Prevent multi-finger pinch zooming on touchscreens
 document.addEventListener('touchstart', (e) => {
   if (e.touches && e.touches.length > 1) {
     e.preventDefault();
@@ -900,36 +890,26 @@ document.addEventListener('touchmove', (e) => {
   }
 }, { passive: false });
 
-// 3. Prevent iOS Safari gesture zooming
+// 2. Prevent iOS Safari gesture zooming
 document.addEventListener('gesturestart', (e) => e.preventDefault());
 document.addEventListener('gesturechange', (e) => e.preventDefault());
 document.addEventListener('gestureend', (e) => e.preventDefault());
 
-// 4. Prevent Ctrl + Wheel (mouse & trackpad pinch-to-zoom)
+// 3. Prevent Ctrl + Wheel (mouse & trackpad pinch-to-zoom)
 window.addEventListener('wheel', (e) => {
   if (e.ctrlKey) {
     e.preventDefault();
   }
 }, { passive: false });
 
-// 5. Prevent keyboard zoom shortcuts (Ctrl/Cmd + Plus, Minus, Zero)
+// 4. Prevent keyboard zoom shortcuts (Ctrl/Cmd + Plus, Minus, Zero)
 window.addEventListener('keydown', (e) => {
   if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
     e.preventDefault();
   }
 });
 
-// 6. Prevent double-click zoom
+// 5. Prevent double-click zoom
 window.addEventListener('dblclick', (e) => {
   e.preventDefault();
-}, { passive: false });
-
-// 7. Ensure on mobile only the subject selector ribbon can scroll
-document.addEventListener('touchmove', (e) => {
-  if (window.innerWidth <= 768) {
-    const isInsideRibbon = e.target.closest('.sched-sidebar-card');
-    if (!isInsideRibbon) {
-      if (e.cancelable) e.preventDefault();
-    }
-  }
 }, { passive: false });
