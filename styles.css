@@ -74,6 +74,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  touch-action: manipulation;
 }
 
 html, body {
@@ -83,7 +84,11 @@ html, body {
   color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   user-select: none;
+  -webkit-user-select: none;
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  touch-action: manipulation;
 }
 
 .app-container {
@@ -1130,6 +1135,7 @@ html, body {
 @media (max-width: 768px) {
   *, *::before, *::after {
     box-sizing: border-box !important;
+    touch-action: manipulation !important;
   }
 
   html, body {
@@ -1143,6 +1149,9 @@ html, body {
     -webkit-overflow-scrolling: touch !important;
     padding: 0.2rem 0.2rem 0.6rem 0.2rem !important;
     box-sizing: border-box !important;
+    touch-action: manipulation !important;
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
   }
 
   .day-full {

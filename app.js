@@ -843,3 +843,53 @@ window.addEventListener('resize', () => {
   fitScheduleEventTitles();
   renderScheduleGrid();
 });
+
+// ==========================================================================
+// DISABLE ALL ZOOMING & DOUBLE-TAP / DOUBLE-CLICK ZOOM
+// ==========================================================================
+// 1. Prevent double-tap to zoom on mobile / touch devices
+let lastTouchEnd = 0;
+document.addEventListener('touchend', (e) => {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) {
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, { passive: false });
+
+// 2. Prevent multi-finger pinch zooming on touchscreens
+document.addEventListener('touchstart', (e) => {
+  if (e.touches && e.touches.length > 1) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+document.addEventListener('touchmove', (e) => {
+  if (e.touches && e.touches.length > 1) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+// 3. Prevent iOS Safari gesture zooming
+document.addEventListener('gesturestart', (e) => e.preventDefault());
+document.addEventListener('gesturechange', (e) => e.preventDefault());
+document.addEventListener('gestureend', (e) => e.preventDefault());
+
+// 4. Prevent Ctrl + Wheel (mouse & trackpad pinch-to-zoom)
+window.addEventListener('wheel', (e) => {
+  if (e.ctrlKey) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+// 5. Prevent keyboard zoom shortcuts (Ctrl/Cmd + Plus, Minus, Zero)
+window.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
+    e.preventDefault();
+  }
+});
+
+// 6. Prevent double-click zoom
+window.addEventListener('dblclick', (e) => {
+  e.preventDefault();
+}, { passive: false });
