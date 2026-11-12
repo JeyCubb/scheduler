@@ -989,9 +989,27 @@ window.addEventListener('mousemove', (e) => {
   resetIdleTimer();
 }, { passive: true });
 
-['mousedown', 'touchstart', 'touchmove', 'keydown', 'wheel', 'scroll'].forEach(evt => {
+['mousedown', 'touchstart', 'touchmove', 'wheel', 'scroll'].forEach(evt => {
   window.addEventListener(evt, resetIdleTimer, { passive: true });
 });
+
+window.addEventListener('keydown', (e) => {
+  const ignoredKeys = [
+    'Alt',
+    'Meta',
+    'OS',
+    'Shift',
+    'Control',
+    'Tab',
+    'PrintScreen',
+    'Snapshot',
+    'F11'
+  ];
+  if (ignoredKeys.includes(e.key) || e.key.toLowerCase() === 's' || e.altKey || e.metaKey) {
+    return;
+  }
+  resetIdleTimer();
+}, { passive: true });
 
 // Start initial idle countdown
 resetIdleTimer();
