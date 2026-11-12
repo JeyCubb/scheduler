@@ -526,23 +526,38 @@ html, body {
 }
 
 .sched-pill.sched-pill-potential-conflict:not(.active) {
-  border-color: rgba(244, 63, 94, 0.28) !important;
+  opacity: 0.28 !important;
+  background: rgba(0, 0, 0, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
   border-style: solid !important;
-  color: var(--text-secondary) !important;
-  background: rgba(244, 63, 94, 0.035) !important;
+  color: var(--text-muted) !important;
+  box-shadow: none !important;
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, border-color 0.2s ease !important;
 }
 
 .sched-pill.sched-pill-potential-conflict:not(.active) .pill-sec {
-  color: #fb7185 !important;
+  color: var(--text-muted) !important;
+  font-weight: 600 !important;
+}
+
+.sched-pill.sched-pill-potential-conflict:not(.active) .pill-time,
+.sched-pill.sched-pill-potential-conflict:not(.active) .pill-day {
+  color: var(--text-muted) !important;
+  opacity: 0.75 !important;
 }
 
 .sched-pill.sched-pill-potential-conflict:not(.active):hover {
-  transform: translateY(-2px) !important;
-  border-color: #f43f5e !important;
-  color: #ffffff !important;
-  background: rgba(244, 63, 94, 0.16) !important;
-  box-shadow: 0 3px 10px rgba(244, 63, 94, 0.3) !important;
+  opacity: 0.65 !important;
+  transform: translateY(-1px) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  color: var(--text-secondary) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  box-shadow: none !important;
   z-index: 5 !important;
+}
+
+.sched-pill.sched-pill-potential-conflict:not(.active):hover .pill-sec {
+  color: var(--text-secondary) !important;
 }
 
 /* Conflict Tooltip */
@@ -913,6 +928,26 @@ html, body {
   background: rgba(225, 29, 72, 0.1) !important;
   border-color: #e11d48 !important;
   color: #9f1239 !important;
+}
+
+[data-theme="light"] .sched-pill.sched-pill-potential-conflict:not(.active) {
+  opacity: 0.30 !important;
+  background: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  color: var(--text-muted) !important;
+}
+
+[data-theme="light"] .sched-pill.sched-pill-potential-conflict:not(.active) .pill-sec,
+[data-theme="light"] .sched-pill.sched-pill-potential-conflict:not(.active) .pill-day,
+[data-theme="light"] .sched-pill.sched-pill-potential-conflict:not(.active) .pill-time {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="light"] .sched-pill.sched-pill-potential-conflict:not(.active):hover {
+  opacity: 0.70 !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(0, 0, 0, 0.16) !important;
+  color: var(--text-secondary) !important;
 }
 
 [data-theme="light"] .sched-conflict-tooltip {
