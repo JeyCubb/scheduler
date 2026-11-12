@@ -874,3 +874,60 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('dblclick', (e) => {
   e.preventDefault();
 }, { passive: false });
+
+// ==========================================================================
+// AUTO-HIDE RIBBON & SUBJECT SELECTOR AFTER 10 SECONDS (CENTER SCHEDULE)
+// ==========================================================================
+let idleTimeout = null;
+const IDLE_DELAY_MS = 10000; // 10 seconds
+let lastClientX = null;
+let lastClientY = null;
+
+function enterFocusMode() {
+  if (!document.body.classList.contains('sched-focus-autohide')) {
+    document.body.classList.add('sched-focus-autohide');
+    setTimeout(() => {
+      fitScheduleEventTitles();
+    }, 120);
+    setTimeout(() => {
+      fitScheduleEventTitles();
+    }, 460);
+  }
+}
+
+function exitFocusMode() {
+  if (document.body.classList.contains('sched-focus-autohide')) {
+    document.body.classList.remove('sched-focus-autohide');
+    setTimeout(() => {
+      fitScheduleEventTitles();
+    }, 120);
+    setTimeout(() => {
+      fitScheduleEventTitles();
+    }, 460);
+  }
+}
+
+function resetIdleTimer() {
+  exitFocusMode();
+  clearTimeout(idleTimeout);
+  idleTimeout = setTimeout(enterFocusMode, IDLE_DELAY_MS);
+}
+
+// Activity event listeners to reset the 10-second timer
+window.addEventListener('mousemove', (e) => {
+  if (lastClientX !== null && lastClientY !== null) {
+    const dx = Math.abs(e.clientX - lastClientX);
+    const dy = Math.abs(e.clientY - lastClientY);
+    if (dx < 3 && dy < 3) return; // Ignore micro-jitter
+  }
+  lastClientX = e.clientX;
+  lastClientY = e.clientY;
+  resetIdleTimer();
+}, { passive: true });
+
+['mousedown', 'touchstart', 'touchmove', 'keydown', 'wheel', 'scroll'].forEach(evt => {
+  window.addEventListener(evt, resetIdleTimer, { passive: true });
+});
+
+// Start initial idle countdown
+resetIdleTimer();
