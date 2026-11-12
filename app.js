@@ -705,27 +705,57 @@ function updateScheduleStats() {
 }
 
 // ==========================================================================
-// THEME SWITCHING & PERSISTENCE
+// THEME SWITCHING & PERSISTENCE (AUTO-DETECT SYSTEM LIGHT / DARK MODE)
 // ==========================================================================
+function getSystemTheme() {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  }
+  return 'light';
+}
+
 function initTheme() {
-  const savedTheme = localStorage.getItem('tip_gc_theme') || 'dark';
-  updateThemeUI(savedTheme);
+  const isExplicit = localStorage.getItem('tip_sched_theme_explicit') === 'true';
+  const savedTheme = localStorage.getItem('tip_sched_theme');
+  const initialTheme = (isExplicit && savedTheme) ? savedTheme : getSystemTheme();
+  updateThemeUI(initialTheme, false);
 
   const themeToggleBtn = document.getElementById('theme-toggle');
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const current = document.documentElement.getAttribute('data-theme') || getSystemTheme();
       const nextTheme = current === 'dark' ? 'light' : 'dark';
-      updateThemeUI(nextTheme);
+      updateThemeUI(nextTheme, true);
       renderScheduleView();
     });
   }
+
+  // Real-time listener: automatically adjust if system dark/light mode toggles (unless user explicitly locked it)
+  if (window.matchMedia) {
+    const colorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleSystemThemeChange = (e) => {
+      const userLocked = localStorage.getItem('tip_sched_theme_explicit') === 'true';
+      if (!userLocked) {
+        const detected = e.matches ? 'dark' : 'light';
+        updateThemeUI(detected, false);
+        renderScheduleView();
+      }
+    };
+    if (colorSchemeMedia.addEventListener) {
+      colorSchemeMedia.addEventListener('change', handleSystemThemeChange);
+    } else if (colorSchemeMedia.addListener) {
+      colorSchemeMedia.addListener(handleSystemThemeChange);
+    }
+  }
 }
 
-function updateThemeUI(theme) {
+function updateThemeUI(theme, isUserManual = false) {
   document.documentElement.setAttribute('data-theme', theme);
   try {
-    localStorage.setItem('tip_gc_theme', theme);
+    if (isUserManual) {
+      localStorage.setItem('tip_sched_theme', theme);
+      localStorage.setItem('tip_sched_theme_explicit', 'true');
+    }
   } catch (e) {}
 
   const themeToggleBtn = document.getElementById('theme-toggle');
