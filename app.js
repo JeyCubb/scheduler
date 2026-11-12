@@ -627,7 +627,8 @@ function renderScheduleGrid() {
 
 function fitScheduleEventTitles() {
   const isMobile = window.innerWidth <= 768;
-  const minSize = isMobile ? 4.8 : 6.8;
+  const isZenDesktop = !isMobile && document.body.classList.contains('sched-focus-autohide');
+  const minSize = isMobile ? 4.8 : (isZenDesktop ? 9.0 : 6.8);
   const cards = document.querySelectorAll('.sched-event-block');
   cards.forEach(card => {
     const titleEl = card.querySelector('.sched-event-title-main');
@@ -639,7 +640,7 @@ function fitScheduleEventTitles() {
     const maxW = card.clientWidth;
     if (maxH <= 0 || maxW <= 0) return;
 
-    let computedSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || (isMobile ? 8.5 : 11.5);
+    let computedSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || (isMobile ? 8.5 : (isZenDesktop ? 23.5 : 11.5));
 
     const checkOverflow = () => {
       // 1. Overall card scroll overflow
