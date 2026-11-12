@@ -757,8 +757,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnA = document.getElementById('btn-preset-choice-a');
   const btnB = document.getElementById('btn-preset-choice-b');
   const btnClr = document.getElementById('btn-sched-clear-all');
-  const zenToggleBtn = document.getElementById('sheet-zen-toggle');
-  const lockBtn = document.getElementById('btn-profile-lock');
 
   if (btnA) btnA.addEventListener('click', () => applySchedulePreset('A'));
   if (btnB) btnB.addEventListener('click', () => applySchedulePreset('B'));
@@ -767,25 +765,6 @@ document.addEventListener('DOMContentLoaded', () => {
     saveScheduleCreatorState();
     renderScheduleView();
   });
-
-  if (zenToggleBtn) {
-    zenToggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('zen-mode');
-      zenToggleBtn.classList.toggle('active');
-    });
-  }
-
-  if (lockBtn) {
-    lockBtn.addEventListener('click', () => {
-      const isLocked = lockBtn.classList.toggle('locked');
-      const lockIcon = document.getElementById('lock-icon');
-      if (lockIcon) {
-        lockIcon.innerHTML = isLocked
-          ? '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>'
-          : '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/>';
-      }
-    });
-  }
 
   // Aggressive Subject Scroll Snap
   const subjectListEl = document.getElementById('sched-subject-list');

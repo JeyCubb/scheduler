@@ -1553,8 +1553,7 @@ html, body {
     gap: 0.3rem !important;
   }
 
-  .theme-toggle-btn,
-  .btn-profile-lock {
+  .theme-toggle-btn {
     width: 28px !important;
     height: 28px !important;
     min-width: 28px !important;
