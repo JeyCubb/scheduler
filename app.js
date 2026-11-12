@@ -513,6 +513,36 @@ Room: ${sec.room}${pillConflictTitle}"
 // ==========================================================================
 // RENDER CALENDAR GRID
 // ==========================================================================
+function formatEventTitleHtml(title, tag) {
+  let formatted = title;
+  if (title === 'General Education Elective 2') {
+    formatted = 'General Education<br>Elective 2';
+  } else if (title === 'General Education Elective 3') {
+    formatted = 'General Education<br>Elective 3';
+  } else if (title === 'Methods of Research for ME') {
+    formatted = 'Methods of Research<br>for ME';
+  } else if (title === 'Materials Science and Engineering for ME') {
+    formatted = 'Materials Science and<br>Engineering for ME';
+  } else if (title === 'Mechanical Engineering Lab 1') {
+    formatted = 'Mechanical Engineering<br>Lab 1';
+  } else if (title === 'Engineering Management') {
+    formatted = 'Engineering<br>Management';
+  } else if (title === 'Combustion Engineering') {
+    formatted = 'Combustion<br>Engineering';
+  } else if (title === 'Fluid Machineries') {
+    formatted = 'Fluid<br>Machineries';
+  } else if (title === 'Control Engineering') {
+    formatted = 'Control<br>Engineering';
+  } else if (title === 'Machine Design 1') {
+    formatted = 'Machine<br>Design 1';
+  }
+
+  if (tag) {
+    formatted += ` (${tag})`;
+  }
+  return formatted;
+}
+
 function renderScheduleGrid() {
   const gridEl = document.getElementById('sched-calendar-grid');
   if (!gridEl) return;
@@ -571,8 +601,11 @@ function renderScheduleGrid() {
     const col = ev.day + 2;
     const isConflict = conflicts.has(idx);
 
+    const is1Hr = spanSteps <= 2;
     const card = document.createElement('div');
-    card.className = 'sched-event-block' + (isConflict ? ' sched-event-conflict' : '');
+    card.className = 'sched-event-block'
+      + (isConflict ? ' sched-event-conflict' : '')
+      + (is1Hr ? ' sched-event-span-1hr' : '');
     card.style.gridColumn = `${col}`;
     card.style.gridRow = `${startStep} / span ${spanSteps}`;
     card.dataset.courseCode = ev.code;
@@ -598,7 +631,7 @@ function renderScheduleGrid() {
     }
 
     card.innerHTML = `
-      <div class="sched-event-title-main">${ev.title} ${ev.tag ? '(' + ev.tag + ')' : ''}</div>
+      <div class="sched-event-title-main">${formatEventTitleHtml(ev.title, ev.tag)}</div>
       <div class="sched-event-meta">
         <span class="sched-event-sec-badge">${ev.sectionId}</span>
         ${ev.room ? `<span class="sched-event-room">${ev.room}</span>` : ''}
@@ -628,7 +661,6 @@ function renderScheduleGrid() {
 function fitScheduleEventTitles() {
   const isMobile = window.innerWidth <= 768;
   const isZenDesktop = !isMobile && document.body.classList.contains('sched-focus-autohide');
-  const minSize = isMobile ? 4.8 : (isZenDesktop ? 9.0 : 6.8);
   const cards = document.querySelectorAll('.sched-event-block');
   cards.forEach(card => {
     const titleEl = card.querySelector('.sched-event-title-main');
@@ -640,6 +672,8 @@ function fitScheduleEventTitles() {
     const maxW = card.clientWidth;
     if (maxH <= 0 || maxW <= 0) return;
 
+    const is1Hr = card.classList.contains('sched-event-span-1hr');
+    const minSize = isMobile ? 4.8 : (isZenDesktop ? (is1Hr ? 7.8 : 9.0) : 6.8);
     let computedSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || (isMobile ? 8.5 : (isZenDesktop ? 23.5 : 11.5));
 
     const checkOverflow = () => {

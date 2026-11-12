@@ -1031,6 +1031,29 @@ html, body {
     box-sizing: border-box !important;
   }
 
+  /* Proportional compact meta for 1-hour slots in desktop */
+  .sched-event-block.sched-event-span-1hr {
+    padding: 0.14rem 0.30rem !important;
+  }
+
+  .sched-event-block.sched-event-span-1hr .sched-event-title-main {
+    line-height: 1.10 !important;
+  }
+
+  .sched-event-block.sched-event-span-1hr .sched-event-meta {
+    font-size: 0.56rem !important;
+    gap: 3px !important;
+  }
+
+  .sched-event-block.sched-event-span-1hr .sched-event-sec-badge {
+    font-size: 0.54rem !important;
+    padding: 0.04rem 0.22rem !important;
+  }
+
+  .sched-event-block.sched-event-span-1hr .sched-event-room {
+    font-size: 0.56rem !important;
+  }
+
   .sched-event-title-main {
     font-size: 0.74rem;
     font-weight: 800 !important;
@@ -1262,6 +1285,31 @@ html, body {
 
   body.sched-focus-autohide .sched-event-room {
     font-size: 1.26rem !important; /* 200% of 0.63rem */
+  }
+
+  /* Compact Meta & Padding for 1-hour slots in Zen Mode to maximize Title Size */
+  body.sched-focus-autohide .sched-event-block.sched-event-span-1hr {
+    padding: 0.18rem 0.45rem !important;
+  }
+
+  body.sched-focus-autohide .sched-event-block.sched-event-span-1hr .sched-event-title-main {
+    line-height: 1.12 !important;
+  }
+
+  body.sched-focus-autohide .sched-event-block.sched-event-span-1hr .sched-event-meta {
+    font-size: 0.85rem !important;
+    gap: 5px !important;
+    padding-top: 2px !important;
+  }
+
+  body.sched-focus-autohide .sched-event-block.sched-event-span-1hr .sched-event-sec-badge {
+    font-size: 0.82rem !important;
+    padding: 0.05rem 0.35rem !important;
+    border-radius: 3.5px !important;
+  }
+
+  body.sched-focus-autohide .sched-event-block.sched-event-span-1hr .sched-event-room {
+    font-size: 0.85rem !important;
   }
 }
 
