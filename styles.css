@@ -1238,17 +1238,17 @@ html, body {
     width: 100% !important;
     max-width: 100% !important;
     display: grid !important;
-    grid-template-columns: 28px repeat(5, minmax(0, 1fr)) !important;
+    grid-template-columns: 32px repeat(5, minmax(0, 1fr)) !important;
     gap: 1.5px !important;
-    padding-bottom: 0.12rem !important;
+    padding-bottom: 0.15rem !important;
     margin-bottom: 0.1rem !important;
     box-sizing: border-box !important;
   }
 
   .sched-day-label {
-    font-size: 0.56rem !important;
+    font-size: 0.65rem !important;
     font-weight: 800 !important;
-    padding: 0.08rem 0 !important;
+    padding: 0.1rem 0 !important;
     text-align: center !important;
     min-width: 0 !important;
     overflow: hidden !important;
@@ -1258,8 +1258,8 @@ html, body {
     width: 100% !important;
     max-width: 100% !important;
     display: grid !important;
-    grid-template-columns: 28px repeat(5, minmax(0, 1fr)) !important;
-    grid-auto-rows: 15px !important;
+    grid-template-columns: 32px repeat(5, minmax(0, 1fr)) !important;
+    grid-auto-rows: 17px !important;
     gap: 1.5px !important;
     height: auto !important;
     min-height: 0 !important;
@@ -1268,9 +1268,9 @@ html, body {
   }
 
   .sched-time-label {
-    font-size: 0.42rem !important;
+    font-size: 0.48rem !important;
     font-weight: 700 !important;
-    padding-right: 0.12rem !important;
+    padding-right: 0.15rem !important;
     line-height: 1 !important;
     justify-content: flex-end !important;
     letter-spacing: -0.02em !important;
@@ -1282,7 +1282,7 @@ html, body {
   }
 
   .sched-event-block {
-    padding: 1px 1.5px !important;
+    padding: 1.5px 2px !important;
     border-radius: 3px !important;
     border-left-width: 2px !important;
     box-shadow: 0 1px 2px rgba(0,0,0,0.35) !important;
@@ -1291,9 +1291,9 @@ html, body {
   }
 
   .sched-event-title-main {
-    font-size: 0.44rem !important;
+    font-size: 0.52rem !important;
     font-weight: 800 !important;
-    line-height: 1.02 !important;
+    line-height: 1.05 !important;
     display: block !important;
     white-space: normal !important;
     word-break: keep-all !important;
@@ -1304,8 +1304,8 @@ html, body {
   }
 
   .sched-event-meta {
-    font-size: 0.40rem !important;
-    gap: 1px !important;
+    font-size: 0.46rem !important;
+    gap: 1.5px !important;
     padding-top: 1px !important;
     flex-direction: column !important;
     align-items: flex-start !important;
@@ -1313,13 +1313,13 @@ html, body {
   }
 
   .sched-event-sec-badge {
-    font-size: 0.40rem !important;
-    padding: 0.01rem 0.1rem !important;
+    font-size: 0.46rem !important;
+    padding: 0.02rem 0.12rem !important;
     border-radius: 2px !important;
   }
 
   .sched-event-room {
-    font-size: 0.38rem !important;
+    font-size: 0.44rem !important;
     line-height: 1 !important;
     white-space: nowrap !important;
     overflow: hidden !important;
@@ -1412,25 +1412,25 @@ html, body {
   }
 
   .sched-course-dot {
-    width: 6.5px !important;
-    height: 6.5px !important;
+    width: 7px !important;
+    height: 7px !important;
     flex-shrink: 0 !important;
   }
 
   .sched-course-title-main {
-    font-size: 0.68rem !important;
+    font-size: 0.78rem !important;
     font-weight: 750 !important;
-    line-height: 1.1 !important;
+    line-height: 1.15 !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
   }
 
   .sched-course-subgroup {
-    font-size: 0.56rem !important;
+    font-size: 0.65rem !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
-    opacity: 0.85 !important;
+    opacity: 0.88 !important;
   }
 
   .sched-pills-row {
@@ -1447,10 +1447,10 @@ html, body {
     width: 100% !important;
     min-width: 0 !important;
     max-width: 100% !important;
-    min-height: 31px !important;
+    min-height: 35px !important;
     height: auto !important;
     box-sizing: border-box !important;
-    padding: 0.1rem 0.1rem !important;
+    padding: 0.15rem 0.12rem !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -1461,10 +1461,10 @@ html, body {
   }
 
   .sched-pill .pill-sec {
-    font-size: 0.58rem !important;
+    font-size: 0.70rem !important;
     font-weight: 800 !important;
     letter-spacing: 0.01em !important;
-    line-height: 1.05 !important;
+    line-height: 1.1 !important;
     display: block !important;
     white-space: nowrap !important;
     overflow: hidden !important;
@@ -1479,29 +1479,29 @@ html, body {
     justify-content: center !important;
     width: 100% !important;
     margin-top: 1px !important;
-    line-height: 1 !important;
+    line-height: 1.05 !important;
     gap: 0 !important;
   }
 
   .sched-pill .pill-day {
-    font-size: 0.46rem !important;
+    font-size: 0.54rem !important;
     font-weight: 700 !important;
     opacity: 0.9 !important;
     white-space: nowrap !important;
     display: block !important;
-    line-height: 1 !important;
+    line-height: 1.05 !important;
   }
 
   .sched-pill .pill-time {
-    font-size: 0.41rem !important;
+    font-size: 0.49rem !important;
     font-weight: 500 !important;
-    opacity: 0.85 !important;
+    opacity: 0.88 !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     max-width: 100% !important;
     display: block !important;
-    line-height: 1 !important;
+    line-height: 1.05 !important;
   }
 
   /* Pinned Bottom Header Bar on phone */
@@ -1589,7 +1589,7 @@ html, body {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
-    font-size: 0.65rem !important;
+    font-size: 0.74rem !important;
     font-weight: 700 !important;
     padding: 0.3rem 0.2rem !important;
     text-align: center !important;
@@ -1614,7 +1614,7 @@ html, body {
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
-    font-size: 0.70rem !important;
+    font-size: 0.78rem !important;
     flex-wrap: wrap !important;
     gap: 0.25rem !important;
     box-sizing: border-box !important;

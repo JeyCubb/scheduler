@@ -534,7 +534,7 @@ function renderScheduleGrid() {
   gridEl.innerHTML = '';
   const isMob = window.innerWidth <= 768;
   gridEl.style.gridTemplateRows = isMob
-    ? `repeat(${totalSteps}, 15px)`
+    ? `repeat(${totalSteps}, 17px)`
     : `repeat(${totalSteps}, minmax(0, 1fr))`;
   gridEl.style.height = isMob ? 'auto' : '100%';
 
