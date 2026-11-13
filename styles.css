@@ -2588,6 +2588,10 @@ html, body {
     box-sizing: border-box !important;
   }
 
+  .sched-course-row[data-course-code="ME 007"] {
+    grid-column: 1 / -1 !important;
+  }
+
   .sched-course-title-main {
     font-size: 0.86rem !important;
   }

@@ -68,20 +68,6 @@ const SCHEDULE_COURSES = [
     ]
   },
   {
-    code: 'EMAN 001',
-    title: 'Engineering Management',
-    units: 2,
-    color: '#ea580c',
-    border: '#fb923c',
-    sections: [
-      { id: 'ME32S1', desc: 'Tue 10:30 AM–12:30 PM', room: 'Q-5504', slots: [{ day: 1, start: 630, end: 750, room: 'Q-5504' }] },
-      { id: 'ME32S2', desc: 'Thu 10:30 AM–12:30 PM', room: 'Q-5504', slots: [{ day: 3, start: 630, end: 750, room: 'Q-5504' }] },
-      { id: 'ME32S3', desc: 'Wed 7:30–9:30 PM', room: 'Q-5504', slots: [{ day: 2, start: 1170, end: 1290, room: 'Q-5504' }] },
-      { id: 'ECE22S1', desc: 'Mo 5:30–6:30 & We 7:30–8:30', room: 'Q-5320', slots: [{ day: 0, start: 1050, end: 1110, room: 'Q-5320' }, { day: 2, start: 1170, end: 1230, room: 'Q-5320' }] },
-      { id: 'ECE32S1', desc: 'Tu/Th 12:00–1:00 PM', room: 'Q-9405', slots: [{ day: 1, start: 720, end: 780, room: 'Q-9405' }, { day: 3, start: 720, end: 780, room: 'Q-9405' }] }
-    ]
-  },
-  {
     code: 'ME 401',
     title: 'Mechanical Engineering Lab 1',
     units: 1,
@@ -103,6 +89,20 @@ const SCHEDULE_COURSES = [
       { id: 'ME32S1', desc: 'We 10:30-12:30 (L) & Fr 10:30-1:30 (Lab)', room: 'Q-2106', slots: [{ day: 2, start: 630, end: 750, room: 'Q-2106', tag: 'LEC' }, { day: 4, start: 630, end: 810, room: 'Q-2106', tag: 'LAB' }] },
       { id: 'ME32S2', desc: 'Tu 3-5 PM (L) & Th 3-6 PM (Lab)', room: 'Q-2106', slots: [{ day: 1, start: 900, end: 1020, room: 'Q-2106', tag: 'LEC' }, { day: 3, start: 900, end: 1080, room: 'Q-2106', tag: 'LAB' }] },
       { id: 'ME32S3', desc: 'We 5:30-7:30 (L) & Fr 4:30-7:30 (Lab)', room: 'Q-2106', slots: [{ day: 2, start: 1050, end: 1170, room: 'Q-2106', tag: 'LEC' }, { day: 4, start: 990, end: 1170, room: 'Q-2106', tag: 'LAB' }] }
+    ]
+  },
+  {
+    code: 'EMAN 001',
+    title: 'Engineering Management',
+    units: 2,
+    color: '#ea580c',
+    border: '#fb923c',
+    sections: [
+      { id: 'ME32S1', desc: 'Tue 10:30 AM–12:30 PM', room: 'Q-5504', slots: [{ day: 1, start: 630, end: 750, room: 'Q-5504' }] },
+      { id: 'ME32S2', desc: 'Thu 10:30 AM–12:30 PM', room: 'Q-5504', slots: [{ day: 3, start: 630, end: 750, room: 'Q-5504' }] },
+      { id: 'ME32S3', desc: 'Wed 7:30–9:30 PM', room: 'Q-5504', slots: [{ day: 2, start: 1170, end: 1290, room: 'Q-5504' }] },
+      { id: 'ECE22S1', desc: 'Mo 5:30–6:30 & We 7:30–8:30', room: 'Q-5320', slots: [{ day: 0, start: 1050, end: 1110, room: 'Q-5320' }, { day: 2, start: 1170, end: 1230, room: 'Q-5320' }] },
+      { id: 'ECE32S1', desc: 'Tu/Th 12:00–1:00 PM', room: 'Q-9405', slots: [{ day: 1, start: 720, end: 780, room: 'Q-9405' }, { day: 3, start: 720, end: 780, room: 'Q-9405' }] }
     ]
   },
   {
