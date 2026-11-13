@@ -205,6 +205,9 @@ html, body {
   font-weight: 800;
   color: #ffffff;
   display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
   white-space: normal;
   word-break: normal;
   overflow-wrap: normal;
@@ -221,6 +224,9 @@ html, body {
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: clip !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .sched-event-meta {
@@ -1120,6 +1126,9 @@ html, body {
     font-weight: 800 !important;
     line-height: 1.15 !important;
     display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     white-space: normal !important;
     word-break: normal !important;
     overflow-wrap: normal !important;
@@ -1957,3 +1966,291 @@ html, body {
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45) !important;
   }
 }
+
+/* ==========================================================================
+   Remove Subject Confirmation Modal Dialog
+   ========================================================================== */
+.sched-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s ease, visibility 0.22s ease;
+}
+
+.sched-modal-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.sched-modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg, 18px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  width: 100%;
+  max-width: 440px;
+  overflow: hidden;
+  transform: scale(0.93) translateY(12px);
+  opacity: 0;
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.sched-modal-backdrop.is-open .sched-modal-card {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.sched-modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1.25rem 1.25rem 0.85rem 1.25rem;
+  position: relative;
+}
+
+.sched-modal-icon-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.16);
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+[data-theme="light"] .sched-modal-icon-badge {
+  background: rgba(225, 29, 72, 0.12);
+  color: #e11d48;
+}
+
+.sched-modal-title-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.sched-modal-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+  line-height: 1.25;
+}
+
+.sched-modal-subtitle {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+.sched-modal-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: -4px;
+  margin-right: -4px;
+  flex-shrink: 0;
+}
+
+.sched-modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .sched-modal-close-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.sched-modal-body {
+  padding: 0.35rem 1.25rem 1rem 1.25rem;
+}
+
+.sched-modal-subject-preview {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-left-width: 4px;
+  border-radius: 10px;
+  padding: 0.85rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.sched-modal-course-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.sched-modal-course-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.sched-modal-course-names {
+  flex: 1;
+  min-width: 0;
+}
+
+.sched-modal-course-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 0.3rem;
+  word-break: break-word;
+}
+
+.sched-modal-course-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+}
+
+.sched-modal-course-code {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.sched-modal-course-units {
+  color: var(--text-muted);
+}
+
+.sched-modal-course-sec {
+  background: rgba(249, 115, 22, 0.16);
+  color: var(--accent-primary);
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 0.1rem 0.42rem;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+
+.sched-modal-schedule-info {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.80rem;
+  color: var(--text-secondary);
+  border-top: 1px dashed var(--border-color);
+  padding-top: 0.55rem;
+  line-height: 1.3;
+}
+
+.sched-modal-info-icon {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.sched-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  padding: 0.85rem 1.25rem 1.25rem 1.25rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.sched-modal-btn {
+  font-size: 0.86rem;
+  font-weight: 600;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.sched-modal-btn-cancel {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.sched-modal-btn-cancel:hover,
+.sched-modal-btn-cancel:focus-visible {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--border-color-hover);
+}
+
+.sched-modal-btn-remove {
+  background: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35);
+}
+
+[data-theme="light"] .sched-modal-btn-remove {
+  background: #e11d48;
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.28);
+}
+
+.sched-modal-btn-remove:hover,
+.sched-modal-btn-remove:focus-visible {
+  background: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.45);
+}
+
+[data-theme="light"] .sched-modal-btn-remove:hover,
+[data-theme="light"] .sched-modal-btn-remove:focus-visible {
+  background: #be123c;
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.38);
+}
+
+.sched-modal-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .sched-modal-card {
+    border-radius: 14px;
+    padding: 0;
+  }
+  .sched-modal-header {
+    padding: 1rem 1rem 0.65rem 1rem;
+  }
+  .sched-modal-body {
+    padding: 0.25rem 1rem 0.75rem 1rem;
+  }
+  .sched-modal-footer {
+    padding: 0.75rem 1rem 1rem 1rem;
+    flex-direction: row;
+  }
+  .sched-modal-btn {
+    flex: 1;
+    padding: 0.6rem 0.8rem;
+  }
+}
+

@@ -198,6 +198,103 @@ function toggleScheduleSection(courseCode, sectionId) {
   renderScheduleView();
 }
 
+function removeCourseFromSchedule(courseCode) {
+  if (userScheduleSelection[courseCode]) {
+    delete userScheduleSelection[courseCode];
+    saveScheduleCreatorState();
+    renderScheduleView();
+  }
+}
+
+// ==========================================================================
+// REMOVE SUBJECT PROMPT MODAL
+// ==========================================================================
+let pendingRemoveCourseCode = null;
+let isModalOpen = false;
+
+function promptRemoveSubject(courseCode) {
+  const course = SCHEDULE_COURSES.find(c => c.code === courseCode);
+  if (!course) return;
+
+  const sectionId = userScheduleSelection[courseCode];
+  if (!sectionId) return; // Not currently enrolled in scheduler
+
+  const section = course.sections.find(s => s.id === sectionId);
+  pendingRemoveCourseCode = courseCode;
+
+  const modalEl = document.getElementById('sched-remove-modal');
+  const previewEl = document.getElementById('sched-modal-subject-preview');
+  if (!modalEl || !previewEl) {
+    if (window.confirm(`Are you sure you want to remove ${course.title} (${course.code}) from your schedule?`)) {
+      removeCourseFromSchedule(courseCode);
+    }
+    return;
+  }
+
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const colorDisplay = isLight ? course.color : (course.border || course.color);
+  previewEl.style.borderLeftColor = course.border || course.color;
+
+  const secDesc = section ? section.desc : '';
+  const secRoom = (section && section.room) ? ` &bull; Room ${section.room}` : '';
+
+  previewEl.innerHTML = `
+    <div class="sched-modal-course-row">
+      <div class="sched-modal-course-dot" style="background: ${course.color}; box-shadow: 0 0 6px ${course.color};"></div>
+      <div class="sched-modal-course-names">
+        <div class="sched-modal-course-title" style="color: ${colorDisplay};">${course.title}</div>
+        <div class="sched-modal-course-meta">
+          <span class="sched-modal-course-code">${course.code}</span>
+          <span class="sched-modal-course-units">&bull; ${course.units} ${course.units === 1 ? 'Unit' : 'Units'}</span>
+          <span class="sched-modal-course-sec">Section ${sectionId}</span>
+        </div>
+      </div>
+    </div>
+    ${secDesc ? `
+      <div class="sched-modal-schedule-info">
+        <span class="sched-modal-info-icon">🕒</span>
+        <span>${secDesc}${secRoom}</span>
+      </div>
+    ` : ''}
+  `;
+
+  exitFocusMode();
+  isModalOpen = true;
+  modalEl.classList.add('is-open');
+  modalEl.setAttribute('aria-hidden', 'false');
+
+  const cancelBtn = document.getElementById('sched-modal-btn-cancel');
+  if (cancelBtn) {
+    setTimeout(() => cancelBtn.focus(), 60);
+  }
+}
+
+function closeRemoveModal() {
+  const modalEl = document.getElementById('sched-remove-modal');
+  if (modalEl) {
+    modalEl.classList.remove('is-open');
+    modalEl.setAttribute('aria-hidden', 'true');
+  }
+  pendingRemoveCourseCode = null;
+  isModalOpen = false;
+  resetIdleTimer();
+}
+
+function confirmRemoveSubject() {
+  if (pendingRemoveCourseCode) {
+    const codeToRemove = pendingRemoveCourseCode;
+    closeRemoveModal();
+    removeCourseFromSchedule(codeToRemove);
+  } else {
+    closeRemoveModal();
+  }
+}
+
+// Global hooks for testing or external access
+window.promptRemoveSubject = promptRemoveSubject;
+window.removeCourseFromSchedule = removeCourseFromSchedule;
+window.closeRemoveModal = closeRemoveModal;
+
 function renderScheduleView() {
   renderScheduleSidebar();
   renderScheduleGrid();
@@ -506,6 +603,19 @@ Room: ${sec.room}${pillConflictTitle}"
       <div class="sched-pills-row">${pillsHtml}</div>
     `;
 
+    if (selectedSec) {
+      const headerEl = row.querySelector('.sched-course-header-new');
+      if (headerEl) {
+        headerEl.style.cursor = 'pointer';
+        headerEl.title = `${course.title} (${course.code}) is enrolled in section ${selectedSec}.\nDouble-click to remove from schedule.`;
+        headerEl.addEventListener('dblclick', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          promptRemoveSubject(course.code);
+        });
+      }
+    }
+
     listEl.appendChild(row);
   });
 }
@@ -522,7 +632,7 @@ function formatEventTitleHtml(title, tag) {
   } else if (title === 'Methods of Research for ME') {
     lines = ['Methods of Research', 'for ME'];
   } else if (title === 'Materials Science and Engineering for ME') {
-    lines = ['Materials Science', 'and Engineering', tag ? `for ME (${tag})` : 'for ME'];
+    lines = ['Materials', 'Science', 'and Engineering', tag ? `for ME (${tag})` : 'for ME'];
     tag = null;
   } else if (title === 'Mechanical Engineering Lab 1') {
     lines = ['Mechanical', 'Engineering', 'Lab 1'];
@@ -539,7 +649,13 @@ function formatEventTitleHtml(title, tag) {
   } else if (title === 'Refrigeration Systems') {
     lines = ['Refrigeration', 'Systems'];
   } else {
-    lines = [title];
+    const words = title.split(/\s+/);
+    if (words.length <= 2) {
+      lines = words;
+    } else {
+      const mid = Math.ceil(words.length / 2);
+      lines = [words.slice(0, mid).join(' '), words.slice(mid).join(' ')];
+    }
   }
 
   if (tag) {
@@ -656,7 +772,29 @@ function renderScheduleGrid() {
       ? `\n\n⚠️ CONFLICTS WITH:\n${partnerSummaries.join('\n')}`
       : (isConflict ? '\n\n⚠️ WARNING: Active time conflict with another enrolled subject!' : '');
 
-    card.title = `${ev.title}\nSection: ${ev.sectionId}\nRoom: ${ev.room}\nTime: ${formatTimeMinutes(ev.start)} - ${formatTimeMinutes(ev.end)}${conflictText}`;
+    card.title = `${ev.title}\nSection: ${ev.sectionId}\nRoom: ${ev.room}\nTime: ${formatTimeMinutes(ev.start)} - ${formatTimeMinutes(ev.end)}${conflictText}\n\n(Double-click to remove from schedule)`;
+
+    // Double-click to prompt subject removal from timetable
+    card.addEventListener('dblclick', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      promptRemoveSubject(ev.code);
+    });
+
+    // Touchscreen double-tap support
+    let lastTapTime = 0;
+    card.addEventListener('touchend', (e) => {
+      const now = Date.now();
+      if (now - lastTapTime < 320) {
+        e.preventDefault();
+        e.stopPropagation();
+        promptRemoveSubject(ev.code);
+        lastTapTime = 0;
+      } else {
+        lastTapTime = now;
+      }
+    }, { passive: false });
+
     gridEl.appendChild(card);
   });
 
@@ -715,8 +853,13 @@ function fitScheduleEventTitles() {
       };
       setMetaSize(metaSize);
 
+      const computedCard = window.getComputedStyle(card);
+      const padLeft = parseFloat(computedCard.paddingLeft) || 0;
+      const padRight = parseFloat(computedCard.paddingRight) || 0;
+      const innerCardW = Math.max(0, card.clientWidth - padLeft - padRight);
+
       const checkMetaOverflow = () => {
-        if (metaEl.scrollWidth > card.clientWidth - 4) return true;
+        if (metaEl.scrollWidth > innerCardW + 0.25) return true;
         if (metaEl.scrollWidth > metaEl.clientWidth + 0.5) return true;
         return false;
       };
@@ -747,16 +890,16 @@ function fitScheduleEventTitles() {
     } else if (isZenDesktop) {
       if (spanSteps <= 2) {
         maxTitleSize = 26.0;
-        minTitleSize = 10.0;
+        minTitleSize = 9.0;
       } else if (spanSteps <= 3) {
         maxTitleSize = 34.0;
-        minTitleSize = 11.0;
+        minTitleSize = 10.0;
       } else if (spanSteps <= 4) {
         maxTitleSize = 42.0;
-        minTitleSize = 12.0;
+        minTitleSize = 11.0;
       } else {
         maxTitleSize = 50.0;
-        minTitleSize = 13.0;
+        minTitleSize = 12.0;
       }
     } else {
       // Regular desktop: maximize aggressively according to available card block space
@@ -776,24 +919,35 @@ function fitScheduleEventTitles() {
     }
 
     const checkOverflow = () => {
+      const computedCard = window.getComputedStyle(card);
+      const padLeft = parseFloat(computedCard.paddingLeft) || 0;
+      const padRight = parseFloat(computedCard.paddingRight) || 0;
+      const padTop = parseFloat(computedCard.paddingTop) || 0;
+      const padBottom = parseFloat(computedCard.paddingBottom) || 0;
+      const innerCardW = Math.max(0, card.clientWidth - padLeft - padRight);
+      const innerCardH = Math.max(0, card.clientHeight - padTop - padBottom);
+
       // 1. Overall card scroll overflow
       if (card.scrollHeight > card.clientHeight + 1) return true;
-      // 2. Card horizontal scroll overflow
       if (card.scrollWidth > card.clientWidth + 1) return true;
-      // 3. Title element scroll overflow
+
+      // 2. Title element scroll overflow
       if (titleEl.scrollHeight > titleEl.clientHeight + 1) return true;
-      // 4. Horizontal overflow of any paragraph line
+      if (titleEl.scrollWidth > innerCardW + 0.25) return true;
+
+      // 3. Horizontal overflow of any line item (ensure no line exceeds card available content width)
       const lineEls = titleEl.querySelectorAll('.sched-title-line');
       for (let i = 0; i < lineEls.length; i++) {
-        if (lineEls[i].scrollWidth > card.clientWidth - 4) return true;
-        if (lineEls[i].scrollWidth > titleEl.clientWidth + 0.5) return true;
+        if (lineEls[i].scrollWidth > innerCardW + 0.25) return true;
       }
-      if (titleEl.scrollWidth > card.clientWidth - 4) return true;
-      // 5. Combined vertical height exceeding available card space
+
+      // 4. Combined vertical height exceeding available card space
       const metaH = metaEl ? metaEl.offsetHeight : 0;
-      if (titleEl.offsetHeight + metaH > card.clientHeight - 3) return true;
-      // 6. Vertical collision between title and meta
+      if (titleEl.offsetHeight + metaH > innerCardH + 0.5) return true;
+
+      // 5. Vertical collision between title and meta
       if (metaEl && metaEl.offsetTop < titleEl.offsetTop + titleEl.offsetHeight) return true;
+
       return false;
     };
 
@@ -989,6 +1143,23 @@ document.addEventListener('DOMContentLoaded', () => {
     subjectListEl.addEventListener('wheel', onSubjectWheel, { passive: false, capture: true });
   }
 
+  // Remove Subject Confirmation Modal Handlers
+  const modalEl = document.getElementById('sched-remove-modal');
+  const cancelBtn = document.getElementById('sched-modal-btn-cancel');
+  const closeBtn = document.getElementById('sched-modal-close-btn');
+  const removeBtn = document.getElementById('sched-modal-btn-remove');
+
+  if (cancelBtn) cancelBtn.addEventListener('click', closeRemoveModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeRemoveModal);
+  if (removeBtn) removeBtn.addEventListener('click', confirmRemoveSubject);
+  if (modalEl) {
+    modalEl.addEventListener('click', (e) => {
+      if (e.target === modalEl) {
+        closeRemoveModal();
+      }
+    });
+  }
+
   renderScheduleView();
 });
 
@@ -1028,8 +1199,27 @@ window.addEventListener('wheel', (e) => {
   }
 }, { passive: false });
 
-// 4. Prevent keyboard zoom shortcuts (Ctrl/Cmd + Plus, Minus, Zero)
+// 4. Prevent keyboard zoom shortcuts (Ctrl/Cmd + Plus, Minus, Zero) & Modal shortcuts
 window.addEventListener('keydown', (e) => {
+  if (isModalOpen) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      e.stopPropagation();
+      closeRemoveModal();
+      return;
+    }
+    if (e.key === 'Enter') {
+      const activeEl = document.activeElement;
+      if (activeEl && (activeEl.id === 'sched-modal-btn-cancel' || activeEl.id === 'sched-modal-close-btn')) {
+        return; // Allow native cancel button trigger
+      }
+      e.preventDefault();
+      e.stopPropagation();
+      confirmRemoveSubject();
+      return;
+    }
+  }
+
   if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
     e.preventDefault();
   }
@@ -1049,6 +1239,7 @@ let lastClientX = null;
 let lastClientY = null;
 
 function enterFocusMode() {
+  if (isModalOpen) return; // Never hide UI while confirmation prompt is open
   if (!document.body.classList.contains('sched-focus-autohide')) {
     document.body.classList.add('sched-focus-autohide');
     // Settle fit after the transition completes smoothly (no mid-animation layout thrashing)
@@ -1071,7 +1262,9 @@ function exitFocusMode() {
 function resetIdleTimer() {
   exitFocusMode();
   clearTimeout(idleTimeout);
-  idleTimeout = setTimeout(enterFocusMode, IDLE_DELAY_MS);
+  if (!isModalOpen) {
+    idleTimeout = setTimeout(enterFocusMode, IDLE_DELAY_MS);
+  }
 }
 
 // Activity event listeners to reset the 10-second timer
