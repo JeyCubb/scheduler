@@ -657,11 +657,27 @@ html, body {
 }
 
 /* App Header & Navigation Toolbar */
+.bottom-panel,
+.app-header {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.bottom-panel {
+  padding: 0.25rem 0.55rem max(0.45rem, env(safe-area-inset-bottom));
+}
+
 .app-header {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   z-index: 50;
 }
 
@@ -1010,7 +1026,7 @@ html, body {
     justify-content: space-between !important;
     overflow: hidden !important;
     gap: 0.35rem !important;
-    padding: 0.35rem 0.65rem calc(env(safe-area-inset-bottom, 0px) + 0.35rem) 0.65rem !important;
+    padding: 0.25rem 0.55rem max(0.45rem, env(safe-area-inset-bottom)) 0.55rem !important;
     margin: 0 !important;
     box-sizing: border-box !important;
   }
@@ -1238,14 +1254,13 @@ html, body {
 
   .app-header {
     flex-shrink: 0 !important;
-    padding: 0.22rem 0.65rem !important;
     margin: 0 !important;
-    min-height: 36px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    gap: 0.5rem !important;
     box-sizing: border-box !important;
+    white-space: nowrap !important;
+    flex-wrap: nowrap !important;
   }
 
   #sched-header-toolbar {
@@ -1254,12 +1269,14 @@ html, body {
     justify-content: space-between !important;
     flex: 1 1 auto !important;
     min-width: 0 !important;
-    gap: 0.65rem !important;
-    margin: 0 0.5rem !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
   }
 
   .header-actions-group {
     margin-left: auto !important;
+    display: flex !important;
+    align-items: center !important;
   }
 
   /* ==========================================================================
@@ -1499,6 +1516,318 @@ html, body {
     .sched-event-room {
       font-size: 0.62rem !important;
     }
+  }
+}
+
+/* ==========================================================================
+   DESKTOP DOCK SIZING (> 1080px)
+   ========================================================================== */
+@media (min-width: 1081px) {
+  .app-header {
+    min-height: 38px !important;
+    padding: 0.28rem 0.55rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .header-container,
+  #sched-header-toolbar {
+    gap: 0.65rem !important;
+    align-items: center !important;
+    display: flex !important;
+    flex: 1 1 auto !important;
+    justify-content: space-between !important;
+    margin: 0 0.5rem !important;
+  }
+
+  .brand-group {
+    gap: 0.35rem !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .brand-nav-btn,
+  .reviewer-link-icon {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    max-width: 38px !important;
+    max-height: 38px !important;
+    border-radius: 9px !important;
+  }
+
+  .brand-calc-emoji {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .brand-emoji {
+    font-size: 1.25rem !important;
+  }
+
+  .control-single-btn,
+  .action-btn,
+  .theme-toggle-btn,
+  .btn-profile-lock {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    max-width: 38px !important;
+    max-height: 38px !important;
+    border-radius: var(--radius-full) !important;
+    font-size: 1.02rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .theme-toggle-btn svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .view-nav-bar,
+  .mode-nav,
+  .sched-preset-group {
+    gap: 0.32rem !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .view-nav-btn,
+  .nav-btn,
+  .sched-preset-btn {
+    min-height: 32px !important;
+    padding: 0.28rem 0.75rem !important;
+    font-size: 0.82rem !important;
+    gap: 0.32rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  .score-tag,
+  .header-badge,
+  .sched-stat-badge {
+    padding: 0.25rem 0.65rem !important;
+    font-size: 0.85rem !important;
+    gap: 0.35rem !important;
+    border-radius: var(--radius-sm) !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .sched-stat-item {
+    font-size: 0.85rem !important;
+    gap: 0.35rem !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .sched-toolbar-stats {
+    gap: 0.55rem !important;
+    font-size: 0.85rem !important;
+    display: flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  .header-action-buttons-group,
+  .header-profile-group,
+  .header-actions-group {
+    margin-left: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+/* ==========================================================================
+   TABLET & IPAD VIEWPORT SIZING (641px - 1080px)
+   ========================================================================== */
+@media (max-width: 1080px) and (min-width: 641px) {
+  .app-container {
+    padding: 0.25rem 0.55rem max(0.45rem, env(safe-area-inset-bottom)) 0.55rem !important;
+  }
+
+  .app-header {
+    padding: 0.2rem 0.42rem !important;
+    min-height: 34px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.35rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+  }
+
+  .header-container,
+  #sched-header-toolbar {
+    gap: 0.35rem !important;
+    align-items: center !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    margin: 0 0.35rem !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+    order: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .brand-group {
+    gap: 0.25rem !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    flex-shrink: 0 !important;
+    order: 0 !important;
+    max-width: none !important;
+  }
+
+  .brand-nav-btn,
+  .reviewer-link-icon {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    max-width: 32px !important;
+    max-height: 32px !important;
+    border-radius: 8px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .brand-calc-emoji {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  .brand-emoji {
+    font-size: 1.05rem !important;
+  }
+
+  .view-nav-bar,
+  .mode-nav,
+  .sched-preset-group {
+    gap: 0.16rem !important;
+    padding: 2px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+    width: auto !important;
+  }
+
+  .view-nav-btn,
+  .nav-btn,
+  .sched-preset-btn {
+    padding: 0.22rem 0.5rem !important;
+    font-size: 0.74rem !important;
+    min-height: 28px !important;
+    gap: 0.22rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    max-width: none !important;
+    flex-shrink: 0 !important;
+  }
+
+  .score-tag,
+  .header-badge,
+  .sched-stat-badge {
+    padding: 0.2rem 0.5rem !important;
+    font-size: 0.74rem !important;
+    gap: 0.28rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  .sched-stat-item {
+    font-size: 0.74rem !important;
+    gap: 0.28rem !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .sched-toolbar-stats {
+    gap: 0.35rem !important;
+    font-size: 0.74rem !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-shrink: 0 !important;
+    width: auto !important;
+  }
+
+  .header-action-buttons-group,
+  .header-profile-group,
+  .header-actions-group {
+    gap: 0.25rem !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+    order: 0 !important;
+    margin-left: auto !important;
+  }
+
+  .control-single-btn,
+  .action-btn,
+  .theme-toggle-btn,
+  .btn-profile-lock {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    max-width: 32px !important;
+    max-height: 32px !important;
+    font-size: 0.88rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: var(--radius-full) !important;
+    flex-shrink: 0 !important;
+  }
+
+  .theme-toggle-btn svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+}
+
+@media (max-width: 850px) and (min-width: 641px) {
+  .sched-btn-sub {
+    display: none !important;
   }
 }
 
@@ -1897,120 +2226,122 @@ html, body {
     line-height: 1.05 !important;
   }
 
-  /* Pinned Bottom Header Bar on phone */
-  .app-header {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-    padding: 0.15rem 0.35rem 0.2rem 0.35rem !important;
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 0.15rem !important;
-    flex: 0 0 auto !important;
-    flex-shrink: 0 !important;
-  }
+  /* Pinned Bottom Header Bar on phone (max-width: 640px) */
+  @media (max-width: 640px) {
+    .app-header {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      padding: 0.15rem 0.35rem 0.2rem 0.35rem !important;
+      display: flex !important;
+      flex-wrap: wrap !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 0.15rem !important;
+      flex: 0 0 auto !important;
+      flex-shrink: 0 !important;
+    }
 
-  .brand-group {
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.3rem !important;
-    min-width: 0 !important;
-    max-width: calc(100% - 75px) !important;
-    overflow: hidden !important;
-    flex-wrap: nowrap !important;
-    order: 1 !important;
-  }
+    .brand-group {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.3rem !important;
+      min-width: 0 !important;
+      max-width: calc(100% - 75px) !important;
+      overflow: hidden !important;
+      flex-wrap: nowrap !important;
+      order: 1 !important;
+    }
 
-  .brand-nav-btn {
-    width: 28px !important;
-    height: 28px !important;
-    min-width: 28px !important;
-    min-height: 28px !important;
-    max-width: 28px !important;
-    max-height: 28px !important;
-    border-radius: 7px !important;
-    font-size: 1.05rem !important;
-  }
+    .brand-nav-btn {
+      width: 28px !important;
+      height: 28px !important;
+      min-width: 28px !important;
+      min-height: 28px !important;
+      max-width: 28px !important;
+      max-height: 28px !important;
+      border-radius: 7px !important;
+      font-size: 1.05rem !important;
+    }
 
-  .brand-calc-emoji {
-    width: 17px !important;
-    height: 17px !important;
-  }
+    .brand-calc-emoji {
+      width: 17px !important;
+      height: 17px !important;
+    }
 
-  .header-actions-group {
-    order: 2 !important;
-    margin-left: auto !important;
-    gap: 0.3rem !important;
-  }
+    .header-actions-group {
+      order: 2 !important;
+      margin-left: auto !important;
+      gap: 0.3rem !important;
+    }
 
-  .theme-toggle-btn {
-    width: 28px !important;
-    height: 28px !important;
-    min-width: 28px !important;
-    min-height: 28px !important;
-    max-width: 28px !important;
-    max-height: 28px !important;
-    border-radius: 7px !important;
-    flex-shrink: 0 !important;
-  }
+    .theme-toggle-btn {
+      width: 28px !important;
+      height: 28px !important;
+      min-width: 28px !important;
+      min-height: 28px !important;
+      max-width: 28px !important;
+      max-height: 28px !important;
+      border-radius: 7px !important;
+      flex-shrink: 0 !important;
+    }
 
-  /* Schedule Toolbar inside Bottom Bar on phone */
-  #sched-header-toolbar {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 0.25rem !important;
-    width: 100% !important;
-    order: 3 !important;
-    padding-top: 0.25rem !important;
-    border-top: 1px solid var(--border-color) !important;
-    margin: 0 !important;
-  }
+    /* Schedule Toolbar inside Bottom Bar on phone */
+    #sched-header-toolbar {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 0.25rem !important;
+      width: 100% !important;
+      order: 3 !important;
+      padding-top: 0.25rem !important;
+      border-top: 1px solid var(--border-color) !important;
+      margin: 0 !important;
+    }
 
-  .sched-preset-group {
-    display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    gap: 0.25rem !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
+    .sched-preset-group {
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 0.25rem !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
 
-  .sched-preset-btn {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    font-size: 0.85rem !important;
-    font-weight: 700 !important;
-    padding: 0.35rem 0.2rem !important;
-    text-align: center !important;
-    justify-content: center !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    white-space: nowrap !important;
-    box-sizing: border-box !important;
-  }
+    .sched-preset-btn {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      font-size: 0.85rem !important;
+      font-weight: 700 !important;
+      padding: 0.35rem 0.2rem !important;
+      text-align: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+      box-sizing: border-box !important;
+    }
 
-  .sched-btn-sub {
-    display: none !important;
-  }
+    .sched-btn-sub {
+      display: none !important;
+    }
 
-  .sched-preset-btn:hover {
-    transform: none !important;
-  }
+    .sched-preset-btn:hover {
+      transform: none !important;
+    }
 
-  .sched-toolbar-stats {
-    width: 100% !important;
-    max-width: 100% !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    font-size: 0.88rem !important;
-    flex-wrap: wrap !important;
-    gap: 0.25rem !important;
-    box-sizing: border-box !important;
+    .sched-toolbar-stats {
+      width: 100% !important;
+      max-width: 100% !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      font-size: 0.88rem !important;
+      flex-wrap: wrap !important;
+      gap: 0.25rem !important;
+      box-sizing: border-box !important;
+    }
   }
 
   /* ==========================================================================
