@@ -769,6 +769,9 @@ function renderScheduleGrid() {
   });
 }
 
+const titleMeasureCanvas = document.createElement('canvas');
+const titleMeasureCtx = titleMeasureCanvas.getContext('2d');
+
 function fitScheduleEventTitles() {
   const isMobile = window.innerWidth <= 768 || (window.innerWidth <= 850 && window.innerHeight > window.innerWidth);
   const isZenDesktop = !isMobile && document.body.classList.contains('sched-focus-autohide');
@@ -804,11 +807,11 @@ function fitScheduleEventTitles() {
       } else {
         // Regular Desktop & iPad
         const isTablet = window.innerWidth <= 1199;
-        if (spanSteps <= 2) maxMeta = isTablet ? 10.5 : 12.0;
-        else if (spanSteps <= 3) maxMeta = isTablet ? 12.0 : 13.5;
-        else if (spanSteps <= 4) maxMeta = isTablet ? 13.5 : 15.0;
-        else maxMeta = isTablet ? 14.5 : 16.5;
-        minMeta = 6.0;
+        if (spanSteps <= 2) maxMeta = isTablet ? 10.5 : 11.5;
+        else if (spanSteps <= 3) maxMeta = isTablet ? 12.0 : 13.0;
+        else if (spanSteps <= 4) maxMeta = isTablet ? 13.5 : 14.5;
+        else maxMeta = isTablet ? 14.5 : 15.5;
+        minMeta = isTablet ? 6.5 : 8.5;
       }
 
       let metaSize = maxMeta;
@@ -825,8 +828,7 @@ function fitScheduleEventTitles() {
       const innerCardW = Math.max(0, card.clientWidth - padLeft - padRight);
 
       const checkMetaOverflow = () => {
-        if (metaEl.scrollWidth > innerCardW - 0.5) return true;
-        if (metaEl.scrollWidth > metaEl.clientWidth + 0.5) return true;
+        if (metaEl.scrollWidth > innerCardW + 0.5) return true;
         return false;
       };
 
@@ -851,12 +853,17 @@ function fitScheduleEventTitles() {
       const maxTitleH = Math.max(10, innerCardH - metaH - 2);
 
       let currentSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || 14;
-      const minSize = isMobile ? 5.5 : 7.0;
+      const minSize = isMobile ? 5.5 : 8.0;
+
+      const words = (titleEl.innerText || titleEl.textContent).trim().split(/\s+/).filter(Boolean);
 
       const checkWordOverflow = () => {
-        // Horizontal overflow (checks if any single word exceeds card inner width):
-        if (titleEl.scrollWidth > innerCardW + 0.5) return true;
-        // Vertical overflow (checks if wrapped lines collide with meta badge/bottom):
+        if (words.length > 0 && titleMeasureCtx) {
+          titleMeasureCtx.font = `800 ${currentSize}px sans-serif`;
+          for (let i = 0; i < words.length; i++) {
+            if (titleMeasureCtx.measureText(words[i]).width > innerCardW) return true;
+          }
+        }
         if (titleEl.scrollHeight > maxTitleH + 0.5) return true;
         if (card.scrollHeight > card.clientHeight + 1) return true;
         return false;

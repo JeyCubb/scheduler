@@ -206,6 +206,10 @@ html, body {
   font-weight: 800;
   color: #ffffff;
   display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
   white-space: normal !important;
   word-break: normal !important;
   overflow-wrap: normal !important;
@@ -222,9 +226,13 @@ html, body {
   display: flex;
   align-items: center;
   gap: 4px;
-  white-space: nowrap;
+  white-space: nowrap !important;
+  flex-wrap: nowrap !important;
   overflow: hidden;
   flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .sched-event-sec-badge {
@@ -1094,20 +1102,36 @@ html, body {
   .sched-event-block.sched-event-span-1hr .sched-event-title-main {
     font-size: 0.94rem !important;
     line-height: 1.10 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
   .sched-event-block.sched-event-span-1hr .sched-event-meta {
     font-size: 0.65rem !important;
     gap: 3px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
   }
 
   .sched-event-block.sched-event-span-1hr .sched-event-sec-badge {
     font-size: 0.63rem !important;
     padding: 0.05rem 0.25rem !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
   }
 
   .sched-event-block.sched-event-span-1hr .sched-event-room {
     font-size: 0.65rem !important;
+    white-space: nowrap !important;
+    flex-shrink: 1 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   .sched-event-title-main {
@@ -1115,6 +1139,10 @@ html, body {
     font-weight: 800 !important;
     line-height: 1.12 !important;
     display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
     white-space: normal !important;
     word-break: normal !important;
     overflow-wrap: normal !important;
@@ -1131,8 +1159,12 @@ html, body {
     align-items: center !important;
     gap: 4px !important;
     white-space: nowrap !important;
+    flex-wrap: nowrap !important;
     overflow: hidden !important;
     flex-shrink: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .sched-sidebar-card {
