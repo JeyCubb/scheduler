@@ -1028,28 +1028,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const containerTop = subjectListEl.getBoundingClientRect().top;
     const currentScrollTop = subjectListEl.scrollTop;
 
-    let closestIdx = 0;
-    let minDiff = Infinity;
-    cards.forEach((card, idx) => {
-      const cardDiff = Math.abs(card.getBoundingClientRect().top - containerTop);
-      if (cardDiff < minDiff) {
-        minDiff = cardDiff;
-        closestIdx = idx;
-      }
-    });
-
-    let targetIdx = closestIdx;
+    let targetCard = null;
     if (e.deltaY > 0) {
-      targetIdx = Math.min(cards.length - 1, closestIdx + 1);
+      targetCard = cards.find(card => card.getBoundingClientRect().top - containerTop > 14);
     } else {
-      targetIdx = Math.max(0, closestIdx - 1);
+      for (let i = cards.length - 1; i >= 0; i--) {
+        if (containerTop - cards[i].getBoundingClientRect().top > 14) {
+          targetCard = cards[i];
+          break;
+        }
+      }
     }
 
-    const targetCard = cards[targetIdx];
     if (targetCard) {
       const targetScroll = currentScrollTop + (targetCard.getBoundingClientRect().top - containerTop);
       subjectListEl.scrollTo({
         top: Math.max(0, targetScroll),
+        behavior: 'smooth'
+      });
+    } else if (e.deltaY < 0) {
+      subjectListEl.scrollTo({
+        top: 0,
         behavior: 'smooth'
       });
     }

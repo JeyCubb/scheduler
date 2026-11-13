@@ -1080,15 +1080,15 @@ body.sched-show-saturday .sched-grid-body {
   }
 
   .sched-sidebar-card {
-    width: 440px !important;
-    flex: 0 0 440px !important;
+    width: clamp(450px, 45vw, 530px) !important;
+    flex: 0 0 clamp(450px, 45vw, 530px) !important;
     height: 100% !important;
     max-height: 100% !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
-    padding: 0.35rem 0.65rem !important;
+    padding: 0.35rem 0.50rem !important;
     gap: 0.35rem !important;
     transition: opacity 0.32s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), margin-right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
     will-change: transform, opacity, margin-right;
@@ -1234,17 +1234,58 @@ body.sched-show-saturday .sched-grid-body {
   }
 
   #sched-subject-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.25rem 0.35rem !important;
+    align-content: start !important;
     flex: 1 1 auto !important;
     min-height: 0 !important;
     overflow-y: auto !important;
     scrollbar-width: thin !important;
     scrollbar-color: rgba(249, 115, 22, 0.45) transparent !important;
     padding-right: 4px !important;
-    scroll-snap-type: y mandatory !important;
-    -webkit-scroll-snap-type: y mandatory !important;
-    scroll-padding-top: 0px !important;
     scroll-behavior: smooth !important;
     overscroll-behavior-y: contain !important;
+  }
+
+  .sched-course-row {
+    margin-bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.20rem 0.28rem 0.22rem 0.28rem !important;
+    box-sizing: border-box !important;
+  }
+
+  .sched-course-row[data-course-code="ME 007"] {
+    grid-column: 1 / -1 !important;
+  }
+
+  .sched-course-title-main {
+    font-size: 0.86rem !important;
+  }
+
+  .sched-course-subgroup {
+    font-size: 0.74rem !important;
+  }
+
+  .sched-pill {
+    min-height: 44px !important;
+    padding: 0.12rem 0.08rem 0.16rem 0.08rem !important;
+  }
+
+  .sched-pill .pill-sec {
+    font-size: 0.76rem !important;
+    white-space: nowrap !important;
+  }
+
+  .sched-pill .pill-day {
+    font-size: 0.58rem !important;
+    white-space: nowrap !important;
+  }
+
+  .sched-pill .pill-time {
+    font-size: 0.52rem !important;
+    white-space: nowrap !important;
   }
 
   /* Sleek Coppery Scrollbar */
@@ -1496,23 +1537,23 @@ body.sched-show-saturday .sched-grid-body {
   /* Tablet & iPad Landscape (769px - 1199px) Optimization */
   @media (max-width: 1199px) {
     .sched-sidebar-card {
-      width: 335px !important;
-      flex: 0 0 335px !important;
-      padding: 0.35rem 0.45rem !important;
+      width: clamp(430px, 45vw, 480px) !important;
+      flex: 0 0 clamp(430px, 45vw, 480px) !important;
+      padding: 0.30rem 0.38rem !important;
     }
 
     .sched-pills-row {
       display: grid !important;
       grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-      gap: 0.22rem !important;
+      gap: 0.18rem !important;
     }
 
     .sched-pill {
       width: 100% !important;
       min-width: 0 !important;
       max-width: 100% !important;
-      padding: 0.22rem 0.15rem !important;
-      min-height: 48px !important;
+      padding: 0.12rem 0.08rem 0.15rem 0.08rem !important;
+      min-height: 44px !important;
     }
 
     .sched-pill .pill-sec {
