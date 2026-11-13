@@ -799,8 +799,8 @@ function fitScheduleEventTitles() {
       let maxMeta;
       let minMeta;
       if (isMobile) {
-        maxMeta = spanSteps <= 2 ? 9.75 : 11.0;
-        minMeta = 5.5;
+        maxMeta = spanSteps <= 2 ? 8.25 : 8.75;
+        minMeta = 4.75;
       } else if (isZenDesktop) {
         if (spanSteps <= 2) maxMeta = 14.5;
         else if (spanSteps <= 3) maxMeta = 17.0;
