@@ -624,45 +624,10 @@ Room: ${sec.room}${pillConflictTitle}"
 // RENDER CALENDAR GRID
 // ==========================================================================
 function formatEventTitleHtml(title, tag) {
-  let lines = [];
-  if (title === 'General Education Elective 2') {
-    lines = ['General Education', 'Elective 2'];
-  } else if (title === 'General Education Elective 3') {
-    lines = ['General Education', 'Elective 3'];
-  } else if (title === 'Methods of Research for ME') {
-    lines = ['Methods of Research', 'for ME'];
-  } else if (title === 'Materials Science and Engineering for ME') {
-    lines = ['Materials', 'Science', 'and Engineering', tag ? `for ME (${tag})` : 'for ME'];
-    tag = null;
-  } else if (title === 'Mechanical Engineering Lab 1') {
-    lines = ['Mechanical', 'Engineering', 'Lab 1'];
-  } else if (title === 'Engineering Management') {
-    lines = ['Engineering', 'Management'];
-  } else if (title === 'Combustion Engineering') {
-    lines = ['Combustion', 'Engineering'];
-  } else if (title === 'Fluid Machineries') {
-    lines = ['Fluid', 'Machineries'];
-  } else if (title === 'Control Engineering') {
-    lines = ['Control', 'Engineering'];
-  } else if (title === 'Machine Design 1') {
-    lines = ['Machine', 'Design 1'];
-  } else if (title === 'Refrigeration Systems') {
-    lines = ['Refrigeration', 'Systems'];
-  } else {
-    const words = title.split(/\s+/);
-    if (words.length <= 2) {
-      lines = words;
-    } else {
-      const mid = Math.ceil(words.length / 2);
-      lines = [words.slice(0, mid).join(' '), words.slice(mid).join(' ')];
-    }
-  }
-
   if (tag) {
-    lines.push(`(${tag})`);
+    return `${title} (${tag})`;
   }
-
-  return lines.map(l => `<span class="sched-title-line">${l}</span>`).join('');
+  return title;
 }
 
 function renderScheduleGrid() {
@@ -871,111 +836,9 @@ function fitScheduleEventTitles() {
       }
     }
 
-    // 2. Maximize course title space (Grow to fit / Reverse shrink-to-fit)
-    if (!titleEl) return;
-    titleEl.style.removeProperty('font-size');
-
-    let maxTitleSize;
-    let minTitleSize;
-    if (isMobile) {
-      if (spanSteps <= 2) {
-        maxTitleSize = 13.0;
-        minTitleSize = 4.8;
-      } else if (spanSteps <= 3) {
-        maxTitleSize = 16.5;
-        minTitleSize = 5.0;
-      } else {
-        maxTitleSize = 20.0;
-        minTitleSize = 5.2;
-      }
-    } else if (isZenDesktop) {
-      if (spanSteps <= 2) {
-        maxTitleSize = 26.0;
-        minTitleSize = 9.0;
-      } else if (spanSteps <= 3) {
-        maxTitleSize = 34.0;
-        minTitleSize = 10.0;
-      } else if (spanSteps <= 4) {
-        maxTitleSize = 42.0;
-        minTitleSize = 11.0;
-      } else {
-        maxTitleSize = 50.0;
-        minTitleSize = 12.0;
-      }
-    } else {
-      // Regular desktop & iPad: maximize aggressively according to available card block space
-      const isTablet = window.innerWidth <= 1199;
-      if (spanSteps <= 2) {
-        maxTitleSize = isTablet ? 15.0 : 20.0;
-        minTitleSize = 4.8;
-      } else if (spanSteps <= 3) {
-        maxTitleSize = isTablet ? 19.0 : 26.0;
-        minTitleSize = 5.0;
-      } else if (spanSteps <= 4) {
-        maxTitleSize = isTablet ? 24.0 : 34.0;
-        minTitleSize = 5.2;
-      } else {
-        maxTitleSize = isTablet ? 28.0 : 42.0;
-        minTitleSize = 5.5;
-      }
-    }
-
-    const checkOverflow = () => {
-      const computedCard = window.getComputedStyle(card);
-      const padLeft = parseFloat(computedCard.paddingLeft) || 0;
-      const padRight = parseFloat(computedCard.paddingRight) || 0;
-      const padTop = parseFloat(computedCard.paddingTop) || 0;
-      const padBottom = parseFloat(computedCard.paddingBottom) || 0;
-      const innerCardW = Math.max(0, card.clientWidth - padLeft - padRight);
-      const innerCardH = Math.max(0, card.clientHeight - padTop - padBottom);
-
-      // 1. Overall card scroll overflow
-      if (card.scrollHeight > card.clientHeight + 1) return true;
-      if (card.scrollWidth > card.clientWidth + 1) return true;
-
-      // 2. Title element scroll overflow
-      if (titleEl.scrollHeight > titleEl.clientHeight + 1) return true;
-      if (titleEl.scrollWidth > innerCardW - 0.5) return true;
-
-      // 3. Horizontal overflow of any line item (ensure no line exceeds card available content width)
-      const lineEls = titleEl.querySelectorAll('.sched-title-line');
-      for (let i = 0; i < lineEls.length; i++) {
-        if (lineEls[i].scrollWidth > innerCardW - 0.5) return true;
-      }
-
-      // 4. Combined vertical height exceeding available card space
-      const metaH = metaEl ? metaEl.offsetHeight : 0;
-      if (titleEl.offsetHeight + metaH > innerCardH + 0.5) return true;
-
-      // 5. Vertical collision between title and meta
-      if (metaEl && metaEl.offsetTop < titleEl.offsetTop + titleEl.offsetHeight) return true;
-
-      return false;
-    };
-
-    // Binary search for exact maximum fitting font size to fill the card space
-    let low = minTitleSize;
-    let high = maxTitleSize;
-    let bestSize = minTitleSize;
-
-    for (let iter = 0; iter < 12; iter++) {
-      if (high - low < 0.2) break;
-      const mid = Math.round(((low + high) / 2) * 10) / 10;
-      titleEl.style.setProperty('font-size', mid + 'px', 'important');
-      if (checkOverflow()) {
-        high = mid - 0.2;
-      } else {
-        bestSize = mid;
-        low = mid + 0.2;
-      }
-    }
-
-    titleEl.style.setProperty('font-size', bestSize + 'px', 'important');
-
-    // Safe adjustment step if edge condition
-    while (checkOverflow() && bestSize > minTitleSize) {
-      bestSize = Math.max(minTitleSize, Math.round((bestSize - 0.25) * 100) / 100);
-      titleEl.style.setProperty('font-size', bestSize + 'px', 'important');
+    // Reset subject title font size to default CSS styling (no JS shrinking/forcing)
+    if (titleEl) {
+      titleEl.style.removeProperty('font-size');
     }
   });
 }
