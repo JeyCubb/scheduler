@@ -1992,9 +1992,12 @@ html, body {
   .sched-calendar-card {
     width: 100% !important;
     height: auto !important;
-    min-height: 250px !important;
-    flex-shrink: 0 !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    flex: none !important;
+    flex-basis: auto !important;
     flex-grow: 0 !important;
+    flex-shrink: 0 !important;
     padding: 0.2rem 0.15rem 0.1rem 0.15rem !important;
     border-radius: var(--radius-sm) !important;
     overflow: hidden !important;
@@ -2005,8 +2008,13 @@ html, body {
     max-width: 100% !important;
     min-width: 0 !important;
     height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
     overflow: hidden !important;
     flex: none !important;
+    flex-basis: auto !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
   }
 
   .sched-grid-header {
@@ -2037,8 +2045,12 @@ html, body {
     grid-auto-rows: 20px !important;
     gap: 1.5px !important;
     height: auto !important;
-    min-height: 220px !important;
+    min-height: 0 !important;
+    max-height: none !important;
     flex: none !important;
+    flex-basis: auto !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
     box-sizing: border-box !important;
   }
 

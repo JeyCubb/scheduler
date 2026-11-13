@@ -650,10 +650,16 @@ function renderScheduleGrid() {
 
   gridEl.innerHTML = '';
   const isMob = isMobileLayout();
-  gridEl.style.gridTemplateRows = isMob
-    ? `repeat(${totalSteps}, 20px)`
-    : `repeat(${totalSteps}, minmax(0, 1fr))`;
-  gridEl.style.height = isMob ? 'auto' : '100%';
+  if (isMob) {
+    const requiredH = totalSteps * 20 + Math.max(0, totalSteps - 1) * 1.5;
+    gridEl.style.gridTemplateRows = `repeat(${totalSteps}, 20px)`;
+    gridEl.style.height = `${requiredH}px`;
+    gridEl.style.minHeight = `${requiredH}px`;
+  } else {
+    gridEl.style.gridTemplateRows = `repeat(${totalSteps}, minmax(0, 1fr))`;
+    gridEl.style.height = '100%';
+    gridEl.style.minHeight = '';
+  }
 
   // Time labels and slot lines
   for (let step = 0; step < totalSteps; step++) {
