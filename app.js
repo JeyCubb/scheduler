@@ -799,8 +799,8 @@ function fitScheduleEventTitles() {
       let maxMeta;
       let minMeta;
       if (isMobile) {
-        maxMeta = spanSteps <= 2 ? 8.25 : 8.75;
-        minMeta = 4.75;
+        maxMeta = spanSteps <= 2 ? 7.5 : 8.0;
+        minMeta = 4.5;
       } else if (isZenDesktop) {
         if (spanSteps <= 2) maxMeta = 14.5;
         else if (spanSteps <= 3) maxMeta = 17.0;
@@ -831,6 +831,7 @@ function fitScheduleEventTitles() {
 
       const checkMetaOverflow = () => {
         if (metaEl.scrollWidth > innerCardW + 0.5) return true;
+        if (roomEl && roomEl.scrollWidth > roomEl.clientWidth + 0.5) return true;
         return false;
       };
 
