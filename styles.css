@@ -2306,42 +2306,70 @@ html, body {
       min-height: auto !important;
       box-sizing: border-box !important;
       overflow: visible !important;
-      padding: 0.2rem 0.35rem 0.25rem 0.35rem !important;
+      padding: 0.2rem 0.35rem 0.22rem 0.35rem !important;
       display: flex !important;
       flex-wrap: wrap !important;
       align-items: center !important;
       justify-content: space-between !important;
-      gap: 0.15rem !important;
+      gap: 0.15rem 0.25rem !important;
       flex: 0 0 auto !important;
       flex-shrink: 0 !important;
     }
 
-    /* Schedule Toolbar inside Bottom Bar on phone (Top of Ribbon) */
+    /* Unwrap toolbar so preset group and stats participate directly in app-header flex */
     #sched-header-toolbar {
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: stretch !important;
+      display: contents !important;
+    }
+
+    /* Row 1: Presets Toolbar (Full Width) */
+    .sched-preset-group {
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
       gap: 0.25rem !important;
       width: 100% !important;
       order: 1 !important;
-      padding-top: 0 !important;
-      padding-bottom: 0.25rem !important;
-      border-top: none !important;
+      box-sizing: border-box !important;
+      padding-bottom: 0.2rem !important;
       border-bottom: 1px solid var(--border-color) !important;
-      margin: 0 0 0.15rem 0 !important;
+      margin-bottom: 0.05rem !important;
     }
 
-    /* Brand Navigation Trio at the Bottom of Ribbon */
+    .sched-preset-btn {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      font-size: 0.85rem !important;
+      font-weight: 700 !important;
+      padding: 0.32rem 0.2rem !important;
+      text-align: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+      box-sizing: border-box !important;
+    }
+
+    .sched-btn-sub {
+      display: none !important;
+    }
+
+    .sched-preset-btn:hover {
+      transform: none !important;
+    }
+
+    /* Row 2: Brand Navigation Trio (Left) */
     .brand-group {
       display: flex !important;
       align-items: center !important;
-      gap: 0.25rem !important;
+      gap: 0.22rem !important;
       min-width: 0 !important;
+      width: auto !important;
       max-width: none !important;
       overflow: visible !important;
       flex-wrap: nowrap !important;
+      flex-shrink: 0 !important;
       order: 2 !important;
-      margin-top: 0.05rem !important;
+      margin: 0 !important;
     }
 
     .brand-nav-btn {
@@ -2360,11 +2388,45 @@ html, body {
       height: 17px !important;
     }
 
-    .header-actions-group {
+    /* Row 2: Enrolled & Units Stats (Middle, Same Line as Light Mode Button) */
+    .sched-toolbar-stats {
       order: 3 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 0.35rem !important;
+      width: auto !important;
+      flex: 1 1 auto !important;
+      margin: 0 auto !important;
+      white-space: nowrap !important;
+      box-sizing: border-box !important;
+    }
+
+    .sched-stat-item {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.18rem !important;
+      font-size: 0.76rem !important;
+      font-weight: 700 !important;
+      white-space: nowrap !important;
+    }
+
+    .sched-stat-badge {
+      font-size: 0.74rem !important;
+      padding: 0.08rem 0.32rem !important;
+      border-radius: var(--radius-sm) !important;
+    }
+
+    /* Row 2: Light Mode Action Button (Right) */
+    .header-actions-group {
+      order: 4 !important;
       margin-left: auto !important;
-      gap: 0.3rem !important;
-      margin-top: 0.05rem !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.25rem !important;
+      width: auto !important;
+      flex-shrink: 0 !important;
+      margin-top: 0 !important;
     }
 
     .theme-toggle-btn {
@@ -2376,49 +2438,6 @@ html, body {
       max-height: 28px !important;
       border-radius: 7px !important;
       flex-shrink: 0 !important;
-    }
-
-    .sched-preset-group {
-      display: grid !important;
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-      gap: 0.25rem !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
-    }
-
-    .sched-preset-btn {
-      width: 100% !important;
-      max-width: 100% !important;
-      min-width: 0 !important;
-      font-size: 0.85rem !important;
-      font-weight: 700 !important;
-      padding: 0.35rem 0.2rem !important;
-      text-align: center !important;
-      justify-content: center !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
-      white-space: nowrap !important;
-      box-sizing: border-box !important;
-    }
-
-    .sched-btn-sub {
-      display: none !important;
-    }
-
-    .sched-preset-btn:hover {
-      transform: none !important;
-    }
-
-    .sched-toolbar-stats {
-      width: 100% !important;
-      max-width: 100% !important;
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: center !important;
-      font-size: 0.88rem !important;
-      flex-wrap: wrap !important;
-      gap: 0.25rem !important;
-      box-sizing: border-box !important;
     }
   }
 
