@@ -2530,6 +2530,54 @@ html, body {
 }
 
 /* ==========================================================================
+   IPAD & TABLET PORTRAIT: TWO-COLUMN SUBJECT LIST
+   ========================================================================== */
+@media (min-width: 601px) and (max-width: 850px) and (orientation: portrait),
+       (min-width: 601px) and (max-width: 768px) {
+  #sched-subject-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.25rem 0.35rem !important;
+    align-content: start !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .sched-course-row {
+    margin-bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.2rem 0.28rem 0.22rem 0.28rem !important;
+    box-sizing: border-box !important;
+  }
+
+  .sched-course-title-main {
+    font-size: 0.86rem !important;
+  }
+
+  .sched-course-subgroup {
+    font-size: 0.74rem !important;
+  }
+
+  .sched-pill {
+    min-height: 44px !important;
+    padding: 0.12rem 0.08rem 0.16rem 0.08rem !important;
+  }
+
+  .sched-pill .pill-sec {
+    font-size: 0.76rem !important;
+  }
+
+  .sched-pill .pill-day {
+    font-size: 0.58rem !important;
+  }
+
+  .sched-pill .pill-time {
+    font-size: 0.52rem !important;
+  }
+}
+
+/* ==========================================================================
    Remove Subject Confirmation Modal Dialog
    ========================================================================== */
 .sched-modal-backdrop {
