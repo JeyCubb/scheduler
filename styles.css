@@ -1388,12 +1388,57 @@ html, body {
   body.sched-focus-autohide .sched-event-block.sched-event-span-1hr .sched-event-room {
     font-size: 0.80rem !important;
   }
+
+  /* Tablet & iPad Landscape (769px - 1199px) Optimization */
+  @media (max-width: 1199px) {
+    .sched-sidebar-card {
+      width: 320px !important;
+      flex: 0 0 320px !important;
+      padding: 0.35rem 0.45rem !important;
+    }
+
+    .sched-grid-header,
+    .sched-grid-body {
+      grid-template-columns: 56px repeat(5, minmax(0, 1fr)) !important;
+    }
+
+    .sched-time-label {
+      font-size: 0.58rem !important;
+      padding-right: 0.25rem !important;
+    }
+
+    .sched-day-label {
+      font-size: 0.70rem !important;
+      padding: 0.10rem !important;
+    }
+
+    .sched-day-label .day-full {
+      display: none !important;
+    }
+
+    .sched-day-label .day-short {
+      display: inline !important;
+    }
+
+    .sched-event-block {
+      padding: 0.14rem 0.25rem !important;
+    }
+
+    .sched-event-sec-badge {
+      font-size: 0.52rem !important;
+      padding: 0.03rem 0.20rem !important;
+    }
+
+    .sched-event-room {
+      font-size: 0.54rem !important;
+    }
+  }
 }
 
 /* ==========================================================================
-   MOBILE VIEW (max-width: 768px): ZOOMED-OUT FULL WEEK & SMOOTH SCROLLING
+   MOBILE & TABLET PORTRAIT VIEW: ZOOMED-OUT FULL WEEK & SMOOTH SCROLLING
    ========================================================================== */
-@media (max-width: 768px) {
+@media (max-width: 768px), (max-width: 850px) and (orientation: portrait) {
   *, *::before, *::after {
     box-sizing: border-box !important;
     touch-action: manipulation !important;

@@ -805,7 +805,7 @@ function renderScheduleGrid() {
 }
 
 function fitScheduleEventTitles() {
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = window.innerWidth <= 768 || (window.innerWidth <= 850 && window.innerHeight > window.innerWidth);
   const isZenDesktop = !isMobile && document.body.classList.contains('sched-focus-autohide');
   const cards = document.querySelectorAll('.sched-event-block');
 
@@ -837,12 +837,13 @@ function fitScheduleEventTitles() {
         else maxMeta = 17.0;
         minMeta = 9.0;
       } else {
-        // Regular Desktop
-        if (spanSteps <= 2) maxMeta = 11.0;
-        else if (spanSteps <= 3) maxMeta = 12.5;
-        else if (spanSteps <= 4) maxMeta = 14.0;
-        else maxMeta = 15.0;
-        minMeta = 6.5;
+        // Regular Desktop & iPad
+        const isTablet = window.innerWidth <= 1199;
+        if (spanSteps <= 2) maxMeta = isTablet ? 9.5 : 11.0;
+        else if (spanSteps <= 3) maxMeta = isTablet ? 11.0 : 12.5;
+        else if (spanSteps <= 4) maxMeta = isTablet ? 12.0 : 14.0;
+        else maxMeta = isTablet ? 13.0 : 15.0;
+        minMeta = 5.0;
       }
 
       let metaSize = maxMeta;
@@ -859,7 +860,7 @@ function fitScheduleEventTitles() {
       const innerCardW = Math.max(0, card.clientWidth - padLeft - padRight);
 
       const checkMetaOverflow = () => {
-        if (metaEl.scrollWidth > innerCardW + 0.25) return true;
+        if (metaEl.scrollWidth > innerCardW - 0.5) return true;
         if (metaEl.scrollWidth > metaEl.clientWidth + 0.5) return true;
         return false;
       };
@@ -902,19 +903,20 @@ function fitScheduleEventTitles() {
         minTitleSize = 12.0;
       }
     } else {
-      // Regular desktop: maximize aggressively according to available card block space
+      // Regular desktop & iPad: maximize aggressively according to available card block space
+      const isTablet = window.innerWidth <= 1199;
       if (spanSteps <= 2) {
-        maxTitleSize = 20.0;
-        minTitleSize = 6.8;
+        maxTitleSize = isTablet ? 15.0 : 20.0;
+        minTitleSize = 4.8;
       } else if (spanSteps <= 3) {
-        maxTitleSize = 26.0;
-        minTitleSize = 7.0;
+        maxTitleSize = isTablet ? 19.0 : 26.0;
+        minTitleSize = 5.0;
       } else if (spanSteps <= 4) {
-        maxTitleSize = 34.0;
-        minTitleSize = 7.5;
+        maxTitleSize = isTablet ? 24.0 : 34.0;
+        minTitleSize = 5.2;
       } else {
-        maxTitleSize = 42.0;
-        minTitleSize = 8.0;
+        maxTitleSize = isTablet ? 28.0 : 42.0;
+        minTitleSize = 5.5;
       }
     }
 
@@ -933,12 +935,12 @@ function fitScheduleEventTitles() {
 
       // 2. Title element scroll overflow
       if (titleEl.scrollHeight > titleEl.clientHeight + 1) return true;
-      if (titleEl.scrollWidth > innerCardW + 0.25) return true;
+      if (titleEl.scrollWidth > innerCardW - 0.5) return true;
 
       // 3. Horizontal overflow of any line item (ensure no line exceeds card available content width)
       const lineEls = titleEl.querySelectorAll('.sched-title-line');
       for (let i = 0; i < lineEls.length; i++) {
-        if (lineEls[i].scrollWidth > innerCardW + 0.25) return true;
+        if (lineEls[i].scrollWidth > innerCardW - 0.5) return true;
       }
 
       // 4. Combined vertical height exceeding available card space
