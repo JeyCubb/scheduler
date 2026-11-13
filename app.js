@@ -1164,24 +1164,33 @@ function enterFocusMode() {
   if (isModalOpen) return; // Never hide UI while confirmation prompt is open
   if (!document.body.classList.contains('sched-focus-autohide')) {
     document.body.classList.add('sched-focus-autohide');
-    renderScheduleGrid();
-    // Settle fit after the transition completes smoothly (no mid-animation layout thrashing)
+    const isMob = isMobileLayout();
+    if (isMob) {
+      const gridEl = document.getElementById('sched-calendar-grid');
+      if (gridEl) {
+        gridEl.style.height = '100%';
+        gridEl.style.minHeight = '';
+      }
+    }
     setTimeout(() => {
-      renderScheduleGrid();
       fitScheduleEventTitles();
-    }, 420);
+    }, 260);
   }
 }
 
 function exitFocusMode() {
   if (document.body.classList.contains('sched-focus-autohide')) {
     document.body.classList.remove('sched-focus-autohide');
-    renderScheduleGrid();
-    // Settle fit after the transition completes smoothly
+    const isMob = isMobileLayout();
+    if (isMob) {
+      const gridEl = document.getElementById('sched-calendar-grid');
+      if (gridEl) {
+        renderScheduleGrid();
+      }
+    }
     setTimeout(() => {
-      renderScheduleGrid();
       fitScheduleEventTitles();
-    }, 420);
+    }, 260);
   }
 }
 

@@ -1078,7 +1078,8 @@ body.sched-show-saturday .sched-grid-body {
     flex-direction: column !important;
     overflow: hidden !important;
     padding: 0.35rem 0.65rem !important;
-    transition: max-width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, margin 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+    transition: box-shadow 0.24s ease, border-color 0.24s ease !important;
+    contain: layout paint;
   }
 
   .sched-sidebar-card {
@@ -1092,8 +1093,9 @@ body.sched-show-saturday .sched-grid-body {
     overflow: hidden !important;
     padding: 0.35rem 0.50rem !important;
     gap: 0.35rem !important;
-    transition: opacity 0.32s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), margin-right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-    will-change: transform, opacity, margin-right;
+    transition: opacity 0.22s ease-out, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), flex 0.24s cubic-bezier(0.16, 1, 0.3, 1), width 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    will-change: transform, opacity;
+    contain: layout paint;
   }
 
   .sched-grid-wrapper {
@@ -1356,37 +1358,20 @@ body.sched-show-saturday .sched-grid-body {
   /* ==========================================================================
      Auto-Hide Ribbon & Subject Selector on Desktop (Center Schedule)
      ========================================================================== */
-  .sched-main-layout {
-    transition: gap 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-  }
-
   .sched-calendar-card {
-    transition: max-width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, margin 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+    transition: box-shadow 0.24s ease, border-color 0.24s ease !important;
+    contain: layout paint;
   }
 
   .sched-sidebar-card {
-    transition: opacity 0.32s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), flex 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), margin 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), padding 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-    will-change: transform, opacity, width, flex;
+    transition: opacity 0.22s ease-out, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), flex 0.24s cubic-bezier(0.16, 1, 0.3, 1), width 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    will-change: transform, opacity;
+    contain: layout paint;
   }
 
   .app-header {
-    transition: opacity 0.32s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), margin-bottom 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-    will-change: transform, opacity, margin-bottom;
-  }
-
-  .sched-event-title-main {
-    transition: line-height 0.35s ease !important;
-  }
-
-  .sched-event-meta,
-  .sched-event-sec-badge,
-  .sched-event-room {
-    transition: padding 0.35s ease !important;
-  }
-
-  .sched-day-label,
-  .sched-time-label {
-    transition: font-size 0.35s ease, padding 0.35s ease !important;
+    transition: opacity 0.20s ease-out, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), margin-bottom 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    will-change: transform, opacity;
   }
 
   body.sched-focus-autohide .app-container {
@@ -1414,7 +1399,7 @@ body.sched-show-saturday .sched-grid-body {
   body.sched-focus-autohide .sched-sidebar-card {
     opacity: 0 !important;
     pointer-events: none !important;
-    transform: translateX(40px) !important;
+    transform: translate3d(24px, 0, 0) !important;
     width: 0 !important;
     min-width: 0 !important;
     max-width: 0 !important;
@@ -1428,7 +1413,7 @@ body.sched-show-saturday .sched-grid-body {
   body.sched-focus-autohide .app-header {
     opacity: 0 !important;
     pointer-events: none !important;
-    transform: translateY(100%) !important;
+    transform: translate3d(0, 100%, 0) !important;
     margin-bottom: -50px !important;
     overflow: hidden !important;
   }
@@ -2555,17 +2540,19 @@ body.sched-show-saturday .sched-grid-body {
      Auto-Hide Ribbon & Subject Selector on Phone (Center Schedule)
      ========================================================================== */
   .sched-calendar-card {
-    transition: margin 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, flex 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+    transition: box-shadow 0.24s ease !important;
+    contain: layout paint;
   }
 
   .sched-sidebar-card {
-    transition: opacity 0.32s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), flex 0.4s ease, height 0.4s ease, min-height 0.4s ease !important;
+    transition: opacity 0.22s ease-out, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), flex 0.24s cubic-bezier(0.16, 1, 0.3, 1), height 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
     will-change: transform, opacity;
+    contain: layout paint;
   }
 
   .app-header {
-    transition: opacity 0.32s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), margin-bottom 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-    will-change: transform, opacity, margin-bottom;
+    transition: opacity 0.20s ease-out, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), margin-bottom 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    will-change: transform, opacity;
   }
 
   body.sched-focus-autohide .app-container {
