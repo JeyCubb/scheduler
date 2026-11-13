@@ -1318,21 +1318,22 @@ html, body {
 
   body.sched-focus-autohide .app-container {
     gap: 0 !important;
+    padding: 0.2rem 0.35rem max(0.35rem, env(safe-area-inset-bottom)) 0.35rem !important;
   }
 
   body.sched-focus-autohide #sched-view-container {
     height: 100% !important;
     height: 100dvh !important;
     max-height: 100dvh !important;
-    justify-content: center !important;
-    align-items: center !important;
+    justify-content: stretch !important;
+    align-items: stretch !important;
     gap: 0 !important;
   }
 
   body.sched-focus-autohide .sched-main-layout {
     gap: 0 !important;
-    align-items: center !important;
-    justify-content: center !important;
+    align-items: stretch !important;
+    justify-content: stretch !important;
     height: 100% !important;
     width: 100% !important;
   }
@@ -1361,10 +1362,10 @@ html, body {
 
   body.sched-focus-autohide .sched-calendar-card {
     width: 100% !important;
-    max-width: 1060px !important;
+    max-width: 100% !important;
     height: 100% !important;
-    max-height: calc(100dvh - 1.2rem) !important;
-    margin: 0 auto !important;
+    max-height: calc(100dvh - 0.4rem) !important;
+    margin: 0 !important;
     display: flex !important;
     flex-direction: column !important;
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5) !important;
@@ -2466,16 +2467,16 @@ html, body {
     height: 100% !important;
     height: 100dvh !important;
     max-height: 100dvh !important;
-    justify-content: center !important;
-    align-items: center !important;
+    justify-content: stretch !important;
+    align-items: stretch !important;
     gap: 0 !important;
   }
 
   body.sched-focus-autohide .sched-main-layout {
     height: 100% !important;
     max-height: 100% !important;
-    justify-content: center !important;
-    align-items: center !important;
+    justify-content: stretch !important;
+    align-items: stretch !important;
     gap: 0 !important;
   }
 
@@ -2509,8 +2510,8 @@ html, body {
 
   body.sched-focus-autohide .sched-calendar-card {
     width: 100% !important;
-    max-width: 440px !important;
-    margin: auto 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45) !important;
   }
 }
