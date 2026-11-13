@@ -666,7 +666,7 @@ html, body {
 }
 
 .bottom-panel {
-  padding: 0.25rem 0.55rem max(0.45rem, env(safe-area-inset-bottom));
+  padding: 0.25rem 0.55rem max(0.45rem, env(safe-area-inset-bottom, 0px)) 0.55rem !important;
 }
 
 .app-header {
@@ -680,6 +680,11 @@ html, body {
   max-width: 100%;
   box-sizing: border-box;
   z-index: 50;
+  height: 54px !important;
+  min-height: 54px !important;
+  padding: 0.25rem 0.55rem !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .brand-group {
@@ -1560,8 +1565,9 @@ html, body {
    ========================================================================== */
 @media (min-width: 1081px) {
   .app-header {
-    min-height: 38px !important;
-    padding: 0.28rem 0.55rem !important;
+    height: 54px !important;
+    min-height: 54px !important;
+    padding: 0.25rem 0.55rem !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
@@ -1589,18 +1595,18 @@ html, body {
 
   .brand-nav-btn,
   .reviewer-link-icon {
-    width: 38px !important;
-    height: 38px !important;
-    min-width: 38px !important;
-    min-height: 38px !important;
-    max-width: 38px !important;
-    max-height: 38px !important;
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    max-width: 34px !important;
+    max-height: 34px !important;
     border-radius: 9px !important;
   }
 
   .brand-calc-emoji {
-    width: 22px !important;
-    height: 22px !important;
+    width: 20px !important;
+    height: 20px !important;
   }
 
   .brand-emoji {
@@ -1699,12 +1705,13 @@ html, body {
    ========================================================================== */
 @media (max-width: 1080px) and (min-width: 641px) {
   .app-container {
-    padding: 0.25rem 0.55rem max(0.45rem, env(safe-area-inset-bottom)) 0.55rem !important;
+    padding: 0.25rem 0.55rem max(0.45rem, env(safe-area-inset-bottom, 0px)) 0.55rem !important;
   }
 
   .app-header {
-    padding: 0.2rem 0.42rem !important;
-    min-height: 34px !important;
+    padding: 0.25rem 0.55rem !important;
+    height: 54px !important;
+    min-height: 54px !important;
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
@@ -1736,7 +1743,7 @@ html, body {
   }
 
   .brand-group {
-    gap: 0.25rem !important;
+    gap: 0.35rem !important;
     display: flex !important;
     align-items: center !important;
     flex-wrap: nowrap !important;
@@ -1747,19 +1754,19 @@ html, body {
 
   .brand-nav-btn,
   .reviewer-link-icon {
-    width: 32px !important;
-    height: 32px !important;
-    min-width: 32px !important;
-    min-height: 32px !important;
-    max-width: 32px !important;
-    max-height: 32px !important;
-    border-radius: 8px !important;
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    max-width: 34px !important;
+    max-height: 34px !important;
+    border-radius: 9px !important;
     flex-shrink: 0 !important;
   }
 
   .brand-calc-emoji {
-    width: 19px !important;
-    height: 19px !important;
+    width: 20px !important;
+    height: 20px !important;
   }
 
   .brand-emoji {
@@ -2302,6 +2309,7 @@ html, body {
     .app-header {
       width: 100% !important;
       max-width: 100% !important;
+      min-height: 44px !important;
       box-sizing: border-box !important;
       overflow: hidden !important;
       padding: 0.15rem 0.35rem 0.2rem 0.35rem !important;
@@ -2314,15 +2322,32 @@ html, body {
       flex-shrink: 0 !important;
     }
 
+    /* Schedule Toolbar inside Bottom Bar on phone (Top of Ribbon) */
+    #sched-header-toolbar {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 0.25rem !important;
+      width: 100% !important;
+      order: 1 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0.25rem !important;
+      border-top: none !important;
+      border-bottom: 1px solid var(--border-color) !important;
+      margin: 0 0 0.15rem 0 !important;
+    }
+
+    /* Brand Navigation Trio at the Bottom of Ribbon */
     .brand-group {
       display: flex !important;
       align-items: center !important;
-      gap: 0.3rem !important;
+      gap: 0.25rem !important;
       min-width: 0 !important;
       max-width: calc(100% - 75px) !important;
       overflow: hidden !important;
       flex-wrap: nowrap !important;
-      order: 1 !important;
+      order: 2 !important;
+      margin-top: 0.05rem !important;
     }
 
     .brand-nav-btn {
@@ -2342,9 +2367,10 @@ html, body {
     }
 
     .header-actions-group {
-      order: 2 !important;
+      order: 3 !important;
       margin-left: auto !important;
       gap: 0.3rem !important;
+      margin-top: 0.05rem !important;
     }
 
     .theme-toggle-btn {
@@ -2356,19 +2382,6 @@ html, body {
       max-height: 28px !important;
       border-radius: 7px !important;
       flex-shrink: 0 !important;
-    }
-
-    /* Schedule Toolbar inside Bottom Bar on phone */
-    #sched-header-toolbar {
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: stretch !important;
-      gap: 0.25rem !important;
-      width: 100% !important;
-      order: 3 !important;
-      padding-top: 0.25rem !important;
-      border-top: 1px solid var(--border-color) !important;
-      margin: 0 !important;
     }
 
     .sched-preset-group {
