@@ -181,7 +181,9 @@ function applySchedulePreset(preset) {
     });
   } else if (preset === 'B') {
     SCHEDULE_COURSES.forEach(c => {
-      if (c.code === 'ME 406') userScheduleSelection[c.code] = 'ME32S2';
+      if (c.code === 'ME 406') userScheduleSelection[c.code] = 'ME32S3';
+      else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ECE32S1';
+      else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'Requested';
       else userScheduleSelection[c.code] = 'ME32S1';
     });
   }
