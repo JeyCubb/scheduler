@@ -168,6 +168,12 @@ html, body {
   white-space: nowrap;
 }
 
+.sched-time-label .time-ampm {
+  font-size: 0.85em;
+  opacity: 0.88;
+  margin-left: 2px;
+}
+
 .sched-grid-slot {
   border: 1px dashed rgba(255, 255, 255, 0.04);
   border-radius: 3px;
@@ -1341,13 +1347,31 @@ html, body {
     height: 100% !important;
     max-height: calc(100dvh - 1.2rem) !important;
     margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  body.sched-focus-autohide .sched-grid-wrapper {
+    flex: 1 1 0 !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
   }
 
   /* Balanced, High-Legibility Typography & Expanded Layout in Desktop Zen Mode */
   body.sched-focus-autohide .sched-grid-header,
   body.sched-focus-autohide .sched-grid-body {
     grid-template-columns: 105px repeat(5, 1fr) !important;
+  }
+
+  body.sched-focus-autohide .sched-grid-body {
+    height: 100% !important;
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
+    grid-auto-rows: minmax(0, 1fr) !important;
   }
 
   body.sched-focus-autohide .sched-grid-header {
@@ -1623,6 +1647,10 @@ html, body {
     line-height: 1 !important;
     justify-content: flex-end !important;
     letter-spacing: -0.02em !important;
+  }
+
+  .sched-time-label .time-ampm {
+    display: none !important;
   }
 
   .sched-grid-slot {

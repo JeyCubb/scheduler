@@ -649,7 +649,7 @@ function renderScheduleGrid() {
   const totalSteps = Math.ceil((endMin - startMin) / 30);
 
   gridEl.innerHTML = '';
-  const isMob = window.innerWidth <= 768;
+  const isMob = isMobileLayout();
   gridEl.style.gridTemplateRows = isMob
     ? `repeat(${totalSteps}, 20px)`
     : `repeat(${totalSteps}, minmax(0, 1fr))`;
@@ -662,14 +662,12 @@ function renderScheduleGrid() {
     const m = currMin % 60;
     const ampm = h >= 12 ? 'PM' : 'AM';
     const displayH = h > 12 ? h - 12 : (h === 0 ? 12 : h);
-    const isMobilePhone = window.innerWidth <= 768;
-    const timeStr = isMobilePhone ? `${displayH}:${m === 0 ? '00' : m}` : `${displayH}:${m === 0 ? '00' : m} ${ampm}`;
 
     const timeEl = document.createElement('div');
     timeEl.className = 'sched-time-label';
     timeEl.style.gridColumn = '1';
     timeEl.style.gridRow = `${step + 1}`;
-    timeEl.textContent = timeStr;
+    timeEl.innerHTML = `<span class="time-hm">${displayH}:${m === 0 ? '00' : m}</span><span class="time-ampm"> ${ampm}</span>`;
     gridEl.appendChild(timeEl);
 
     for (let d = 0; d < 5; d++) {
@@ -772,8 +770,12 @@ function renderScheduleGrid() {
 const titleMeasureCanvas = document.createElement('canvas');
 const titleMeasureCtx = titleMeasureCanvas.getContext('2d');
 
+function isMobileLayout() {
+  return window.innerWidth <= 768 && (window.innerHeight > window.innerWidth || window.innerWidth <= 500);
+}
+
 function fitScheduleEventTitles() {
-  const isMobile = window.innerWidth <= 768 || (window.innerWidth <= 850 && window.innerHeight > window.innerWidth);
+  const isMobile = isMobileLayout();
   const isZenDesktop = !isMobile && document.body.classList.contains('sched-focus-autohide');
   const cards = document.querySelectorAll('.sched-event-block');
 
@@ -1064,10 +1066,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('resize', () => {
   renderScheduleGrid();
+  fitScheduleEventTitles();
 });
 
 window.addEventListener('orientationchange', () => {
-  setTimeout(renderScheduleGrid, 100);
+  setTimeout(() => { renderScheduleGrid(); fitScheduleEventTitles(); }, 100);
+  setTimeout(() => { renderScheduleGrid(); fitScheduleEventTitles(); }, 350);
+  setTimeout(() => { renderScheduleGrid(); fitScheduleEventTitles(); }, 600);
 });
 
 // ==========================================================================
@@ -1143,6 +1148,7 @@ function enterFocusMode() {
     document.body.classList.add('sched-focus-autohide');
     // Settle fit after the transition completes smoothly (no mid-animation layout thrashing)
     setTimeout(() => {
+      renderScheduleGrid();
       fitScheduleEventTitles();
     }, 420);
   }
@@ -1153,6 +1159,7 @@ function exitFocusMode() {
     document.body.classList.remove('sched-focus-autohide');
     // Settle fit after the transition completes smoothly
     setTimeout(() => {
+      renderScheduleGrid();
       fitScheduleEventTitles();
     }, 420);
   }
