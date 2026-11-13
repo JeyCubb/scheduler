@@ -68,6 +68,18 @@ const SCHEDULE_COURSES = [
     ]
   },
   {
+    code: 'ME 007',
+    title: 'Materials Science and Engineering for ME',
+    units: 3,
+    color: '#16a34a',
+    border: '#4ade80',
+    sections: [
+      { id: 'ME32S1', desc: 'We 10:30-12:30 (L) & Fr 10:30-1:30 (Lab)', room: 'Q-2106', slots: [{ day: 2, start: 630, end: 750, room: 'Q-2106', tag: 'LEC' }, { day: 4, start: 630, end: 810, room: 'Q-2106', tag: 'LAB' }] },
+      { id: 'ME32S2', desc: 'Tu 3-5 PM (L) & Th 3-6 PM (Lab)', room: 'Q-2106', slots: [{ day: 1, start: 900, end: 1020, room: 'Q-2106', tag: 'LEC' }, { day: 3, start: 900, end: 1080, room: 'Q-2106', tag: 'LAB' }] },
+      { id: 'ME32S3', desc: 'We 5:30-7:30 (L) & Fr 4:30-7:30 (Lab)', room: 'Q-2106', slots: [{ day: 2, start: 1050, end: 1170, room: 'Q-2106', tag: 'LEC' }, { day: 4, start: 990, end: 1170, room: 'Q-2106', tag: 'LAB' }] }
+    ]
+  },
+  {
     code: 'ME 401',
     title: 'Mechanical Engineering Lab 1',
     units: 1,
@@ -81,15 +93,16 @@ const SCHEDULE_COURSES = [
     ]
   },
   {
-    code: 'ME 007',
-    title: 'Materials Science and Engineering for ME',
+    code: 'ECE 006',
+    title: 'Control Engineering',
     units: 3,
-    color: '#16a34a',
-    border: '#4ade80',
+    color: '#db2777',
+    border: '#f472b6',
     sections: [
-      { id: 'ME32S1', desc: 'We 10:30-12:30 (L) & Fr 10:30-1:30 (Lab)', room: 'Q-2106', slots: [{ day: 2, start: 630, end: 750, room: 'Q-2106', tag: 'LEC' }, { day: 4, start: 630, end: 810, room: 'Q-2106', tag: 'LAB' }] },
-      { id: 'ME32S2', desc: 'Tu 3-5 PM (L) & Th 3-6 PM (Lab)', room: 'Q-2106', slots: [{ day: 1, start: 900, end: 1020, room: 'Q-2106', tag: 'LEC' }, { day: 3, start: 900, end: 1080, room: 'Q-2106', tag: 'LAB' }] },
-      { id: 'ME32S3', desc: 'We 5:30-7:30 (L) & Fr 4:30-7:30 (Lab)', room: 'Q-2106', slots: [{ day: 2, start: 1050, end: 1170, room: 'Q-2106', tag: 'LEC' }, { day: 4, start: 990, end: 1170, room: 'Q-2106', tag: 'LAB' }] }
+      { id: 'ME32S1', desc: 'Tu 1:30-4:30 (Lab) & Th 2:30-4:30 (Lec)', room: 'Q-5322/5507', slots: [{ day: 1, start: 810, end: 990, room: 'Q-5322', tag: 'LAB' }, { day: 3, start: 870, end: 990, room: 'Q-5507', tag: 'LEC' }] },
+      { id: 'ME32S2', desc: 'Tu 7:30-10:30 (Lab) & Th 7:30-9:30 (Lec)', room: 'Q-5322/5507', slots: [{ day: 1, start: 450, end: 630, room: 'Q-5322', tag: 'LAB' }, { day: 3, start: 450, end: 570, room: 'Q-5507', tag: 'LEC' }] },
+      { id: 'ME32S3', desc: 'Tu 4:30-6:30 (Lec) & Th 4:30-7:30 (Lab)', room: 'Q-5507/5322', slots: [{ day: 1, start: 990, end: 1110, room: 'Q-5507', tag: 'LEC' }, { day: 3, start: 990, end: 1170, room: 'Q-5322', tag: 'LAB' }] },
+      { id: 'ME31S1', desc: 'We 2:30-4:30 (Lec) & Fr 1:30-4:30 (Lab)', room: 'Q-5414/5322', slots: [{ day: 2, start: 870, end: 990, room: 'Q-5414', tag: 'LEC' }, { day: 4, start: 810, end: 990, room: 'Q-5322', tag: 'LAB' }] }
     ]
   },
   {
@@ -104,19 +117,6 @@ const SCHEDULE_COURSES = [
       { id: 'ME32S3', desc: 'Wed 7:30–9:30 PM', room: 'Q-5504', slots: [{ day: 2, start: 1170, end: 1290, room: 'Q-5504' }] },
       { id: 'ECE22S1', desc: 'Mo 5:30–6:30 & We 7:30–8:30', room: 'Q-5320', slots: [{ day: 0, start: 1050, end: 1110, room: 'Q-5320' }, { day: 2, start: 1170, end: 1230, room: 'Q-5320' }] },
       { id: 'ECE32S1', desc: 'Tu/Th 12:00–1:00 PM', room: 'Q-9405', slots: [{ day: 1, start: 720, end: 780, room: 'Q-9405' }, { day: 3, start: 720, end: 780, room: 'Q-9405' }] }
-    ]
-  },
-  {
-    code: 'ECE 006',
-    title: 'Control Engineering',
-    units: 3,
-    color: '#db2777',
-    border: '#f472b6',
-    sections: [
-      { id: 'ME32S1', desc: 'Tu 1:30-4:30 (Lab) & Th 2:30-4:30 (Lec)', room: 'Q-5322/5507', slots: [{ day: 1, start: 810, end: 990, room: 'Q-5322', tag: 'LAB' }, { day: 3, start: 870, end: 990, room: 'Q-5507', tag: 'LEC' }] },
-      { id: 'ME32S2', desc: 'Tu 7:30-10:30 (Lab) & Th 7:30-9:30 (Lec)', room: 'Q-5322/5507', slots: [{ day: 1, start: 450, end: 630, room: 'Q-5322', tag: 'LAB' }, { day: 3, start: 450, end: 570, room: 'Q-5507', tag: 'LEC' }] },
-      { id: 'ME32S3', desc: 'Tu 4:30-6:30 (Lec) & Th 4:30-7:30 (Lab)', room: 'Q-5507/5322', slots: [{ day: 1, start: 990, end: 1110, room: 'Q-5507', tag: 'LEC' }, { day: 3, start: 990, end: 1170, room: 'Q-5322', tag: 'LAB' }] },
-      { id: 'ME31S1', desc: 'We 2:30-4:30 (Lec) & Fr 1:30-4:30 (Lab)', room: 'Q-5414/5322', slots: [{ day: 2, start: 870, end: 990, room: 'Q-5414', tag: 'LEC' }, { day: 4, start: 810, end: 990, room: 'Q-5322', tag: 'LAB' }] }
     ]
   },
   {
