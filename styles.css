@@ -1268,8 +1268,8 @@ html, body {
   }
 
   .sched-sidebar-card {
-    transition: opacity 0.32s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), margin-right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-    will-change: transform, opacity, margin-right;
+    transition: opacity 0.32s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), flex 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), margin 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), padding 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+    will-change: transform, opacity, width, flex;
   }
 
   .app-header {
@@ -1317,7 +1317,13 @@ html, body {
     opacity: 0 !important;
     pointer-events: none !important;
     transform: translateX(40px) !important;
-    margin-right: -440px !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    flex: 0 0 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
     overflow: hidden !important;
   }
 
