@@ -2459,7 +2459,7 @@ html, body {
      Auto-Hide Ribbon & Subject Selector on Phone (Center Schedule)
      ========================================================================== */
   .sched-calendar-card {
-    transition: margin 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease !important;
+    transition: margin 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, flex 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
   }
 
   .sched-sidebar-card {
@@ -2524,8 +2524,45 @@ html, body {
   body.sched-focus-autohide .sched-calendar-card {
     width: 100% !important;
     max-width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    flex: 1 1 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
     margin: 0 !important;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45) !important;
+  }
+
+  body.sched-focus-autohide .sched-grid-wrapper {
+    flex: 1 1 0 !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  body.sched-focus-autohide .sched-grid-body {
+    flex: 1 1 0 !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    min-height: 0 !important;
+    grid-auto-rows: minmax(0, 1fr) !important;
+  }
+
+  body.sched-focus-autohide .sched-day-label {
+    font-size: 0.95rem !important;
+    padding: 0.18rem 0 !important;
+  }
+
+  body.sched-focus-autohide .sched-time-label {
+    font-size: 0.72rem !important;
+  }
+
+  body.sched-focus-autohide .sched-event-block {
+    padding: 0.22rem 0.35rem !important;
+    border-radius: 4px !important;
   }
 }
 

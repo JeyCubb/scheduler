@@ -650,7 +650,8 @@ function renderScheduleGrid() {
 
   gridEl.innerHTML = '';
   const isMob = isMobileLayout();
-  if (isMob) {
+  const isZen = document.body.classList.contains('sched-focus-autohide');
+  if (isMob && !isZen) {
     const requiredH = totalSteps * 20 + Math.max(0, totalSteps - 1) * 1.5;
     gridEl.style.gridTemplateRows = `repeat(${totalSteps}, 20px)`;
     gridEl.style.height = `${requiredH}px`;
@@ -786,7 +787,7 @@ function isMobileLayout() {
 
 function fitScheduleEventTitles() {
   const isMobile = isMobileLayout();
-  const isZenDesktop = !isMobile && document.body.classList.contains('sched-focus-autohide');
+  const isZen = document.body.classList.contains('sched-focus-autohide');
   const cards = document.querySelectorAll('.sched-event-block');
 
   cards.forEach(card => {
@@ -808,14 +809,14 @@ function fitScheduleEventTitles() {
 
       let maxMeta;
       let minMeta;
-      if (isMobile) {
-        maxMeta = spanSteps <= 2 ? 7.5 : 8.0;
-        minMeta = 4.5;
-      } else if (isZenDesktop) {
+      if (isZen) {
         if (spanSteps <= 2) maxMeta = 14.5;
         else if (spanSteps <= 3) maxMeta = 17.0;
         else maxMeta = 19.0;
-        minMeta = 10.0;
+        minMeta = 9.0;
+      } else if (isMobile) {
+        maxMeta = spanSteps <= 2 ? 7.5 : 8.0;
+        minMeta = 4.5;
       } else {
         // Regular Desktop & iPad
         const isTablet = window.innerWidth <= 1199;
@@ -865,8 +866,8 @@ function fitScheduleEventTitles() {
       const metaH = metaEl ? metaEl.offsetHeight : 0;
       const maxTitleH = Math.max(10, innerCardH - metaH - 2);
 
-      let currentSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || 14;
-      const minSize = isMobile ? 5.5 : 8.0;
+      let currentSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || (isZen ? 16 : 14);
+      const minSize = (isMobile && !isZen) ? 5.5 : 8.0;
 
       const words = (titleEl.innerText || titleEl.textContent).trim().split(/\s+/).filter(Boolean);
 
@@ -1157,6 +1158,7 @@ function enterFocusMode() {
   if (isModalOpen) return; // Never hide UI while confirmation prompt is open
   if (!document.body.classList.contains('sched-focus-autohide')) {
     document.body.classList.add('sched-focus-autohide');
+    renderScheduleGrid();
     // Settle fit after the transition completes smoothly (no mid-animation layout thrashing)
     setTimeout(() => {
       renderScheduleGrid();
@@ -1168,6 +1170,7 @@ function enterFocusMode() {
 function exitFocusMode() {
   if (document.body.classList.contains('sched-focus-autohide')) {
     document.body.classList.remove('sched-focus-autohide');
+    renderScheduleGrid();
     // Settle fit after the transition completes smoothly
     setTimeout(() => {
       renderScheduleGrid();
