@@ -148,6 +148,19 @@ html, body {
   letter-spacing: 0.5px;
 }
 
+.sched-sat-col {
+  display: none !important;
+}
+
+body.sched-show-saturday .sched-sat-col {
+  display: block !important;
+}
+
+body.sched-show-saturday .sched-grid-header,
+body.sched-show-saturday .sched-grid-body {
+  grid-template-columns: 80px repeat(6, 1fr) !important;
+}
+
 .day-short {
   display: none;
 }
@@ -1386,6 +1399,11 @@ html, body {
     grid-template-columns: 105px repeat(5, 1fr) !important;
   }
 
+  body.sched-focus-autohide.sched-show-saturday .sched-grid-header,
+  body.sched-focus-autohide.sched-show-saturday .sched-grid-body {
+    grid-template-columns: 105px repeat(6, 1fr) !important;
+  }
+
   body.sched-focus-autohide .sched-grid-body {
     height: 100% !important;
     flex: 1 1 0 !important;
@@ -1521,6 +1539,11 @@ html, body {
     .sched-grid-header,
     .sched-grid-body {
       grid-template-columns: 56px repeat(5, minmax(0, 1fr)) !important;
+    }
+
+    body.sched-show-saturday .sched-grid-header,
+    body.sched-show-saturday .sched-grid-body {
+      grid-template-columns: 56px repeat(6, minmax(0, 1fr)) !important;
     }
 
     .sched-time-label {
@@ -2028,6 +2051,10 @@ html, body {
     box-sizing: border-box !important;
   }
 
+  body.sched-show-saturday .sched-grid-header {
+    grid-template-columns: 34px repeat(6, minmax(0, 1fr)) !important;
+  }
+
   .sched-day-label {
     font-size: 0.78rem !important;
     font-weight: 800 !important;
@@ -2052,6 +2079,10 @@ html, body {
     flex-grow: 0 !important;
     flex-shrink: 0 !important;
     box-sizing: border-box !important;
+  }
+
+  body.sched-show-saturday .sched-grid-body {
+    grid-template-columns: 34px repeat(6, minmax(0, 1fr)) !important;
   }
 
   .sched-time-label {

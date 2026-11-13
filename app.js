@@ -76,7 +76,8 @@ const SCHEDULE_COURSES = [
     sections: [
       { id: 'ME32S1', desc: 'Thu 10:30 AM–1:30 PM', room: 'Q-2105', slots: [{ day: 3, start: 630, end: 810, room: 'Q-2105' }] },
       { id: 'ME32S2', desc: 'Tue 10:30 AM–1:30 PM', room: 'Q-2105', slots: [{ day: 1, start: 630, end: 810, room: 'Q-2105' }] },
-      { id: 'ME32S3', desc: 'Wed 1:30–4:30 PM', room: 'Q-2105', slots: [{ day: 2, start: 810, end: 990, room: 'Q-2105' }] }
+      { id: 'ME32S3', desc: 'Wed 1:30–4:30 PM', room: 'Q-2105', slots: [{ day: 2, start: 810, end: 990, room: 'Q-2105' }] },
+      { id: 'Requested', desc: 'Sat 10:30 AM–1:30 PM', room: 'Q-2105', slots: [{ day: 5, start: 630, end: 810, room: 'Q-2105' }] }
     ]
   },
   {
@@ -648,6 +649,10 @@ function renderScheduleGrid() {
   const endMin = Math.ceil(latestSlotEnd / 30) * 30;
   const totalSteps = Math.ceil((endMin - startMin) / 30);
 
+  const hasSaturday = activeEvents.some(e => e.day === 5);
+  document.body.classList.toggle('sched-show-saturday', hasSaturday);
+  const numDays = hasSaturday ? 6 : 5;
+
   gridEl.innerHTML = '';
   const isMob = isMobileLayout();
   const isZen = document.body.classList.contains('sched-focus-autohide');
@@ -677,7 +682,7 @@ function renderScheduleGrid() {
     timeEl.innerHTML = `<span class="time-hm">${displayH}:${m === 0 ? '00' : m}</span><span class="time-ampm"> ${ampm}</span>`;
     gridEl.appendChild(timeEl);
 
-    for (let d = 0; d < 5; d++) {
+    for (let d = 0; d < numDays; d++) {
       const slotEl = document.createElement('div');
       slotEl.className = 'sched-grid-slot';
       slotEl.style.gridColumn = `${d + 2}`;
