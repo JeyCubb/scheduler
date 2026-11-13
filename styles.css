@@ -343,6 +343,7 @@ body.sched-show-saturday .sched-grid-body {
 .sched-course-row {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 0.35rem;
   padding: 0.5rem 0.6rem;
   background: rgba(255, 255, 255, 0.02) !important;
@@ -426,6 +427,7 @@ body.sched-show-saturday .sched-grid-body {
   gap: 0.30rem;
   width: 100%;
   box-sizing: border-box;
+  margin-top: auto;
 }
 
 .sched-pill {
@@ -1254,6 +1256,13 @@ body.sched-show-saturday .sched-grid-body {
     max-width: 100% !important;
     padding: 0.20rem 0.28rem 0.22rem 0.28rem !important;
     box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+
+  .sched-pills-row {
+    margin-top: auto !important;
   }
 
   .sched-course-row[data-course-code="EMAN 001"] {
@@ -2673,6 +2682,9 @@ body.sched-show-saturday .sched-grid-body {
     max-width: 100% !important;
     padding: 0.2rem 0.28rem 0.22rem 0.28rem !important;
     box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
   }
 
   .sched-course-row[data-course-code="EMAN 001"] {
