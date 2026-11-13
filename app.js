@@ -771,7 +771,11 @@ const titleMeasureCanvas = document.createElement('canvas');
 const titleMeasureCtx = titleMeasureCanvas.getContext('2d');
 
 function isMobileLayout() {
-  return window.innerWidth <= 768 && (window.innerHeight > window.innerWidth || window.innerWidth <= 500);
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    return window.matchMedia('(max-width: 768px), (max-width: 850px) and (orientation: portrait)').matches;
+  }
+  const isPortrait = window.innerHeight > window.innerWidth;
+  return window.innerWidth <= 768 || (window.innerWidth <= 850 && isPortrait);
 }
 
 function fitScheduleEventTitles() {
