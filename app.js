@@ -836,9 +836,36 @@ function fitScheduleEventTitles() {
       }
     }
 
-    // Reset subject title font size to default CSS styling (no JS shrinking/forcing)
+    // Shrink-to-fit title so each word fits horizontally without clipping or breaking mid-word,
+    // and all wrapped lines fit cleanly within the card height.
     if (titleEl) {
       titleEl.style.removeProperty('font-size');
+      const computedCard = window.getComputedStyle(card);
+      const padLeft = parseFloat(computedCard.paddingLeft) || 0;
+      const padRight = parseFloat(computedCard.paddingRight) || 0;
+      const padTop = parseFloat(computedCard.paddingTop) || 0;
+      const padBottom = parseFloat(computedCard.paddingBottom) || 0;
+      const innerCardW = Math.max(0, card.clientWidth - padLeft - padRight);
+      const innerCardH = Math.max(0, card.clientHeight - padTop - padBottom);
+      const metaH = metaEl ? metaEl.offsetHeight : 0;
+      const maxTitleH = Math.max(10, innerCardH - metaH - 2);
+
+      let currentSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || 14;
+      const minSize = isMobile ? 5.5 : 7.0;
+
+      const checkWordOverflow = () => {
+        // Horizontal overflow (checks if any single word exceeds card inner width):
+        if (titleEl.scrollWidth > innerCardW + 0.5) return true;
+        // Vertical overflow (checks if wrapped lines collide with meta badge/bottom):
+        if (titleEl.scrollHeight > maxTitleH + 0.5) return true;
+        if (card.scrollHeight > card.clientHeight + 1) return true;
+        return false;
+      };
+
+      while (checkWordOverflow() && currentSize > minSize) {
+        currentSize = Math.max(minSize, Math.round((currentSize - 0.25) * 100) / 100);
+        titleEl.style.setProperty('font-size', currentSize + 'px', 'important');
+      }
     }
   });
 }
