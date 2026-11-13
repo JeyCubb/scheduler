@@ -230,9 +230,9 @@ html, body {
 .sched-event-sec-badge {
   color: rgba(255, 255, 255, 0.95);
   background: rgba(0, 0, 0, 0.35);
-  padding: 0.08rem 0.32rem;
+  padding: 0.09rem 0.36rem;
   border-radius: 3px;
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.1;
@@ -240,7 +240,7 @@ html, body {
 
 .sched-event-room {
   color: rgba(255, 255, 255, 0.88);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 600;
   line-height: 1.1;
 }
@@ -1097,17 +1097,17 @@ html, body {
   }
 
   .sched-event-block.sched-event-span-1hr .sched-event-meta {
-    font-size: 0.56rem !important;
+    font-size: 0.65rem !important;
     gap: 3px !important;
   }
 
   .sched-event-block.sched-event-span-1hr .sched-event-sec-badge {
-    font-size: 0.54rem !important;
-    padding: 0.04rem 0.22rem !important;
+    font-size: 0.63rem !important;
+    padding: 0.05rem 0.25rem !important;
   }
 
   .sched-event-block.sched-event-span-1hr .sched-event-room {
-    font-size: 0.56rem !important;
+    font-size: 0.65rem !important;
   }
 
   .sched-event-title-main {
@@ -1124,7 +1124,7 @@ html, body {
   }
 
   .sched-event-meta {
-    font-size: 0.62rem !important;
+    font-size: 0.72rem !important;
     line-height: 1.1 !important;
     margin-top: auto !important;
     display: flex !important;
@@ -1330,7 +1330,7 @@ html, body {
   }
 
   body.sched-focus-autohide .sched-event-meta {
-    font-size: 0.88rem !important;
+    font-size: 1.00rem !important;
     gap: 6px !important;
     padding-top: 2px !important;
     white-space: nowrap !important;
@@ -1338,15 +1338,15 @@ html, body {
   }
 
   body.sched-focus-autohide .sched-event-sec-badge {
-    font-size: 0.85rem !important;
-    padding: 0.05rem 0.36rem !important;
+    font-size: 0.96rem !important;
+    padding: 0.06rem 0.40rem !important;
     border-radius: 3.5px !important;
     letter-spacing: 0.02em !important;
     flex-shrink: 0 !important;
   }
 
   body.sched-focus-autohide .sched-event-room {
-    font-size: 0.88rem !important;
+    font-size: 1.00rem !important;
     flex-shrink: 0 !important;
     white-space: nowrap !important;
   }
@@ -1365,18 +1365,18 @@ html, body {
   }
 
   body.sched-focus-autohide .sched-event-block.sched-event-span-1hr .sched-event-meta {
-    font-size: 0.80rem !important;
+    font-size: 0.90rem !important;
     gap: 4px !important;
     padding-top: 1px !important;
   }
 
   body.sched-focus-autohide .sched-event-block.sched-event-span-1hr .sched-event-sec-badge {
-    font-size: 0.78rem !important;
-    padding: 0.04rem 0.28rem !important;
+    font-size: 0.88rem !important;
+    padding: 0.05rem 0.32rem !important;
   }
 
   body.sched-focus-autohide .sched-event-block.sched-event-span-1hr .sched-event-room {
-    font-size: 0.80rem !important;
+    font-size: 0.90rem !important;
   }
 
   /* Tablet & iPad Landscape (769px - 1199px) Optimization */
@@ -1415,12 +1415,12 @@ html, body {
     }
 
     .sched-event-sec-badge {
-      font-size: 0.52rem !important;
-      padding: 0.03rem 0.20rem !important;
+      font-size: 0.60rem !important;
+      padding: 0.04rem 0.23rem !important;
     }
 
     .sched-event-room {
-      font-size: 0.54rem !important;
+      font-size: 0.62rem !important;
     }
   }
 }
@@ -1607,8 +1607,8 @@ html, body {
   }
 
   .sched-event-meta {
-    font-size: 0.52rem !important;
-    gap: 2px !important;
+    font-size: 0.60rem !important;
+    gap: 3px !important;
     margin-top: auto !important;
     padding-top: 1px !important;
     display: flex !important;
@@ -1619,15 +1619,15 @@ html, body {
   }
 
   .sched-event-sec-badge {
-    font-size: 0.52rem !important;
-    padding: 0.02rem 0.14rem !important;
-    border-radius: 2px !important;
+    font-size: 0.60rem !important;
+    padding: 0.03rem 0.17rem !important;
+    border-radius: 2.5px !important;
     line-height: 1.1 !important;
     flex-shrink: 0 !important;
   }
 
   .sched-event-room {
-    font-size: 0.50rem !important;
+    font-size: 0.58rem !important;
     line-height: 1.1 !important;
     white-space: nowrap !important;
     overflow: hidden !important;

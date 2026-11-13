@@ -794,21 +794,21 @@ function fitScheduleEventTitles() {
       let maxMeta;
       let minMeta;
       if (isMobile) {
-        maxMeta = spanSteps <= 2 ? 8.5 : 9.5;
-        minMeta = 4.5;
+        maxMeta = spanSteps <= 2 ? 9.75 : 11.0;
+        minMeta = 5.5;
       } else if (isZenDesktop) {
-        if (spanSteps <= 2) maxMeta = 13.0;
-        else if (spanSteps <= 3) maxMeta = 15.0;
-        else maxMeta = 17.0;
-        minMeta = 9.0;
+        if (spanSteps <= 2) maxMeta = 14.5;
+        else if (spanSteps <= 3) maxMeta = 17.0;
+        else maxMeta = 19.0;
+        minMeta = 10.0;
       } else {
         // Regular Desktop & iPad
         const isTablet = window.innerWidth <= 1199;
-        if (spanSteps <= 2) maxMeta = isTablet ? 9.5 : 11.0;
-        else if (spanSteps <= 3) maxMeta = isTablet ? 11.0 : 12.5;
-        else if (spanSteps <= 4) maxMeta = isTablet ? 12.0 : 14.0;
-        else maxMeta = isTablet ? 13.0 : 15.0;
-        minMeta = 5.0;
+        if (spanSteps <= 2) maxMeta = isTablet ? 10.5 : 12.0;
+        else if (spanSteps <= 3) maxMeta = isTablet ? 12.0 : 13.5;
+        else if (spanSteps <= 4) maxMeta = isTablet ? 13.5 : 15.0;
+        else maxMeta = isTablet ? 14.5 : 16.5;
+        minMeta = 6.0;
       }
 
       let metaSize = maxMeta;
