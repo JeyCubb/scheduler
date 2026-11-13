@@ -783,13 +783,57 @@ function fitScheduleEventTitles() {
 
     const spanSteps = parseInt(card.dataset.spanSteps, 10) || (card.classList.contains('sched-event-span-1hr') ? 2 : 4);
 
-    // Section badge and room number: do not wrap or shrink to fit (maximize space with CSS +50% font size)
+    // 1. Proportional sizing for section badge and room number (metaEl)
     if (metaEl) {
       metaEl.style.removeProperty('font-size');
       const badgeEl = metaEl.querySelector('.sched-event-sec-badge');
       const roomEl = metaEl.querySelector('.sched-event-room');
       if (badgeEl) badgeEl.style.removeProperty('font-size');
       if (roomEl) roomEl.style.removeProperty('font-size');
+
+      let maxMeta;
+      let minMeta;
+      if (isMobile) {
+        maxMeta = spanSteps <= 2 ? 8.5 : 9.5;
+        minMeta = 4.5;
+      } else if (isZenDesktop) {
+        if (spanSteps <= 2) maxMeta = 13.0;
+        else if (spanSteps <= 3) maxMeta = 15.0;
+        else maxMeta = 17.0;
+        minMeta = 9.0;
+      } else {
+        // Regular Desktop & iPad
+        const isTablet = window.innerWidth <= 1199;
+        if (spanSteps <= 2) maxMeta = isTablet ? 9.5 : 11.0;
+        else if (spanSteps <= 3) maxMeta = isTablet ? 11.0 : 12.5;
+        else if (spanSteps <= 4) maxMeta = isTablet ? 12.0 : 14.0;
+        else maxMeta = isTablet ? 13.0 : 15.0;
+        minMeta = 5.0;
+      }
+
+      let metaSize = maxMeta;
+      const setMetaSize = (sz) => {
+        metaEl.style.setProperty('font-size', sz + 'px', 'important');
+        if (badgeEl) badgeEl.style.setProperty('font-size', sz + 'px', 'important');
+        if (roomEl) roomEl.style.setProperty('font-size', sz + 'px', 'important');
+      };
+      setMetaSize(metaSize);
+
+      const computedCard = window.getComputedStyle(card);
+      const padLeft = parseFloat(computedCard.paddingLeft) || 0;
+      const padRight = parseFloat(computedCard.paddingRight) || 0;
+      const innerCardW = Math.max(0, card.clientWidth - padLeft - padRight);
+
+      const checkMetaOverflow = () => {
+        if (metaEl.scrollWidth > innerCardW - 0.5) return true;
+        if (metaEl.scrollWidth > metaEl.clientWidth + 0.5) return true;
+        return false;
+      };
+
+      while (checkMetaOverflow() && metaSize > minMeta) {
+        metaSize = Math.max(minMeta, Math.round((metaSize - 0.25) * 100) / 100);
+        setMetaSize(metaSize);
+      }
     }
 
     // Shrink-to-fit title so each word fits horizontally without clipping or breaking mid-word,
