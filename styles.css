@@ -1366,6 +1366,7 @@ body.sched-show-saturday .sched-grid-body {
 
   .sched-course-row[data-course-code="EMAN 001"] {
     grid-column: 1 / -1 !important;
+    order: 99 !important;
   }
 
   .sched-course-row[data-course-code="EMAN 001"] .sched-pills-row {
@@ -2729,6 +2730,7 @@ body.sched-show-saturday .sched-grid-body {
 
   .sched-course-row[data-course-code="EMAN 001"] {
     grid-column: 1 / -1 !important;
+    order: 99 !important;
   }
 
   .sched-course-row[data-course-code="EMAN 001"] .sched-pills-row {
