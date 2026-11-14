@@ -152,39 +152,113 @@ const SCHEDULE_COURSES = [
 ];
 
 // ==========================================================================
+// SEMESTER / TERM ARCHITECTURE
+// ==========================================================================
+const SEMESTERS = [
+  {
+    id: '3rd-2nd',
+    name: '3rd Year 2nd Sem',
+    shortName: '3rd Yr 2nd Sem',
+    meta: '11 Subjects • 27 Units',
+    courses: SCHEDULE_COURSES
+  },
+  {
+    id: '4th-summer',
+    name: '4th Year Summer',
+    shortName: '4th Yr Summer',
+    meta: 'Summer Term',
+    courses: []
+  },
+  {
+    id: '4th-1st',
+    name: '4th Year 1st Sem',
+    shortName: '4th Yr 1st Sem',
+    meta: 'First Semester',
+    courses: []
+  },
+  {
+    id: '4th-2nd',
+    name: '4th Year 2nd Sem',
+    shortName: '4th Yr 2nd Sem',
+    meta: 'Second Semester',
+    courses: []
+  }
+];
+
+let activeSemesterId = localStorage.getItem('tip_sched_active_sem') || '3rd-2nd';
+if (!SEMESTERS.find(s => s.id === activeSemesterId)) activeSemesterId = '3rd-2nd';
+
+function getActiveSemester() {
+  return SEMESTERS.find(s => s.id === activeSemesterId) || SEMESTERS[0];
+}
+
+function getActiveCourses() {
+  return getActiveSemester().courses || [];
+}
+
+function getStorageKeyForSemester(semId) {
+  return `tip_sched_selection_${semId}`;
+}
+
+// ==========================================================================
 // STATE MANAGEMENT & PERSISTENCE
 // ==========================================================================
 let userScheduleSelection = {};
 
 function initScheduleCreatorState() {
-  const saved = localStorage.getItem('tip_sched_selection_v1');
+  const currentKey = getStorageKeyForSemester(activeSemesterId);
+  const saved = localStorage.getItem(currentKey);
   if (saved) {
     try {
       userScheduleSelection = JSON.parse(saved);
     } catch (e) {
+      userScheduleSelection = {};
+    }
+  } else if (activeSemesterId === '3rd-2nd') {
+    const legacySaved = localStorage.getItem('tip_sched_selection_v1');
+    if (legacySaved) {
+      try {
+        userScheduleSelection = JSON.parse(legacySaved);
+      } catch (e) {
+        applySchedulePreset('A');
+      }
+    } else {
       applySchedulePreset('A');
     }
   } else {
-    applySchedulePreset('A');
+    userScheduleSelection = {};
   }
 }
 
 function saveScheduleCreatorState() {
-  localStorage.setItem('tip_sched_selection_v1', JSON.stringify(userScheduleSelection));
+  const currentKey = getStorageKeyForSemester(activeSemesterId);
+  localStorage.setItem(currentKey, JSON.stringify(userScheduleSelection));
+  if (activeSemesterId === '3rd-2nd') {
+    localStorage.setItem('tip_sched_selection_v1', JSON.stringify(userScheduleSelection));
+  }
 }
 
 function applySchedulePreset(preset) {
+  const courses = getActiveCourses();
   userScheduleSelection = {};
-  if (preset === 'A') {
-    SCHEDULE_COURSES.forEach(c => {
-      userScheduleSelection[c.code] = 'ME32S1';
-    });
-  } else if (preset === 'B') {
-    SCHEDULE_COURSES.forEach(c => {
-      if (c.code === 'ME 406') userScheduleSelection[c.code] = 'ME32S3';
-      else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ECE32S1';
-      else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'Requested';
-      else userScheduleSelection[c.code] = 'ME32S1';
+  if (activeSemesterId === '3rd-2nd') {
+    if (preset === 'A') {
+      courses.forEach(c => {
+        userScheduleSelection[c.code] = 'ME32S1';
+      });
+    } else if (preset === 'B') {
+      courses.forEach(c => {
+        if (c.code === 'ME 406') userScheduleSelection[c.code] = 'ME32S3';
+        else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ECE32S1';
+        else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'Requested';
+        else userScheduleSelection[c.code] = 'ME32S1';
+      });
+    }
+  } else {
+    courses.forEach(c => {
+      if (c.sections && c.sections.length > 0) {
+        userScheduleSelection[c.code] = c.sections[0].id;
+      }
     });
   }
   saveScheduleCreatorState();
@@ -216,7 +290,7 @@ let pendingRemoveCourseCode = null;
 let isModalOpen = false;
 
 function promptRemoveSubject(courseCode) {
-  const course = SCHEDULE_COURSES.find(c => c.code === courseCode);
+  const course = getActiveCourses().find(c => c.code === courseCode);
   if (!course) return;
 
   const sectionId = userScheduleSelection[courseCode];
@@ -298,6 +372,84 @@ window.promptRemoveSubject = promptRemoveSubject;
 window.removeCourseFromSchedule = removeCourseFromSchedule;
 window.closeRemoveModal = closeRemoveModal;
 
+// ==========================================================================
+// SEMESTER SELECTION MODAL
+// ==========================================================================
+let isSemModalOpen = false;
+
+function openSemesterModal() {
+  const modalEl = document.getElementById('sched-sem-modal');
+  const listEl = document.getElementById('sched-sem-options-list');
+  if (!modalEl || !listEl) return;
+
+  listEl.innerHTML = SEMESTERS.map(sem => {
+    const isActive = sem.id === activeSemesterId;
+    return `
+      <div class="sched-sem-option${isActive ? ' is-active' : ''}" data-sem-id="${sem.id}" role="button" tabindex="0">
+        <div class="sched-sem-option-main">
+          <div class="sched-sem-option-title">${sem.name}</div>
+          <div class="sched-sem-option-meta">${sem.meta}</div>
+        </div>
+        <div class="sched-sem-option-badge">${isActive ? 'Active Term' : 'Select'}</div>
+      </div>
+    `;
+  }).join('');
+
+  listEl.querySelectorAll('.sched-sem-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const semId = opt.dataset.semId;
+      if (semId) switchSemester(semId);
+    });
+    opt.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const semId = opt.dataset.semId;
+        if (semId) switchSemester(semId);
+      }
+    });
+  });
+
+  exitFocusMode();
+  isModalOpen = true;
+  isSemModalOpen = true;
+  modalEl.classList.add('is-open');
+  modalEl.setAttribute('aria-hidden', 'false');
+  const trigger = document.getElementById('sched-sem-selector-trigger');
+  if (trigger) trigger.setAttribute('aria-expanded', 'true');
+}
+
+function closeSemesterModal() {
+  const modalEl = document.getElementById('sched-sem-modal');
+  if (modalEl) {
+    modalEl.classList.remove('is-open');
+    modalEl.setAttribute('aria-hidden', 'true');
+  }
+  isSemModalOpen = false;
+  const removeModalEl = document.getElementById('sched-remove-modal');
+  const isRemoveOpen = removeModalEl && removeModalEl.classList.contains('is-open');
+  if (!isRemoveOpen) {
+    isModalOpen = false;
+  }
+  const trigger = document.getElementById('sched-sem-selector-trigger');
+  if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  resetIdleTimer();
+}
+
+function switchSemester(newSemId) {
+  if (activeSemesterId === newSemId) {
+    closeSemesterModal();
+    return;
+  }
+  activeSemesterId = newSemId;
+  localStorage.setItem('tip_sched_active_sem', newSemId);
+  initScheduleCreatorState();
+  renderScheduleView();
+  closeSemesterModal();
+}
+window.switchSemester = switchSemester;
+window.openSemesterModal = openSemesterModal;
+window.closeSemesterModal = closeSemesterModal;
+
 function renderScheduleView() {
   renderScheduleSidebar();
   renderScheduleGrid();
@@ -309,7 +461,8 @@ function renderScheduleView() {
 // ==========================================================================
 function getScheduleConflicts() {
   const activeEvents = [];
-  SCHEDULE_COURSES.forEach(course => {
+  const courses = getActiveCourses();
+  courses.forEach(course => {
     const secId = userScheduleSelection[course.code];
     if (!secId) return;
     const sec = course.sections.find(s => s.id === secId);
@@ -404,7 +557,7 @@ function getScheduleConflicts() {
   // Potential conflicts for unselected sections against currently selected other courses
   const potentialConflictSections = new Set();
   const potentialConflictsMap = {};
-  SCHEDULE_COURSES.forEach(course => {
+  courses.forEach(course => {
     course.sections.forEach(sec => {
       if (userScheduleSelection[course.code] === sec.id) return;
       const secKey = `${course.code}__${sec.id}`;
@@ -462,7 +615,7 @@ function clearConflictPartners() {
 
 function highlightInterferingOnGrid(courseCode, sectionId) {
   clearInterferingHighlights();
-  const course = SCHEDULE_COURSES.find(c => c.code === courseCode);
+  const course = getActiveCourses().find(c => c.code === courseCode);
   if (!course) return;
   const sec = course.sections.find(s => s.id === sectionId);
   if (!sec) return;
@@ -537,11 +690,26 @@ function renderScheduleSidebar() {
   const listEl = document.getElementById('sched-subject-list');
   if (!listEl) return;
 
-  const conflicts = getScheduleConflicts();
-  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const courses = getActiveCourses();
+  const sem = getActiveSemester();
   listEl.innerHTML = '';
 
-  SCHEDULE_COURSES.forEach(course => {
+  if (courses.length === 0) {
+    listEl.innerHTML = `
+      <div class="sched-empty-term-card">
+        <div class="sched-empty-term-icon">📋</div>
+        <div class="sched-empty-term-title">No Subjects Configured</div>
+        <div class="sched-empty-term-desc">No schedule or subjects have been added for <strong>${sem.name}</strong> yet.</div>
+        <button type="button" class="sched-empty-term-btn" onclick="switchSemester('3rd-2nd')">Return to 3rd Year 2nd Sem</button>
+      </div>
+    `;
+    return;
+  }
+
+  const conflicts = getScheduleConflicts();
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+  courses.forEach(course => {
     const selectedSec = userScheduleSelection[course.code];
     const hasConflict = conflicts.courseCodes.has(course.code);
     const row = document.createElement('div');
@@ -933,19 +1101,43 @@ function formatTimeMinutes(min) {
 }
 
 function updateScheduleStats() {
-  let totalUnits = 0;
+  const courses = getActiveCourses();
+  const sem = getActiveSemester();
+
+  const statSemLabel = document.getElementById('sched-stat-sem-label');
+  if (statSemLabel) {
+    statSemLabel.textContent = sem.shortName;
+  }
+
+  let totalAvailableUnits = 0;
+  let enrolledUnits = 0;
   let count = 0;
-  SCHEDULE_COURSES.forEach(c => {
+
+  courses.forEach(c => {
+    totalAvailableUnits += c.units;
     if (userScheduleSelection[c.code]) {
-      totalUnits += c.units;
+      enrolledUnits += c.units;
       count++;
     }
   });
 
   const statCourses = document.getElementById('sched-stat-courses');
   const statUnits = document.getElementById('sched-stat-units');
-  if (statCourses) statCourses.textContent = `${count} / ${SCHEDULE_COURSES.length}`;
-  if (statUnits) statUnits.textContent = `${totalUnits} / 27`;
+  if (statCourses) statCourses.textContent = `${count} / ${courses.length}`;
+  if (statUnits) statUnits.textContent = `${enrolledUnits} / ${totalAvailableUnits}`;
+
+  // Dim preset buttons if not in 3rd Year 2nd Sem
+  const btnA = document.getElementById('btn-preset-choice-a');
+  const btnB = document.getElementById('btn-preset-choice-b');
+  const hasPresets = courses.length > 0 && activeSemesterId === '3rd-2nd';
+  if (btnA) {
+    btnA.style.opacity = hasPresets ? '' : '0.4';
+    btnA.style.pointerEvents = hasPresets ? '' : 'none';
+  }
+  if (btnB) {
+    btnB.style.opacity = hasPresets ? '' : '0.4';
+    btnB.style.pointerEvents = hasPresets ? '' : 'none';
+  }
 }
 
 // ==========================================================================
@@ -1105,6 +1297,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Semester Selector Modal Handlers
+  const semTrigger = document.getElementById('sched-sem-selector-trigger');
+  const semModal = document.getElementById('sched-sem-modal');
+  const semCloseBtn = document.getElementById('sched-sem-modal-close-btn');
+
+  if (semTrigger) {
+    semTrigger.addEventListener('click', openSemesterModal);
+    semTrigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openSemesterModal();
+      }
+    });
+  }
+  if (semCloseBtn) semCloseBtn.addEventListener('click', closeSemesterModal);
+  if (semModal) {
+    semModal.addEventListener('click', (e) => {
+      if (e.target === semModal) {
+        closeSemesterModal();
+      }
+    });
+  }
+
   renderScheduleView();
 });
 
@@ -1154,6 +1369,7 @@ window.addEventListener('keydown', (e) => {
       e.preventDefault();
       e.stopPropagation();
       closeRemoveModal();
+      closeSemesterModal();
       return;
     }
     if (e.key === 'Enter') {

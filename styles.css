@@ -3056,3 +3056,286 @@ body.sched-show-saturday .sched-grid-body {
   }
 }
 
+/* ==========================================================================
+   Semester Selector Modal & Stats Trigger Styling
+   ========================================================================== */
+.sched-toolbar-stats {
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease !important;
+  padding: 0.22rem 0.55rem !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+}
+
+.sched-toolbar-stats:hover {
+  background: rgba(249, 115, 22, 0.08) !important;
+  border-color: rgba(249, 115, 22, 0.4) !important;
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.18) !important;
+}
+
+.sched-toolbar-stats:active {
+  transform: scale(0.97) !important;
+}
+
+.sched-stat-sem-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #fdba74;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.sched-stat-divider {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.75rem;
+}
+
+.sched-stat-chevron {
+  color: #94a3b8;
+  transition: transform 0.2s ease, color 0.15s ease;
+  flex-shrink: 0;
+  margin-left: 1px;
+}
+
+.sched-toolbar-stats:hover .sched-stat-chevron {
+  color: #fdba74;
+  transform: translateY(1px);
+}
+
+[data-theme="light"] .sched-toolbar-stats {
+  background: #ffffff !important;
+  border: 1px solid #e2d7ce !important;
+}
+
+[data-theme="light"] .sched-toolbar-stats:hover {
+  background: #fff8f3 !important;
+  border-color: #ea580c !important;
+  box-shadow: 0 0 10px rgba(234, 88, 12, 0.15) !important;
+}
+
+[data-theme="light"] .sched-stat-sem-label {
+  color: #ea580c;
+}
+
+[data-theme="light"] .sched-stat-divider {
+  color: #cbd5e1;
+}
+
+[data-theme="light"] .sched-stat-chevron {
+  color: #64748b;
+}
+
+/* Modal Options */
+.sched-sem-modal-card {
+  max-width: 440px !important;
+}
+
+.sched-sem-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+}
+
+.sched-sem-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sched-sem-option:hover {
+  background: rgba(249, 115, 22, 0.08);
+  border-color: rgba(249, 115, 22, 0.35);
+  transform: translateY(-1px);
+}
+
+.sched-sem-option:active {
+  transform: scale(0.98);
+}
+
+.sched-sem-option.is-active {
+  background: rgba(249, 115, 22, 0.12);
+  border-color: #f97316;
+  box-shadow: 0 0 14px rgba(249, 115, 22, 0.16);
+}
+
+.sched-sem-option-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+
+.sched-sem-option-title {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.2;
+}
+
+.sched-sem-option.is-active .sched-sem-option-title {
+  color: #fdba74;
+}
+
+.sched-sem-option-meta {
+  font-size: 0.74rem;
+  color: #94a3b8;
+  line-height: 1.15;
+}
+
+.sched-sem-option-badge {
+  font-size: 0.70rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sched-sem-option.is-active .sched-sem-option-badge {
+  background: #f97316;
+  color: #ffffff;
+}
+
+[data-theme="light"] .sched-sem-option {
+  background: #ffffff;
+  border: 1px solid #e2d7ce;
+}
+
+[data-theme="light"] .sched-sem-option:hover {
+  background: #fff8f3;
+  border-color: #ea580c;
+}
+
+[data-theme="light"] .sched-sem-option.is-active {
+  background: #fff1e6;
+  border-color: #ea580c;
+  box-shadow: 0 0 10px rgba(234, 88, 12, 0.15);
+}
+
+[data-theme="light"] .sched-sem-option-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .sched-sem-option.is-active .sched-sem-option-title {
+  color: #ea580c;
+}
+
+[data-theme="light"] .sched-sem-option-meta {
+  color: #64748b;
+}
+
+[data-theme="light"] .sched-sem-option-badge {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+[data-theme="light"] .sched-sem-option.is-active .sched-sem-option-badge {
+  background: #ea580c;
+  color: #ffffff;
+}
+
+/* Empty Term State in Subject List */
+.sched-empty-term-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.2rem 1.2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  grid-column: 1 / -1;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 0.5rem;
+  margin: auto 0;
+}
+
+.sched-empty-term-icon {
+  font-size: 2rem;
+  opacity: 0.8;
+}
+
+.sched-empty-term-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #e2e8f0;
+}
+
+.sched-empty-term-desc {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  max-width: 300px;
+  line-height: 1.35;
+}
+
+.sched-empty-term-btn {
+  margin-top: 0.35rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(249, 115, 22, 0.15);
+  border: 1px solid #f97316;
+  color: #fdba74;
+  border-radius: 7px;
+  font-size: 0.80rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sched-empty-term-btn:hover {
+  background: #f97316;
+  color: #ffffff;
+}
+
+[data-theme="light"] .sched-empty-term-card {
+  background: #faf7f4;
+  border-color: #e2d7ce;
+}
+
+[data-theme="light"] .sched-empty-term-title {
+  color: #1e293b;
+}
+
+[data-theme="light"] .sched-empty-term-desc {
+  color: #64748b;
+}
+
+[data-theme="light"] .sched-empty-term-btn {
+  background: #fff1e6;
+  border-color: #ea580c;
+  color: #ea580c;
+}
+
+[data-theme="light"] .sched-empty-term-btn:hover {
+  background: #ea580c;
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .sched-stat-sem-label {
+    font-size: 0.72rem !important;
+    max-width: 85px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+}
+
+
