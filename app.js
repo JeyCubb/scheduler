@@ -1835,9 +1835,8 @@ function initBrandNavPopup() {
   }
 
   popup.addEventListener('click', (e) => {
-    if (e.target === popup) {
-      togglePopup(false);
-    }
+    if (e.target.closest('a')) return;
+    togglePopup(false);
   });
 
   document.addEventListener('keydown', (e) => {
