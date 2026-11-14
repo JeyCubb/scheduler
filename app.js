@@ -1191,12 +1191,13 @@ function enterFocusMode() {
   if (!document.body.classList.contains('sched-focus-autohide')) {
     document.body.classList.add('sched-focus-autohide');
     const isMob = isMobileLayout();
-    if (isMob) {
-      const gridEl = document.getElementById('sched-calendar-grid');
-      if (gridEl) {
-        gridEl.style.height = '100%';
-        gridEl.style.minHeight = '';
-      }
+    const gridEl = document.getElementById('sched-calendar-grid');
+    if (gridEl) {
+      const timeLabels = gridEl.querySelectorAll('.sched-time-label');
+      const totalSteps = timeLabels.length || 17;
+      gridEl.style.gridTemplateRows = `repeat(${totalSteps}, minmax(0, 1fr))`;
+      gridEl.style.height = '100%';
+      gridEl.style.minHeight = '';
     }
     requestAnimationFrame(() => {
       fitScheduleEventTitles();
@@ -1208,10 +1209,19 @@ function exitFocusMode() {
   if (document.body.classList.contains('sched-focus-autohide')) {
     document.body.classList.remove('sched-focus-autohide');
     const isMob = isMobileLayout();
-    if (isMob) {
-      const gridEl = document.getElementById('sched-calendar-grid');
-      if (gridEl) {
-        renderScheduleGrid();
+    const gridEl = document.getElementById('sched-calendar-grid');
+    if (gridEl) {
+      const timeLabels = gridEl.querySelectorAll('.sched-time-label');
+      const totalSteps = timeLabels.length || 17;
+      if (isMob) {
+        const requiredH = totalSteps * 20 + Math.max(0, totalSteps - 1) * 1.5;
+        gridEl.style.gridTemplateRows = `repeat(${totalSteps}, 20px)`;
+        gridEl.style.height = `${requiredH}px`;
+        gridEl.style.minHeight = `${requiredH}px`;
+      } else {
+        gridEl.style.gridTemplateRows = `repeat(${totalSteps}, minmax(0, 1fr))`;
+        gridEl.style.height = '100%';
+        gridEl.style.minHeight = '';
       }
     }
     requestAnimationFrame(() => {
