@@ -1798,11 +1798,57 @@ function updateThemeUI(theme, isUserManual = false) {
 }
 
 // ==========================================================================
+// POP-UP BRAND NAVIGATION CONTROLLER
+// ==========================================================================
+function initBrandNavPopup() {
+  const trigger = document.getElementById('brand-nav-trigger');
+  const popup = document.getElementById('brand-nav-popup');
+  const schedItem = document.getElementById('btn-header-sched');
+
+  if (!trigger || !popup) return;
+
+  function togglePopup(open) {
+    const willOpen = open !== undefined ? open : !popup.classList.contains('is-open');
+    popup.classList.toggle('is-open', willOpen);
+    popup.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
+    trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+  }
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    togglePopup();
+  });
+
+  if (schedItem) {
+    schedItem.addEventListener('click', (e) => {
+      e.preventDefault();
+      togglePopup(false);
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (popup.classList.contains('is-open')) {
+      if (!popup.contains(e.target) && !trigger.contains(e.target)) {
+        togglePopup(false);
+      }
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && popup.classList.contains('is-open')) {
+      togglePopup(false);
+      trigger.focus();
+    }
+  });
+}
+
+// ==========================================================================
 // EVENT LISTENERS & INITIALIZATION
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initScheduleCreatorState();
+  initBrandNavPopup();
 
   const btnA = document.getElementById('btn-preset-choice-a');
   const btnB = document.getElementById('btn-preset-choice-b');
