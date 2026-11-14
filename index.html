@@ -19,7 +19,7 @@
       } catch (e) {}
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=55" />
+  <link rel="stylesheet" href="styles.css?v=56" />
 </head>
 <body>
   <div class="app-container">
@@ -61,102 +61,74 @@
       <div class="brand-group brand-nav-wrapper">
         <button type="button" class="brand-nav-btn active brand-nav-trigger" id="brand-nav-trigger" aria-haspopup="true" aria-expanded="false" title="Current: Schedule Creator (Click to switch app)" aria-label="Current: Schedule Creator. Click to switch website">
           <span class="brand-emoji">📅</span>
-          <svg class="brand-nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="18 15 12 9 6 15"></polyline>
-          </svg>
         </button>
 
-        <!-- Pop Up Navigation Menu -->
+        <!-- Pop Up Navigation Menu (Compact Website Buttons) -->
         <div class="brand-nav-popup" id="brand-nav-popup" role="menu" aria-label="Switch Website" aria-hidden="true">
-          <div class="brand-nav-popup-header">
-            <span class="brand-nav-popup-title">Websites</span>
-            <span class="brand-nav-popup-subtitle">Switch App</span>
-          </div>
-          <div class="brand-nav-popup-list">
-            <!-- 1. Grade Calculator -->
-            <a href="https://jeycubb.github.io/TIP-Grade-Calculator/#calc" target="_self" class="brand-nav-item" id="btn-header-calc" role="menuitem" title="Open TIP Grade Calculator (GWA & Target Calculator)">
-              <span class="brand-nav-item-icon">
-                <svg class="brand-calc-emoji" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="calc-body-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="#475569"/>
-                      <stop offset="100%" stop-color="#1e293b"/>
-                    </linearGradient>
-                    <linearGradient id="calc-bevel-gloss" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
-                      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-                    </linearGradient>
-                    <linearGradient id="calc-lcd-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="#0f172a"/>
-                      <stop offset="100%" stop-color="#020617"/>
-                    </linearGradient>
-                    <linearGradient id="calc-btn-num-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="#f8fafc"/>
-                      <stop offset="100%" stop-color="#cbd5e1"/>
-                    </linearGradient>
-                    <linearGradient id="calc-btn-fn-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="#94a3b8"/>
-                      <stop offset="100%" stop-color="#64748b"/>
-                    </linearGradient>
-                    <linearGradient id="calc-btn-accent" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="#fb923c"/>
-                      <stop offset="100%" stop-color="#ea580c"/>
-                    </linearGradient>
-                  </defs>
-                  <rect x="5" y="3" width="26" height="30" rx="5.5" fill="url(#calc-body-grad)" stroke="#64748b" stroke-width="0.75"/>
-                  <rect x="5.5" y="3.5" width="25" height="12" rx="4.8" fill="url(#calc-bevel-gloss)"/>
-                  <rect x="7.5" y="5.5" width="21" height="7.5" rx="2" fill="url(#calc-lcd-grad)" stroke="#090d16" stroke-width="0.75"/>
-                  <rect x="23.5" y="7.8" width="3.2" height="3" rx="0.5" fill="#38bdf8"/>
-                  <text x="21" y="11" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="5" font-weight="800" fill="#38bdf8" text-anchor="end">12</text>
-                  <rect x="8" y="15" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-fn-grad)"/>
-                  <rect x="13.2" y="15" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-fn-grad)"/>
-                  <rect x="18.5" y="15" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-fn-grad)"/>
-                  <rect x="23.8" y="15" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-accent)"/>
-                  <rect x="8" y="19.2" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
-                  <rect x="13.2" y="19.2" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
-                  <rect x="18.5" y="19.2" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
-                  <rect x="23.8" y="19.2" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-accent)"/>
-                  <rect x="8" y="23.4" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
-                  <rect x="13.2" y="23.4" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
-                  <rect x="18.5" y="23.4" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
-                  <rect x="23.8" y="23.4" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-accent)"/>
-                  <rect x="8" y="27.6" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
-                  <rect x="13.2" y="27.6" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
-                  <rect x="18.5" y="27.6" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
-                  <rect x="23.8" y="27.6" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-accent)"/>
-                </svg>
-              </span>
-              <div class="brand-nav-item-info">
-                <div class="brand-nav-item-name">Grade Calculator</div>
-                <div class="brand-nav-item-desc">GWA &amp; Target Calculator</div>
-              </div>
-              <svg class="brand-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-            </a>
+          <!-- 1. Grade Calculator -->
+          <a href="https://jeycubb.github.io/TIP-Grade-Calculator/#calc" target="_self" class="brand-nav-btn" id="btn-header-calc" title="TIP Grade Calculator" aria-label="TIP Grade Calculator">
+            <span class="brand-emoji">
+              <svg class="brand-calc-emoji" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="calc-body-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#475569"/>
+                    <stop offset="100%" stop-color="#1e293b"/>
+                  </linearGradient>
+                  <linearGradient id="calc-bevel-gloss" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                  <linearGradient id="calc-lcd-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#0f172a"/>
+                    <stop offset="100%" stop-color="#020617"/>
+                  </linearGradient>
+                  <linearGradient id="calc-btn-num-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#f8fafc"/>
+                    <stop offset="100%" stop-color="#cbd5e1"/>
+                  </linearGradient>
+                  <linearGradient id="calc-btn-fn-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#94a3b8"/>
+                    <stop offset="100%" stop-color="#64748b"/>
+                  </linearGradient>
+                  <linearGradient id="calc-btn-accent" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#fb923c"/>
+                    <stop offset="100%" stop-color="#ea580c"/>
+                  </linearGradient>
+                </defs>
+                <rect x="5" y="3" width="26" height="30" rx="5.5" fill="url(#calc-body-grad)" stroke="#64748b" stroke-width="0.75"/>
+                <rect x="5.5" y="3.5" width="25" height="12" rx="4.8" fill="url(#calc-bevel-gloss)"/>
+                <rect x="7.5" y="5.5" width="21" height="7.5" rx="2" fill="url(#calc-lcd-grad)" stroke="#090d16" stroke-width="0.75"/>
+                <rect x="23.5" y="7.8" width="3.2" height="3" rx="0.5" fill="#38bdf8"/>
+                <text x="21" y="11" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="5" font-weight="800" fill="#38bdf8" text-anchor="end">12</text>
+                <rect x="8" y="15" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-fn-grad)"/>
+                <rect x="13.2" y="15" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-fn-grad)"/>
+                <rect x="18.5" y="15" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-fn-grad)"/>
+                <rect x="23.8" y="15" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-accent)"/>
+                <rect x="8" y="19.2" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+                <rect x="13.2" y="19.2" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+                <rect x="18.5" y="19.2" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+                <rect x="23.8" y="19.2" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-accent)"/>
+                <rect x="8" y="23.4" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+                <rect x="13.2" y="23.4" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+                <rect x="18.5" y="23.4" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+                <rect x="23.8" y="23.4" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-accent)"/>
+                <rect x="8" y="27.6" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+                <rect x="13.2" y="27.6" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+                <rect x="18.5" y="27.6" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-num-grad)"/>
+                <rect x="23.8" y="27.6" width="4.2" height="3.2" rx="1" fill="url(#calc-btn-accent)"/>
+              </svg>
+            </span>
+          </a>
 
-            <!-- 2. Terms Reviewer -->
-            <a href="https://jeycubb.github.io/JeyCub-terms-reviewer/" target="_self" class="brand-nav-item" id="btn-header-reviewer" role="menuitem" title="Open JeyCub Terms Reviewer">
-              <span class="brand-nav-item-icon">
-                <span class="brand-emoji">📖</span>
-              </span>
-              <div class="brand-nav-item-info">
-                <div class="brand-nav-item-name">Terms Reviewer</div>
-                <div class="brand-nav-item-desc">Board Exam Reviewer</div>
-              </div>
-              <svg class="brand-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-            </a>
+          <!-- 2. Terms Reviewer -->
+          <a href="https://jeycubb.github.io/JeyCub-terms-reviewer/" target="_self" class="brand-nav-btn" id="btn-header-reviewer" title="JeyCub Terms Reviewer" aria-label="JeyCub Terms Reviewer">
+            <span class="brand-emoji">📖</span>
+          </a>
 
-            <!-- 3. Schedule Creator (Current Active App) -->
-            <button type="button" class="brand-nav-item active" id="btn-header-sched" role="menuitem" title="Schedule Creator (Current App)">
-              <span class="brand-nav-item-icon">
-                <span class="brand-emoji">📅</span>
-              </span>
-              <div class="brand-nav-item-info">
-                <div class="brand-nav-item-name">Schedule Creator</div>
-                <div class="brand-nav-item-desc">Timetable &amp; Sections</div>
-              </div>
-              <span class="brand-nav-item-badge">Active</span>
-            </button>
-          </div>
+          <!-- 3. Schedule Creator (Current Active App) -->
+          <button type="button" class="brand-nav-btn active" id="btn-header-sched" title="Schedule Creator (Current App)" aria-label="Schedule Creator">
+            <span class="brand-emoji">📅</span>
+          </button>
         </div>
       </div>
 
@@ -267,6 +239,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=55"></script>
+  <script src="app.js?v=56"></script>
 </body>
 </html>
