@@ -1803,7 +1803,8 @@ function updateThemeUI(theme, isUserManual = false) {
 function initBrandNavPopup() {
   const trigger = document.getElementById('brand-nav-trigger');
   const popup = document.getElementById('brand-nav-popup');
-  const schedItem = document.getElementById('btn-header-sched');
+  const closeBtn = document.getElementById('brand-nav-close-btn');
+  const schedCard = document.getElementById('btn-nav-card-sched');
 
   if (!trigger || !popup) return;
 
@@ -1819,18 +1820,23 @@ function initBrandNavPopup() {
     togglePopup();
   });
 
-  if (schedItem) {
-    schedItem.addEventListener('click', (e) => {
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      togglePopup(false);
+    });
+  }
+
+  if (schedCard) {
+    schedCard.addEventListener('click', (e) => {
       e.preventDefault();
       togglePopup(false);
     });
   }
 
-  document.addEventListener('click', (e) => {
-    if (popup.classList.contains('is-open')) {
-      if (!popup.contains(e.target) && !trigger.contains(e.target)) {
-        togglePopup(false);
-      }
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) {
+      togglePopup(false);
     }
   });
 
