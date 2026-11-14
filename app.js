@@ -152,6 +152,575 @@ const SCHEDULE_COURSES = [
 ];
 
 // ==========================================================================
+// 4TH YEAR SUMMER (4 UNITS)
+// ==========================================================================
+const COURSES_4TH_SUMMER = [
+  {
+    code: 'ME 516',
+    title: 'Manufacturing and Industrial Processes with Plant Visits',
+    units: 2,
+    color: '#0284c7',
+    border: '#38bdf8',
+    sections: [
+      {
+        id: 'ME40S1',
+        desc: 'Mon 8:00–9:00 AM (Lec) & 9:00 AM–12:00 PM (Lab)',
+        room: 'Q-5504/2106',
+        slots: [
+          { day: 0, start: 480, end: 540, room: 'Q-5504', tag: 'LEC' },
+          { day: 0, start: 540, end: 720, room: 'Q-2106', tag: 'LAB' }
+        ]
+      },
+      {
+        id: 'ME40S2',
+        desc: 'Wed 8:00–9:00 AM (Lec) & 9:00 AM–12:00 PM (Lab)',
+        room: 'Q-5504/2106',
+        slots: [
+          { day: 2, start: 480, end: 540, room: 'Q-5504', tag: 'LEC' },
+          { day: 2, start: 540, end: 720, room: 'Q-2106', tag: 'LAB' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 410',
+    title: 'Mechanical Engineering Lab 2',
+    units: 2,
+    color: '#0d9488',
+    border: '#2dd4bf',
+    sections: [
+      {
+        id: 'ME40S1',
+        desc: 'Tu/Th 8:00–11:00 AM',
+        room: 'Q-2105',
+        slots: [
+          { day: 1, start: 480, end: 660, room: 'Q-2105' },
+          { day: 3, start: 480, end: 660, room: 'Q-2105' }
+        ]
+      },
+      {
+        id: 'ME40S2',
+        desc: 'Tu/Th 1:00–4:00 PM',
+        room: 'Q-2105',
+        slots: [
+          { day: 1, start: 780, end: 960, room: 'Q-2105' },
+          { day: 3, start: 780, end: 960, room: 'Q-2105' }
+        ]
+      }
+    ]
+  }
+];
+
+// ==========================================================================
+// 4TH YEAR FIRST SEMESTER (25 UNITS)
+// ==========================================================================
+const COURSES_4TH_1ST = [
+  {
+    code: 'TECH 101A',
+    title: 'Technology Entrepreneurship',
+    units: 3,
+    color: '#16a34a',
+    border: '#4ade80',
+    sections: [
+      {
+        id: 'ME41S1',
+        desc: 'M/W/F 7:30–8:30 AM',
+        room: 'Q-5504',
+        slots: [
+          { day: 0, start: 450, end: 510, room: 'Q-5504' },
+          { day: 2, start: 450, end: 510, room: 'Q-5504' },
+          { day: 4, start: 450, end: 510, room: 'Q-5504' }
+        ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'M/W/F 1:30–2:30 PM',
+        room: 'Q-5504',
+        slots: [
+          { day: 0, start: 810, end: 870, room: 'Q-5504' },
+          { day: 2, start: 810, end: 870, room: 'Q-5504' },
+          { day: 4, start: 810, end: 870, room: 'Q-5504' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 519',
+    title: 'Air Conditioning and Ventilation Systems',
+    units: 3,
+    color: '#06b6d4',
+    border: '#22d3ee',
+    sections: [
+      {
+        id: 'ME41S1',
+        desc: 'M/W/F 8:30–9:30 AM',
+        room: 'Q-5504',
+        slots: [
+          { day: 0, start: 510, end: 570, room: 'Q-5504' },
+          { day: 2, start: 510, end: 570, room: 'Q-5504' },
+          { day: 4, start: 510, end: 570, room: 'Q-5504' }
+        ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'M/W/F 2:30–3:30 PM',
+        room: 'Q-5504',
+        slots: [
+          { day: 0, start: 870, end: 930, room: 'Q-5504' },
+          { day: 2, start: 870, end: 930, room: 'Q-5504' },
+          { day: 4, start: 870, end: 930, room: 'Q-5504' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 524',
+    title: 'Integration Course in Mathematics',
+    units: 2,
+    color: '#db2777',
+    border: '#f472b6',
+    sections: [
+      {
+        id: 'ME41S1',
+        desc: 'Mo/We 9:30–10:30 AM',
+        room: 'Q-5507',
+        slots: [
+          { day: 0, start: 570, end: 630, room: 'Q-5507' },
+          { day: 2, start: 570, end: 630, room: 'Q-5507' }
+        ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'Mo/We 3:30–4:30 PM',
+        room: 'Q-5507',
+        slots: [
+          { day: 0, start: 930, end: 990, room: 'Q-5507' },
+          { day: 2, start: 930, end: 990, room: 'Q-5507' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 523',
+    title: 'ME Laws, Ethics, Codes and Standards',
+    units: 2,
+    color: '#d97706',
+    border: '#fbbf24',
+    sections: [
+      {
+        id: 'ME41S1',
+        desc: 'Mon 10:30 AM–12:30 PM',
+        room: 'Q-5508',
+        slots: [
+          { day: 0, start: 630, end: 750, room: 'Q-5508' }
+        ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'Mon 4:30–6:30 PM',
+        room: 'Q-5508',
+        slots: [
+          { day: 0, start: 990, end: 1110, room: 'Q-5508' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'MEE 001',
+    title: 'Mechanical Engineering Elective 1',
+    units: 2,
+    color: '#6366f1',
+    border: '#818cf8',
+    sections: [
+      {
+        id: 'ME41S1',
+        desc: 'Wed 10:30 AM–12:30 PM',
+        room: 'Q-5508',
+        slots: [
+          { day: 2, start: 630, end: 750, room: 'Q-5508' }
+        ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'Wed 4:30–6:30 PM',
+        room: 'Q-5508',
+        slots: [
+          { day: 2, start: 990, end: 1110, room: 'Q-5508' }
+        ]
+      },
+      {
+        id: 'ME41S3',
+        desc: 'Sat 8:00–10:00 AM',
+        room: 'Q-5508',
+        slots: [
+          { day: 5, start: 480, end: 600, room: 'Q-5508' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 514',
+    title: 'Vibration Engineering',
+    units: 2,
+    color: '#4f46e5',
+    border: '#818cf8',
+    sections: [
+      {
+        id: 'ME41S1',
+        desc: 'Fri 9:30–11:30 AM',
+        room: 'Q-5507',
+        slots: [
+          { day: 4, start: 570, end: 690, room: 'Q-5507' }
+        ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'Fri 3:30–5:30 PM',
+        room: 'Q-5507',
+        slots: [
+          { day: 4, start: 930, end: 1050, room: 'Q-5507' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 522',
+    title: 'Power Plant Design with Renewable Energy',
+    units: 4,
+    color: '#ea580c',
+    border: '#fb923c',
+    sections: [
+      {
+        id: 'ME41S1',
+        desc: 'Tu/Th 7:30-9:00 AM (L) & Fr 1:30-4:30 PM (Lab)',
+        room: 'Q-5504/2106',
+        slots: [
+          { day: 1, start: 450, end: 540, room: 'Q-5504', tag: 'LEC' },
+          { day: 3, start: 450, end: 540, room: 'Q-5504', tag: 'LEC' },
+          { day: 4, start: 810, end: 990, room: 'Q-2106', tag: 'LAB' }
+        ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'Tu/Th 1:30-3:00 PM (L) & Tu 9:00-12:00 PM (Lab)',
+        room: 'Q-5504/2106',
+        slots: [
+          { day: 1, start: 810, end: 900, room: 'Q-5504', tag: 'LEC' },
+          { day: 3, start: 810, end: 900, room: 'Q-5504', tag: 'LEC' },
+          { day: 1, start: 540, end: 720, room: 'Q-2106', tag: 'LAB' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 521',
+    title: 'Machine Design 2',
+    units: 3,
+    color: '#0284c7',
+    border: '#38bdf8',
+    sections: [
+      {
+        id: 'ME41S1',
+        desc: 'Tu/Th 9:00-10:00 AM (L) & Tu 10:00 AM-1:00 PM (Lab)',
+        room: 'Q-5504/2106',
+        slots: [
+          { day: 1, start: 540, end: 600, room: 'Q-5504', tag: 'LEC' },
+          { day: 3, start: 540, end: 600, room: 'Q-5504', tag: 'LEC' },
+          { day: 1, start: 600, end: 780, room: 'Q-2106', tag: 'LAB' }
+        ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'Tu/Th 3:00-4:00 PM (L) & Th 9:00 AM-12:00 PM (Lab)',
+        room: 'Q-5504/2106',
+        slots: [
+          { day: 1, start: 900, end: 960, room: 'Q-5504', tag: 'LEC' },
+          { day: 3, start: 900, end: 960, room: 'Q-5504', tag: 'LEC' },
+          { day: 3, start: 540, end: 720, room: 'Q-2106', tag: 'LAB' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 513',
+    title: 'ME Design Project 1',
+    units: 3,
+    color: '#8b5cf6',
+    border: '#a78bfa',
+    sections: [
+      {
+        id: 'ME41S1',
+        desc: 'Thu 10:00 AM-12:00 PM (L) & Thu 1:00-4:00 PM (Lab)',
+        room: 'Q-5507/2105',
+        slots: [
+          { day: 3, start: 600, end: 720, room: 'Q-5507', tag: 'LEC' },
+          { day: 3, start: 780, end: 960, room: 'Q-2105', tag: 'LAB' }
+        ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'Tu/Th 4:00-5:00 PM (L) & Tu 5:00-8:00 PM (Lab)',
+        room: 'Q-5507/2105',
+        slots: [
+          { day: 1, start: 960, end: 1020, room: 'Q-5507', tag: 'LEC' },
+          { day: 3, start: 960, end: 1020, room: 'Q-5507', tag: 'LEC' },
+          { day: 1, start: 1020, end: 1200, room: 'Q-2105', tag: 'LAB' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 508',
+    title: 'ME Project Study 1',
+    units: 1,
+    color: '#0d9488',
+    border: '#2dd4bf',
+    sections: [
+      {
+        id: 'ME41S1',
+        desc: 'Wed 1:30–4:30 PM',
+        room: 'Q-2105',
+        slots: [
+          { day: 2, start: 810, end: 990, room: 'Q-2105' }
+        ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'Sat 9:00 AM–12:00 PM',
+        room: 'Q-2105',
+        slots: [
+          { day: 5, start: 540, end: 720, room: 'Q-2105' }
+        ]
+      }
+    ]
+  }
+];
+
+// ==========================================================================
+// 4TH YEAR SECOND SEMESTER (18 UNITS)
+// ==========================================================================
+const COURSES_4TH_2ND = [
+  {
+    code: 'ME 510',
+    title: 'Industrial Plant Engineering',
+    units: 4,
+    color: '#0284c7',
+    border: '#38bdf8',
+    sections: [
+      {
+        id: 'ME42S1',
+        desc: 'Tu/Th 7:30-9:00 AM (L) & Tu 1:30-4:30 PM (Lab)',
+        room: 'Q-5504/2106',
+        slots: [
+          { day: 1, start: 450, end: 540, room: 'Q-5504', tag: 'LEC' },
+          { day: 3, start: 450, end: 540, room: 'Q-5504', tag: 'LEC' },
+          { day: 1, start: 810, end: 990, room: 'Q-2106', tag: 'LAB' }
+        ]
+      },
+      {
+        id: 'ME42S2',
+        desc: 'We/Fr 7:30-9:00 AM (L) & Wed 1:30-4:30 PM (Lab)',
+        room: 'Q-5504/2106',
+        slots: [
+          { day: 2, start: 450, end: 540, room: 'Q-5504', tag: 'LEC' },
+          { day: 4, start: 450, end: 540, room: 'Q-5504', tag: 'LEC' },
+          { day: 2, start: 810, end: 990, room: 'Q-2106', tag: 'LAB' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 515',
+    title: 'ME Design Project 2',
+    units: 3,
+    color: '#8b5cf6',
+    border: '#a78bfa',
+    sections: [
+      {
+        id: 'ME42S1',
+        desc: 'Mon 8:00-9:00 AM (L) & Mo/We 9:00 AM-12:00 PM (Lab)',
+        room: 'Q-5507/2105',
+        slots: [
+          { day: 0, start: 480, end: 540, room: 'Q-5507', tag: 'LEC' },
+          { day: 0, start: 540, end: 720, room: 'Q-2105', tag: 'LAB' },
+          { day: 2, start: 540, end: 720, room: 'Q-2105', tag: 'LAB' }
+        ]
+      },
+      {
+        id: 'ME42S2',
+        desc: 'Tue 8:00-9:00 AM (L) & Tu/Th 9:00 AM-12:00 PM (Lab)',
+        room: 'Q-5507/2105',
+        slots: [
+          { day: 1, start: 480, end: 540, room: 'Q-5507', tag: 'LEC' },
+          { day: 1, start: 540, end: 720, room: 'Q-2105', tag: 'LAB' },
+          { day: 3, start: 540, end: 720, room: 'Q-2105', tag: 'LAB' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 505',
+    title: 'Mechanical Engineering Lab 3',
+    units: 2,
+    color: '#0d9488',
+    border: '#2dd4bf',
+    sections: [
+      {
+        id: 'ME42S1',
+        desc: 'Tu/Th 9:30 AM–12:30 PM',
+        room: 'Q-2106',
+        slots: [
+          { day: 1, start: 570, end: 750, room: 'Q-2106' },
+          { day: 3, start: 570, end: 750, room: 'Q-2106' }
+        ]
+      },
+      {
+        id: 'ME42S2',
+        desc: 'We/Fr 9:30 AM–12:30 PM',
+        room: 'Q-2106',
+        slots: [
+          { day: 2, start: 570, end: 750, room: 'Q-2106' },
+          { day: 4, start: 570, end: 750, room: 'Q-2106' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 525',
+    title: 'Integration Course in Engineering and Science',
+    units: 2,
+    color: '#d97706',
+    border: '#fbbf24',
+    sections: [
+      {
+        id: 'ME42S1',
+        desc: 'Mon 1:30–3:30 PM',
+        room: 'Q-5507',
+        slots: [
+          { day: 0, start: 810, end: 930, room: 'Q-5507' }
+        ]
+      },
+      {
+        id: 'ME42S2',
+        desc: 'Tue 1:30–3:30 PM',
+        room: 'Q-5507',
+        slots: [
+          { day: 1, start: 810, end: 930, room: 'Q-5507' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 526',
+    title: 'Integration Course in Power Plant and Industrial Plant',
+    units: 2,
+    color: '#ea580c',
+    border: '#fb923c',
+    sections: [
+      {
+        id: 'ME42S1',
+        desc: 'Wed 1:30–3:30 PM',
+        room: 'Q-5507',
+        slots: [
+          { day: 2, start: 810, end: 930, room: 'Q-5507' }
+        ]
+      },
+      {
+        id: 'ME42S2',
+        desc: 'Thu 1:30–3:30 PM',
+        room: 'Q-5507',
+        slots: [
+          { day: 3, start: 810, end: 930, room: 'Q-5507' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'MEE 002',
+    title: 'Mechanical Engineering Elective 2',
+    units: 2,
+    color: '#6366f1',
+    border: '#818cf8',
+    sections: [
+      {
+        id: 'ME42S1',
+        desc: 'Fri 8:30–10:30 AM',
+        room: 'Q-5508',
+        slots: [
+          { day: 4, start: 510, end: 630, room: 'Q-5508' }
+        ]
+      },
+      {
+        id: 'ME42S2',
+        desc: 'Mon 10:30 AM–12:30 PM',
+        room: 'Q-5508',
+        slots: [
+          { day: 0, start: 630, end: 750, room: 'Q-5508' }
+        ]
+      },
+      {
+        id: 'ME42S3',
+        desc: 'Sat 8:00–10:00 AM',
+        room: 'Q-5508',
+        slots: [
+          { day: 5, start: 480, end: 600, room: 'Q-5508' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 512',
+    title: 'ME Project Study 2',
+    units: 1,
+    color: '#16a34a',
+    border: '#4ade80',
+    sections: [
+      {
+        id: 'ME42S1',
+        desc: 'Fri 1:30–4:30 PM',
+        room: 'Q-2105',
+        slots: [
+          { day: 4, start: 810, end: 990, room: 'Q-2105' }
+        ]
+      },
+      {
+        id: 'ME42S2',
+        desc: 'Mon 1:30–4:30 PM',
+        room: 'Q-2105',
+        slots: [
+          { day: 0, start: 810, end: 990, room: 'Q-2105' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 500',
+    title: 'On-the-Job Training for ME (240 Hours)',
+    units: 2,
+    color: '#db2777',
+    border: '#f472b6',
+    sections: [
+      {
+        id: 'ME42S1',
+        desc: 'Sat 8:00 AM–5:00 PM (Industry Placement)',
+        room: 'INDUSTRY',
+        slots: [
+          { day: 5, start: 480, end: 1020, room: 'INDUSTRY', tag: 'OJT' }
+        ]
+      },
+      {
+        id: 'ME42S2',
+        desc: 'Flexible / Industry Placement (240 Hours)',
+        room: 'INDUSTRY',
+        slots: [
+          { day: 5, start: 480, end: 1020, room: 'INDUSTRY', tag: 'OJT' }
+        ]
+      }
+    ]
+  }
+];
+
+// ==========================================================================
 // SEMESTER / TERM ARCHITECTURE
 // ==========================================================================
 const SEMESTERS = [
@@ -166,22 +735,22 @@ const SEMESTERS = [
     id: '4th-summer',
     name: '4th Year Summer',
     shortName: '4th Yr Summer',
-    meta: 'Summer Term',
-    courses: []
+    meta: '2 Subjects • 4 Units',
+    courses: COURSES_4TH_SUMMER
   },
   {
     id: '4th-1st',
     name: '4th Year 1st Sem',
     shortName: '4th Yr 1st Sem',
-    meta: 'First Semester',
-    courses: []
+    meta: '10 Subjects • 25 Units',
+    courses: COURSES_4TH_1ST
   },
   {
     id: '4th-2nd',
     name: '4th Year 2nd Sem',
     shortName: '4th Yr 2nd Sem',
-    meta: 'Second Semester',
-    courses: []
+    meta: '8 Subjects • 18 Units',
+    courses: COURSES_4TH_2ND
   }
 ];
 
@@ -226,7 +795,8 @@ function initScheduleCreatorState() {
       applySchedulePreset('A');
     }
   } else {
-    userScheduleSelection = {};
+    // Fresh semester visit: pre-populate with recommended Choice A
+    applySchedulePreset('A');
   }
 }
 
@@ -254,6 +824,27 @@ function applySchedulePreset(preset) {
         else userScheduleSelection[c.code] = 'ME32S1';
       });
     }
+  } else if (activeSemesterId === '4th-summer') {
+    const targetSec = preset === 'A' ? 'ME40S1' : 'ME40S2';
+    courses.forEach(c => {
+      const match = c.sections.find(s => s.id === targetSec);
+      if (match) userScheduleSelection[c.code] = match.id;
+      else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
+    });
+  } else if (activeSemesterId === '4th-1st') {
+    const targetSec = preset === 'A' ? 'ME41S1' : 'ME41S2';
+    courses.forEach(c => {
+      const match = c.sections.find(s => s.id === targetSec);
+      if (match) userScheduleSelection[c.code] = match.id;
+      else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
+    });
+  } else if (activeSemesterId === '4th-2nd') {
+    const targetSec = preset === 'A' ? 'ME42S1' : 'ME42S2';
+    courses.forEach(c => {
+      const match = c.sections.find(s => s.id === targetSec);
+      if (match) userScheduleSelection[c.code] = match.id;
+      else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
+    });
   } else {
     courses.forEach(c => {
       if (c.sections && c.sections.length > 0) {
@@ -1126,17 +1717,27 @@ function updateScheduleStats() {
   if (statCourses) statCourses.textContent = `${count} / ${courses.length}`;
   if (statUnits) statUnits.textContent = `${enrolledUnits} / ${totalAvailableUnits}`;
 
-  // Dim preset buttons if not in 3rd Year 2nd Sem
+  // Dynamic preset button labels and states across all terms
   const btnA = document.getElementById('btn-preset-choice-a');
   const btnB = document.getElementById('btn-preset-choice-b');
-  const hasPresets = courses.length > 0 && activeSemesterId === '3rd-2nd';
+  const hasPresets = courses.length > 0;
   if (btnA) {
     btnA.style.opacity = hasPresets ? '' : '0.4';
     btnA.style.pointerEvents = hasPresets ? '' : 'none';
+    let subA = '(ME32S1 Block)';
+    if (activeSemesterId === '4th-summer') subA = '(ME40S1 Block)';
+    else if (activeSemesterId === '4th-1st') subA = '(ME41S1 Block)';
+    else if (activeSemesterId === '4th-2nd') subA = '(ME42S1 Block)';
+    btnA.innerHTML = `Choice A<span class="sched-btn-sub"> ${subA}</span>`;
   }
   if (btnB) {
     btnB.style.opacity = hasPresets ? '' : '0.4';
     btnB.style.pointerEvents = hasPresets ? '' : 'none';
+    let subB = '(Sat Lab Block)';
+    if (activeSemesterId === '4th-summer') subB = '(ME40S2 Block)';
+    else if (activeSemesterId === '4th-1st') subB = '(ME41S2 Block)';
+    else if (activeSemesterId === '4th-2nd') subB = '(ME42S2 Block)';
+    btnB.innerHTML = `Choice B<span class="sched-btn-sub"> ${subB}</span>`;
   }
 }
 
