@@ -152,7 +152,7 @@ const SCHEDULE_COURSES = [
 ];
 
 // ==========================================================================
-// 4TH YEAR SUMMER (4 UNITS)
+// 4TH YEAR SUMMER (4 UNITS) - MONDAY ASYNCHRONOUS (ZERO MONDAY CLASSES)
 // ==========================================================================
 const COURSES_4TH_SUMMER = [
   {
@@ -164,20 +164,20 @@ const COURSES_4TH_SUMMER = [
     sections: [
       {
         id: 'ME40S1',
-        desc: 'Mon 8:00–9:00 AM (Lec) & 9:00 AM–12:00 PM (Lab)',
-        room: 'Q-5504/2106',
-        slots: [
-          { day: 0, start: 480, end: 540, room: 'Q-5504', tag: 'LEC' },
-          { day: 0, start: 540, end: 720, room: 'Q-2106', tag: 'LAB' }
-        ]
-      },
-      {
-        id: 'ME40S2',
         desc: 'Wed 8:00–9:00 AM (Lec) & 9:00 AM–12:00 PM (Lab)',
         room: 'Q-5504/2106',
         slots: [
           { day: 2, start: 480, end: 540, room: 'Q-5504', tag: 'LEC' },
           { day: 2, start: 540, end: 720, room: 'Q-2106', tag: 'LAB' }
+        ]
+      },
+      {
+        id: 'ME40S2',
+        desc: 'Fri 8:00–9:00 AM (Lec) & 9:00 AM–12:00 PM (Lab)',
+        room: 'Q-5504/2106',
+        slots: [
+          { day: 4, start: 480, end: 540, room: 'Q-5504', tag: 'LEC' },
+          { day: 4, start: 540, end: 720, room: 'Q-2106', tag: 'LAB' }
         ]
       }
     ]
@@ -212,7 +212,7 @@ const COURSES_4TH_SUMMER = [
 ];
 
 // ==========================================================================
-// 4TH YEAR FIRST SEMESTER (25 UNITS)
+// 4TH YEAR FIRST SEMESTER (25 UNITS) - MONDAY ASYNCHRONOUS (ZERO MONDAY CLASSES)
 // ==========================================================================
 const COURSES_4TH_1ST = [
   {
@@ -224,22 +224,20 @@ const COURSES_4TH_1ST = [
     sections: [
       {
         id: 'ME41S1',
-        desc: 'M/W/F 7:30–8:30 AM',
+        desc: 'We/Fr 7:30–9:00 AM',
         room: 'Q-5504',
         slots: [
-          { day: 0, start: 450, end: 510, room: 'Q-5504' },
-          { day: 2, start: 450, end: 510, room: 'Q-5504' },
-          { day: 4, start: 450, end: 510, room: 'Q-5504' }
+          { day: 2, start: 450, end: 540, room: 'Q-5504' },
+          { day: 4, start: 450, end: 540, room: 'Q-5504' }
         ]
       },
       {
         id: 'ME41S2',
-        desc: 'M/W/F 1:30–2:30 PM',
+        desc: 'We/Fr 1:30–3:00 PM',
         room: 'Q-5504',
         slots: [
-          { day: 0, start: 810, end: 870, room: 'Q-5504' },
-          { day: 2, start: 810, end: 870, room: 'Q-5504' },
-          { day: 4, start: 810, end: 870, room: 'Q-5504' }
+          { day: 2, start: 810, end: 900, room: 'Q-5504' },
+          { day: 4, start: 810, end: 900, room: 'Q-5504' }
         ]
       }
     ]
@@ -253,74 +251,20 @@ const COURSES_4TH_1ST = [
     sections: [
       {
         id: 'ME41S1',
-        desc: 'M/W/F 8:30–9:30 AM',
+        desc: 'We/Fr 9:00–10:30 AM',
         room: 'Q-5504',
         slots: [
-          { day: 0, start: 510, end: 570, room: 'Q-5504' },
-          { day: 2, start: 510, end: 570, room: 'Q-5504' },
-          { day: 4, start: 510, end: 570, room: 'Q-5504' }
+          { day: 2, start: 540, end: 630, room: 'Q-5504' },
+          { day: 4, start: 540, end: 630, room: 'Q-5504' }
         ]
       },
       {
         id: 'ME41S2',
-        desc: 'M/W/F 2:30–3:30 PM',
+        desc: 'We/Fr 3:00–4:30 PM',
         room: 'Q-5504',
         slots: [
-          { day: 0, start: 870, end: 930, room: 'Q-5504' },
-          { day: 2, start: 870, end: 930, room: 'Q-5504' },
-          { day: 4, start: 870, end: 930, room: 'Q-5504' }
-        ]
-      }
-    ]
-  },
-  {
-    code: 'ME 524',
-    title: 'Integration Course in Mathematics',
-    units: 2,
-    color: '#db2777',
-    border: '#f472b6',
-    sections: [
-      {
-        id: 'ME41S1',
-        desc: 'Mo/We 9:30–10:30 AM',
-        room: 'Q-5507',
-        slots: [
-          { day: 0, start: 570, end: 630, room: 'Q-5507' },
-          { day: 2, start: 570, end: 630, room: 'Q-5507' }
-        ]
-      },
-      {
-        id: 'ME41S2',
-        desc: 'Mo/We 3:30–4:30 PM',
-        room: 'Q-5507',
-        slots: [
-          { day: 0, start: 930, end: 990, room: 'Q-5507' },
-          { day: 2, start: 930, end: 990, room: 'Q-5507' }
-        ]
-      }
-    ]
-  },
-  {
-    code: 'ME 523',
-    title: 'ME Laws, Ethics, Codes and Standards',
-    units: 2,
-    color: '#d97706',
-    border: '#fbbf24',
-    sections: [
-      {
-        id: 'ME41S1',
-        desc: 'Mon 10:30 AM–12:30 PM',
-        room: 'Q-5508',
-        slots: [
-          { day: 0, start: 630, end: 750, room: 'Q-5508' }
-        ]
-      },
-      {
-        id: 'ME41S2',
-        desc: 'Mon 4:30–6:30 PM',
-        room: 'Q-5508',
-        slots: [
-          { day: 0, start: 990, end: 1110, room: 'Q-5508' }
+          { day: 2, start: 900, end: 990, room: 'Q-5504' },
+          { day: 4, start: 900, end: 990, room: 'Q-5504' }
         ]
       }
     ]
@@ -350,10 +294,60 @@ const COURSES_4TH_1ST = [
       },
       {
         id: 'ME41S3',
-        desc: 'Sat 8:00–10:00 AM',
+        desc: 'Sat 1:00–3:00 PM',
         room: 'Q-5508',
         slots: [
-          { day: 5, start: 480, end: 600, room: 'Q-5508' }
+          { day: 5, start: 780, end: 900, room: 'Q-5508' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 524',
+    title: 'Integration Course in Mathematics',
+    units: 2,
+    color: '#db2777',
+    border: '#f472b6',
+    sections: [
+      {
+        id: 'ME41S1',
+        desc: 'Wed 1:30–3:30 PM',
+        room: 'Q-5507',
+        slots: [
+          { day: 2, start: 810, end: 930, room: 'Q-5507' }
+        ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'Wed 10:30 AM–12:30 PM',
+        room: 'Q-5507',
+        slots: [
+          { day: 2, start: 630, end: 750, room: 'Q-5507' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 523',
+    title: 'ME Laws, Ethics, Codes and Standards',
+    units: 2,
+    color: '#d97706',
+    border: '#fbbf24',
+    sections: [
+      {
+        id: 'ME41S1',
+        desc: 'Tue 1:30–3:30 PM',
+        room: 'Q-5508',
+        slots: [
+          { day: 1, start: 810, end: 930, room: 'Q-5508' }
+        ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'Thu 5:30–7:30 PM',
+        room: 'Q-5508',
+        slots: [
+          { day: 3, start: 1050, end: 1170, room: 'Q-5508' }
         ]
       }
     ]
@@ -367,18 +361,18 @@ const COURSES_4TH_1ST = [
     sections: [
       {
         id: 'ME41S1',
-        desc: 'Fri 9:30–11:30 AM',
+        desc: 'Fri 10:30 AM–12:30 PM',
         room: 'Q-5507',
         slots: [
-          { day: 4, start: 570, end: 690, room: 'Q-5507' }
+          { day: 4, start: 630, end: 750, room: 'Q-5507' }
         ]
       },
       {
         id: 'ME41S2',
-        desc: 'Fri 3:30–5:30 PM',
+        desc: 'Fri 4:30–6:30 PM',
         room: 'Q-5507',
         slots: [
-          { day: 4, start: 930, end: 1050, room: 'Q-5507' }
+          { day: 4, start: 990, end: 1110, room: 'Q-5507' }
         ]
       }
     ]
@@ -478,18 +472,18 @@ const COURSES_4TH_1ST = [
     sections: [
       {
         id: 'ME41S1',
-        desc: 'Wed 1:30–4:30 PM',
+        desc: 'Sat 8:30–11:30 AM',
         room: 'Q-2105',
         slots: [
-          { day: 2, start: 810, end: 990, room: 'Q-2105' }
+          { day: 5, start: 510, end: 690, room: 'Q-2105' }
         ]
       },
       {
         id: 'ME41S2',
-        desc: 'Sat 9:00 AM–12:00 PM',
+        desc: 'Sat 1:00–4:00 PM',
         room: 'Q-2105',
         slots: [
-          { day: 5, start: 540, end: 720, room: 'Q-2105' }
+          { day: 5, start: 780, end: 960, room: 'Q-2105' }
         ]
       }
     ]
@@ -497,7 +491,7 @@ const COURSES_4TH_1ST = [
 ];
 
 // ==========================================================================
-// 4TH YEAR SECOND SEMESTER (18 UNITS)
+// 4TH YEAR SECOND SEMESTER (18 UNITS) - MONDAY ASYNCHRONOUS (ZERO MONDAY CLASSES)
 // ==========================================================================
 const COURSES_4TH_2ND = [
   {
@@ -538,22 +532,22 @@ const COURSES_4TH_2ND = [
     sections: [
       {
         id: 'ME42S1',
-        desc: 'Mon 8:00-9:00 AM (L) & Mo/We 9:00 AM-12:00 PM (Lab)',
+        desc: 'Wed 8:00-9:00 AM (L) & We 9:00-12:00 & Fr 10:30-1:30 (Lab)',
         room: 'Q-5507/2105',
         slots: [
-          { day: 0, start: 480, end: 540, room: 'Q-5507', tag: 'LEC' },
-          { day: 0, start: 540, end: 720, room: 'Q-2105', tag: 'LAB' },
-          { day: 2, start: 540, end: 720, room: 'Q-2105', tag: 'LAB' }
+          { day: 2, start: 480, end: 540, room: 'Q-5507', tag: 'LEC' },
+          { day: 2, start: 540, end: 720, room: 'Q-2105', tag: 'LAB' },
+          { day: 4, start: 630, end: 810, room: 'Q-2105', tag: 'LAB' }
         ]
       },
       {
         id: 'ME42S2',
-        desc: 'Tue 8:00-9:00 AM (L) & Tu/Th 9:00 AM-12:00 PM (Lab)',
+        desc: 'Thu 8:00-9:00 AM (L) & Th 9:00-12:00 & Fr 3:30-6:30 (Lab)',
         room: 'Q-5507/2105',
         slots: [
-          { day: 1, start: 480, end: 540, room: 'Q-5507', tag: 'LEC' },
-          { day: 1, start: 540, end: 720, room: 'Q-2105', tag: 'LAB' },
-          { day: 3, start: 540, end: 720, room: 'Q-2105', tag: 'LAB' }
+          { day: 3, start: 480, end: 540, room: 'Q-5507', tag: 'LEC' },
+          { day: 3, start: 540, end: 720, room: 'Q-2105', tag: 'LAB' },
+          { day: 4, start: 930, end: 1110, room: 'Q-2105', tag: 'LAB' }
         ]
       }
     ]
@@ -586,31 +580,6 @@ const COURSES_4TH_2ND = [
     ]
   },
   {
-    code: 'ME 525',
-    title: 'Integration Course in Engineering and Science',
-    units: 2,
-    color: '#d97706',
-    border: '#fbbf24',
-    sections: [
-      {
-        id: 'ME42S1',
-        desc: 'Mon 1:30–3:30 PM',
-        room: 'Q-5507',
-        slots: [
-          { day: 0, start: 810, end: 930, room: 'Q-5507' }
-        ]
-      },
-      {
-        id: 'ME42S2',
-        desc: 'Tue 1:30–3:30 PM',
-        room: 'Q-5507',
-        slots: [
-          { day: 1, start: 810, end: 930, room: 'Q-5507' }
-        ]
-      }
-    ]
-  },
-  {
     code: 'ME 526',
     title: 'Integration Course in Power Plant and Industrial Plant',
     units: 2,
@@ -627,10 +596,35 @@ const COURSES_4TH_2ND = [
       },
       {
         id: 'ME42S2',
-        desc: 'Thu 1:30–3:30 PM',
+        desc: 'Tue 3:30–5:30 PM',
         room: 'Q-5507',
         slots: [
-          { day: 3, start: 810, end: 930, room: 'Q-5507' }
+          { day: 1, start: 930, end: 1050, room: 'Q-5507' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 525',
+    title: 'Integration Course in Engineering and Science',
+    units: 2,
+    color: '#d97706',
+    border: '#fbbf24',
+    sections: [
+      {
+        id: 'ME42S1',
+        desc: 'Wed 3:30–5:30 PM',
+        room: 'Q-5507',
+        slots: [
+          { day: 2, start: 930, end: 1050, room: 'Q-5507' }
+        ]
+      },
+      {
+        id: 'ME42S2',
+        desc: 'Tue 1:30–3:30 PM',
+        room: 'Q-5507',
+        slots: [
+          { day: 1, start: 810, end: 930, room: 'Q-5507' }
         ]
       }
     ]
@@ -652,10 +646,10 @@ const COURSES_4TH_2ND = [
       },
       {
         id: 'ME42S2',
-        desc: 'Mon 10:30 AM–12:30 PM',
+        desc: 'Fri 1:30–3:30 PM',
         room: 'Q-5508',
         slots: [
-          { day: 0, start: 630, end: 750, room: 'Q-5508' }
+          { day: 4, start: 810, end: 930, room: 'Q-5508' }
         ]
       },
       {
@@ -677,18 +671,18 @@ const COURSES_4TH_2ND = [
     sections: [
       {
         id: 'ME42S1',
-        desc: 'Fri 1:30–4:30 PM',
+        desc: 'Thu 1:30–4:30 PM',
         room: 'Q-2105',
         slots: [
-          { day: 4, start: 810, end: 990, room: 'Q-2105' }
+          { day: 3, start: 810, end: 990, room: 'Q-2105' }
         ]
       },
       {
         id: 'ME42S2',
-        desc: 'Mon 1:30–4:30 PM',
+        desc: 'Thu 1:30–4:30 PM',
         room: 'Q-2105',
         slots: [
-          { day: 0, start: 810, end: 990, room: 'Q-2105' }
+          { day: 3, start: 810, end: 990, room: 'Q-2105' }
         ]
       }
     ]
