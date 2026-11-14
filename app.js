@@ -1172,9 +1172,9 @@ function enterFocusMode() {
         gridEl.style.minHeight = '';
       }
     }
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       fitScheduleEventTitles();
-    }, 260);
+    });
   }
 }
 
@@ -1188,9 +1188,9 @@ function exitFocusMode() {
         renderScheduleGrid();
       }
     }
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       fitScheduleEventTitles();
-    }, 260);
+    });
   }
 }
 
