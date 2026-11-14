@@ -1689,11 +1689,6 @@ function updateScheduleStats() {
   const courses = getActiveCourses();
   const sem = getActiveSemester();
 
-  const statSemLabel = document.getElementById('sched-stat-sem-label');
-  if (statSemLabel) {
-    statSemLabel.textContent = sem.shortName;
-  }
-
   let totalAvailableUnits = 0;
   let enrolledUnits = 0;
   let count = 0;
