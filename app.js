@@ -491,17 +491,43 @@ function clearInterferingHighlights() {
   });
 }
 
+function formatSlotTime(timeStr) {
+  if (!timeStr) return '';
+  let t = timeStr.replace(/–|-/g, '–');
+  t = t.replace(/\s*AM\s*–/gi, '–');
+  t = t.replace(/\s*PM\s*–/gi, '–');
+  t = t.replace(/\s+(AM|PM)/gi, '$1');
+  return t.trim();
+}
+
 function formatPillDesc(desc) {
   if (!desc) return '';
   if (desc.includes(' & ')) {
     const parts = desc.split(' & ');
-    return `<span class="pill-day">${parts[0].trim()}</span><span class="pill-time">&amp; ${parts[1].trim()}</span>`;
+    return parts.map(part => {
+      let p = part.trim();
+      let tag = '';
+      const tagMatch = p.match(/\s*\((Lab|Lec|L)\)/i);
+      if (tagMatch) {
+        tag = tagMatch[1].toUpperCase() === 'L' ? 'Lec' : (tagMatch[1].charAt(0).toUpperCase() + tagMatch[1].slice(1).toLowerCase());
+        p = p.replace(tagMatch[0], '').trim();
+      }
+      const match = p.match(/^([A-Za-z/]+)\s+(.+)$/);
+      if (match) {
+        const day = match[1];
+        const time = formatSlotTime(match[2]);
+        return `<span class="pill-slot-line"><span class="pill-day-slot">${day}</span> <span class="pill-time-slot">${time}</span>${tag ? ` <span class="pill-tag-slot">${tag}</span>` : ''}</span>`;
+      }
+      return `<span class="pill-slot-line">${formatSlotTime(p)}</span>`;
+    }).join('');
   }
   const match = desc.match(/^([A-Za-z/]+)\s+(.+)$/);
   if (match) {
-    return `<span class="pill-day">${match[1]}</span><span class="pill-time">${match[2]}</span>`;
+    const day = match[1];
+    const time = formatSlotTime(match[2]);
+    return `<span class="pill-day">${day}</span><span class="pill-time">${time}</span>`;
   }
-  return `<span class="pill-time">${desc}</span>`;
+  return `<span class="pill-time">${formatSlotTime(desc)}</span>`;
 }
 
 // ==========================================================================
@@ -600,7 +626,7 @@ Room: ${sec.room}${pillConflictTitle}"
         </div>
         <div class="sched-course-subgroup">
           <span class="sched-course-code-grey">${course.code}</span>
-          <span class="sched-course-units-grey">&bull; ${course.units} Units</span>
+          <span class="sched-course-units-grey">&bull; ${course.units} ${course.units === 1 ? 'Unit' : 'Units'}</span>
         </div>
       </div>
       <div class="sched-pills-row">${pillsHtml}</div>

@@ -434,12 +434,12 @@ body.sched-show-saturday .sched-grid-body {
   width: 100%;
   min-width: 0;
   max-width: 100%;
-  min-height: 50px;
+  min-height: 48px;
   box-sizing: border-box;
-  background: var(--bg-main);
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  padding: 0.3rem 0.2rem;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  padding: 0.24rem 0.18rem;
   border-radius: 7px;
   cursor: pointer;
   transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
@@ -479,10 +479,33 @@ body.sched-show-saturday .sched-grid-body {
 .sched-pill .pill-sec {
   font-weight: 800;
   font-size: 0.76rem;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.025em;
   line-height: 1.15;
+  color: #e2e8f0;
   display: block;
   white-space: nowrap;
+}
+
+.sched-pill.active .pill-sec {
+  color: inherit;
+  font-weight: 800;
+}
+
+.sched-pill.active .pill-day,
+.sched-pill.active .pill-day-slot {
+  color: inherit;
+  opacity: 0.95;
+}
+
+.sched-pill.active .pill-time,
+.sched-pill.active .pill-time-slot {
+  color: inherit;
+  opacity: 0.85;
+}
+
+.sched-pill.active .pill-tag-slot {
+  background: rgba(255, 255, 255, 0.2);
+  color: inherit;
 }
 
 .sched-pill .pill-desc {
@@ -491,7 +514,8 @@ body.sched-show-saturday .sched-grid-body {
   align-items: center !important;
   justify-content: center !important;
   width: 100%;
-  margin-top: 3px;
+  max-width: 100%;
+  margin-top: 2px;
   line-height: 1.15;
   gap: 1px;
 }
@@ -499,23 +523,69 @@ body.sched-show-saturday .sched-grid-body {
 .sched-pill .pill-day {
   font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
-  opacity: 0.9;
-  white-space: nowrap;
-  display: block;
-  line-height: 1.1;
-}
-
-.sched-pill .pill-time {
-  font-size: 0.54rem;
-  font-weight: 500;
-  opacity: 0.85;
+  color: #cbd5e1;
+  letter-spacing: 0.01em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
   display: block;
-  line-height: 1.1;
+  line-height: 1.15;
+}
+
+.sched-pill .pill-time {
+  font-size: 0.52rem;
+  font-weight: 500;
+  color: #94a3b8;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
+  line-height: 1.15;
+}
+
+/* Two-part slot lines (e.g. Lab + Lec) */
+.sched-pill .pill-slot-line {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px;
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  line-height: 1.15;
+  font-size: 0.49rem;
+}
+
+.sched-pill .pill-day-slot {
+  font-weight: 700;
+  color: #cbd5e1;
+  flex-shrink: 0;
+}
+
+.sched-pill .pill-time-slot {
+  font-weight: 500;
+  color: #94a3b8;
+  letter-spacing: -0.015em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sched-pill .pill-tag-slot {
+  font-size: 0.42rem;
+  font-weight: 800;
+  padding: 0.02rem 0.16rem;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  line-height: 1;
 }
 
 /* Conflict Styling on Pills */
@@ -920,13 +990,45 @@ body.sched-show-saturday .sched-grid-body {
 [data-theme="light"] .sched-pill {
   background: #ffffff !important;
   border: 1px solid #e2d7ce !important;
-  color: var(--text-secondary) !important;
+  color: #64748b !important;
 }
 
 [data-theme="light"] .sched-pill:hover {
   background: #fef8f4 !important;
   border-color: var(--accent-primary) !important;
   color: var(--text-primary) !important;
+}
+
+[data-theme="light"] .sched-pill .pill-sec {
+  color: #1e293b !important;
+}
+
+[data-theme="light"] .sched-pill .pill-day,
+[data-theme="light"] .sched-pill .pill-day-slot {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .sched-pill .pill-time,
+[data-theme="light"] .sched-pill .pill-time-slot {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .sched-pill .pill-tag-slot {
+  background: rgba(0, 0, 0, 0.06) !important;
+  color: #334155 !important;
+}
+
+[data-theme="light"] .sched-pill.active .pill-sec,
+[data-theme="light"] .sched-pill.active .pill-day,
+[data-theme="light"] .sched-pill.active .pill-day-slot,
+[data-theme="light"] .sched-pill.active .pill-time,
+[data-theme="light"] .sched-pill.active .pill-time-slot,
+[data-theme="light"] .sched-pill.active .pill-tag-slot {
+  color: inherit !important;
+}
+
+[data-theme="light"] .sched-pill.active .pill-tag-slot {
+  background: rgba(255, 255, 255, 0.25) !important;
 }
 
 [data-theme="light"] .sched-grid-slot {
@@ -1271,11 +1373,6 @@ body.sched-show-saturday .sched-grid-body {
     gap: 0.18rem !important;
   }
 
-  .sched-course-row[data-course-code="ME 007"] .pill-day,
-  .sched-course-row[data-course-code="ME 007"] .pill-time {
-    font-size: 0.46rem !important;
-  }
-
   .sched-course-title-main {
     font-size: 0.86rem !important;
   }
@@ -1292,16 +1389,43 @@ body.sched-show-saturday .sched-grid-body {
   .sched-pill .pill-sec {
     font-size: 0.76rem !important;
     white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   .sched-pill .pill-day {
     font-size: 0.58rem !important;
     white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
   }
 
   .sched-pill .pill-time {
     font-size: 0.52rem !important;
     white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+  }
+
+  .sched-pill .pill-slot-line {
+    font-size: 0.48rem !important;
+    gap: 2px !important;
+    line-height: 1.15 !important;
+  }
+
+  .sched-pill .pill-day-slot {
+    font-size: 0.50rem !important;
+  }
+
+  .sched-pill .pill-time-slot {
+    font-size: 0.47rem !important;
+  }
+
+  .sched-pill .pill-tag-slot {
+    font-size: 0.40rem !important;
+    padding: 0.01rem 0.14rem !important;
   }
 
   /* Sleek Coppery Scrollbar */
