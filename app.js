@@ -897,27 +897,47 @@ function promptRemoveSubject(courseCode) {
   const colorDisplay = isLight ? course.color : (course.border || course.color);
   previewEl.style.borderLeftColor = course.border || course.color;
 
-  const secDesc = section ? section.desc : '';
-  const secRoom = (section && section.room) ? ` &bull; Room ${section.room}` : '';
+  const secTime = section ? section.desc : '';
+  const secRoomOnly = (section && section.room) ? `Room ${section.room}` : '';
 
   previewEl.innerHTML = `
-    <div class="sched-modal-course-row">
-      <div class="sched-modal-course-dot" style="background: ${course.color}; box-shadow: 0 0 6px ${course.color};"></div>
-      <div class="sched-modal-course-names">
-        <div class="sched-modal-course-title" style="color: ${colorDisplay};">${course.title}</div>
-        <div class="sched-modal-course-meta">
-          <span class="sched-modal-course-code">${course.code}</span>
-          <span class="sched-modal-course-units">&bull; ${course.units} ${course.units === 1 ? 'Unit' : 'Units'}</span>
-          <span class="sched-modal-course-sec">Section ${sectionId}</span>
-        </div>
-      </div>
-    </div>
-    ${secDesc ? `
-      <div class="sched-modal-schedule-info">
-        <span class="sched-modal-info-icon">🕒</span>
-        <span>${secDesc}${secRoom}</span>
-      </div>
-    ` : ''}
+    <table class="sched-modal-table">
+      <tbody>
+        <tr>
+          <th scope="row">Subject</th>
+          <td>
+            <div class="sched-modal-course-dot-row">
+              <span class="sched-modal-course-dot" style="background: ${course.color}; box-shadow: 0 0 6px ${course.color};"></span>
+              <span style="font-weight: 700; color: ${colorDisplay};">${course.title}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Course Code</th>
+          <td><span class="sched-modal-course-code">${course.code}</span></td>
+        </tr>
+        <tr>
+          <th scope="row">Units</th>
+          <td>${course.units} ${course.units === 1 ? 'Unit' : 'Units'}</td>
+        </tr>
+        <tr>
+          <th scope="row">Section</th>
+          <td><span class="sched-modal-course-sec">Section ${sectionId}</span></td>
+        </tr>
+        ${secTime ? `
+        <tr>
+          <th scope="row">Schedule</th>
+          <td>${secTime}</td>
+        </tr>
+        ` : ''}
+        ${secRoomOnly ? `
+        <tr>
+          <th scope="row">Room</th>
+          <td>${secRoomOnly}</td>
+        </tr>
+        ` : ''}
+      </tbody>
+    </table>
   `;
 
   exitFocusMode();
