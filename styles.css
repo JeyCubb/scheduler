@@ -3315,6 +3315,10 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   line-height: 1.25;
 }
 
+.sched-modal-title:last-child {
+  margin-bottom: 0;
+}
+
 .sched-modal-subtitle {
   font-size: 0.84rem;
   color: var(--text-secondary);

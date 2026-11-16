@@ -1531,9 +1531,43 @@ function renderScheduleGrid() {
       promptRemoveSubject(ev.code);
     });
 
-    // Touchscreen double-tap support
+    // Touchscreen double-tap support (guarded against pinch gestures and dragging)
     let lastTapTime = 0;
+    let cardTouchMoved = false;
+    let cardTouchStartX = 0;
+    let cardTouchStartY = 0;
+
+    card.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length > 1) {
+        cardTouchMoved = true;
+        return;
+      }
+      cardTouchMoved = false;
+      if (e.touches && e.touches.length === 1) {
+        cardTouchStartX = e.touches[0].clientX;
+        cardTouchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    card.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches.length > 1) {
+        cardTouchMoved = true;
+        return;
+      }
+      if (e.touches && e.touches.length === 1) {
+        const dx = Math.abs(e.touches[0].clientX - cardTouchStartX);
+        const dy = Math.abs(e.touches[0].clientY - cardTouchStartY);
+        if (dx > 8 || dy > 8) {
+          cardTouchMoved = true;
+        }
+      }
+    }, { passive: true });
+
     card.addEventListener('touchend', (e) => {
+      if (cardTouchMoved || (typeof pinchCooldownUntil !== 'undefined' && Date.now() < pinchCooldownUntil)) {
+        lastTapTime = 0;
+        return;
+      }
       const now = Date.now();
       if (now - lastTapTime < 320) {
         e.preventDefault();
