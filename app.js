@@ -958,82 +958,16 @@ window.removeCourseFromSchedule = removeCourseFromSchedule;
 window.closeRemoveModal = closeRemoveModal;
 
 // ==========================================================================
-// SEMESTER SELECTION MODAL
+// SEMESTER SWITCHING HELPER
 // ==========================================================================
-let isSemModalOpen = false;
-
-function openSemesterModal() {
-  const modalEl = document.getElementById('sched-sem-modal');
-  const listEl = document.getElementById('sched-sem-options-list');
-  if (!modalEl || !listEl) return;
-
-  listEl.innerHTML = SEMESTERS.map(sem => {
-    const isActive = sem.id === activeSemesterId;
-    return `
-      <div class="sched-sem-option${isActive ? ' is-active' : ''}" data-sem-id="${sem.id}" role="button" tabindex="0">
-        <div class="sched-sem-option-main">
-          <div class="sched-sem-option-title">${sem.name}</div>
-          <div class="sched-sem-option-meta">${sem.meta}</div>
-        </div>
-        <div class="sched-sem-option-badge">${isActive ? 'Active Term' : 'Select'}</div>
-      </div>
-    `;
-  }).join('');
-
-  listEl.querySelectorAll('.sched-sem-option').forEach(opt => {
-    opt.addEventListener('click', () => {
-      const semId = opt.dataset.semId;
-      if (semId) switchSemester(semId);
-    });
-    opt.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        const semId = opt.dataset.semId;
-        if (semId) switchSemester(semId);
-      }
-    });
-  });
-
-  exitFocusMode();
-  isModalOpen = true;
-  isSemModalOpen = true;
-  modalEl.classList.add('is-open');
-  modalEl.setAttribute('aria-hidden', 'false');
-  const trigger = document.getElementById('sched-sem-selector-trigger');
-  if (trigger) trigger.setAttribute('aria-expanded', 'true');
-}
-
-function closeSemesterModal() {
-  const modalEl = document.getElementById('sched-sem-modal');
-  if (modalEl) {
-    modalEl.classList.remove('is-open');
-    modalEl.setAttribute('aria-hidden', 'true');
-  }
-  isSemModalOpen = false;
-  const removeModalEl = document.getElementById('sched-remove-modal');
-  const isRemoveOpen = removeModalEl && removeModalEl.classList.contains('is-open');
-  if (!isRemoveOpen) {
-    isModalOpen = false;
-  }
-  const trigger = document.getElementById('sched-sem-selector-trigger');
-  if (trigger) trigger.setAttribute('aria-expanded', 'false');
-  resetIdleTimer();
-}
-
 function switchSemester(newSemId) {
-  if (activeSemesterId === newSemId) {
-    closeSemesterModal();
-    return;
-  }
+  if (activeSemesterId === newSemId) return;
   activeSemesterId = newSemId;
   localStorage.setItem('tip_sched_active_sem', newSemId);
   initScheduleCreatorState();
   renderScheduleView();
-  closeSemesterModal();
 }
 window.switchSemester = switchSemester;
-window.openSemesterModal = openSemesterModal;
-window.closeSemesterModal = closeSemesterModal;
 
 function renderScheduleView() {
   renderScheduleSidebar();
@@ -1962,28 +1896,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Semester Selector Modal Handlers
-  const semTrigger = document.getElementById('sched-sem-selector-trigger');
-  const semModal = document.getElementById('sched-sem-modal');
-  const semCloseBtn = document.getElementById('sched-sem-modal-close-btn');
-
-  if (semTrigger) {
-    semTrigger.addEventListener('click', openSemesterModal);
-    semTrigger.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openSemesterModal();
-      }
-    });
-  }
-  if (semCloseBtn) semCloseBtn.addEventListener('click', closeSemesterModal);
-  if (semModal) {
-    semModal.addEventListener('click', (e) => {
-      if (e.target === semModal) {
-        closeSemesterModal();
-      }
-    });
-  }
 
   renderScheduleView();
 });
@@ -2034,7 +1946,6 @@ window.addEventListener('keydown', (e) => {
       e.preventDefault();
       e.stopPropagation();
       closeRemoveModal();
-      closeSemesterModal();
       return;
     }
     if (e.key === 'Enter') {
