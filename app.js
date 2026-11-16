@@ -1846,14 +1846,16 @@ function initSharedLinkFullscreenModal() {
   const hash = window.location.hash;
   const isDirectSwitch = urlParams.get('switch') === '1' || hash === '#app';
 
-  if (!isDirectSwitch) {
-    fullModal.classList.add('is-open');
-    fullModal.setAttribute('aria-hidden', 'false');
-  }
-
   function closeFullModal() {
     fullModal.classList.remove('is-open');
     fullModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('brand-nav-modal-open');
+  }
+
+  if (!isDirectSwitch) {
+    fullModal.classList.add('is-open');
+    fullModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('brand-nav-modal-open');
   }
 
   fullModal.addEventListener('click', (e) => {
