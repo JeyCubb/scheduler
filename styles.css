@@ -3595,7 +3595,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 
 /* Semester Selector Modal Styles */
 .sched-sem-modal-card {
-  max-width: 440px !important;
+  max-width: 320px !important;
 }
 
 .sched-sem-options-list {
