@@ -1798,13 +1798,11 @@ function updateThemeUI(theme, isUserManual = false) {
 }
 
 // ==========================================================================
-// POP-UP BRAND NAVIGATION CONTROLLER
+// POP-UP BRAND NAVIGATION CONTROLLER (Compact Dock Menu)
 // ==========================================================================
 function initBrandNavPopup() {
   const trigger = document.getElementById('brand-nav-trigger');
   const popup = document.getElementById('brand-nav-popup');
-  const closeBtn = document.getElementById('brand-nav-close-btn');
-  const schedCard = document.getElementById('btn-nav-card-sched');
 
   if (!trigger || !popup) return;
 
@@ -1820,23 +1818,12 @@ function initBrandNavPopup() {
     togglePopup();
   });
 
-  if (closeBtn) {
-    closeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      togglePopup(false);
-    });
-  }
-
-  if (schedCard) {
-    schedCard.addEventListener('click', (e) => {
-      e.preventDefault();
-      togglePopup(false);
-    });
-  }
-
-  popup.addEventListener('click', (e) => {
-    if (e.target.closest('a')) return;
-    togglePopup(false);
+  document.addEventListener('click', (e) => {
+    if (popup.classList.contains('is-open')) {
+      if (!popup.contains(e.target) && !trigger.contains(e.target)) {
+        togglePopup(false);
+      }
+    }
   });
 
   document.addEventListener('keydown', (e) => {
@@ -1848,12 +1835,47 @@ function initBrandNavPopup() {
 }
 
 // ==========================================================================
+// FULL-SCREEN BRAND PORTAL MODAL (Shown only when freshly joining via shared link)
+// ==========================================================================
+function initSharedLinkFullscreenModal() {
+  const fullModal = document.getElementById('brand-nav-fullscreen-modal');
+  if (!fullModal) return;
+
+  // Check if visitor is joining via a shared link (e.g. ?nav=1, #nav, ?portal=1, ?share=1)
+  const urlParams = new URLSearchParams(window.location.search);
+  const hash = window.location.hash;
+  const isSharedLink = urlParams.has('nav') || urlParams.has('portal') || urlParams.has('share') || hash === '#nav' || hash === '#portal';
+
+  if (isSharedLink) {
+    fullModal.classList.add('is-open');
+    fullModal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeFullModal() {
+    fullModal.classList.remove('is-open');
+    fullModal.setAttribute('aria-hidden', 'true');
+  }
+
+  fullModal.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    closeFullModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && fullModal.classList.contains('is-open')) {
+      closeFullModal();
+    }
+  });
+}
+
+// ==========================================================================
 // EVENT LISTENERS & INITIALIZATION
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initScheduleCreatorState();
   initBrandNavPopup();
+  initSharedLinkFullscreenModal();
 
   const btnA = document.getElementById('btn-preset-choice-a');
   const btnB = document.getElementById('btn-preset-choice-b');

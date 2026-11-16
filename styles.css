@@ -871,6 +871,97 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
 }
 
+/* ==========================================================================
+   COMPACT DOCK POP-UP BRAND NAVIGATION (Matching Grade Calculator & Reviewer)
+   ========================================================================== */
+.brand-nav-popup {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  background: var(--bg-card, #1a1613);
+  border: 1.5px solid var(--border-color, rgba(249, 115, 22, 0.28));
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 16px var(--accent-glow, rgba(249, 115, 22, 0.2));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 1000;
+  width: max-content;
+  box-sizing: border-box;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px) scale(0.92);
+  transform-origin: bottom left;
+  transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.18s;
+  pointer-events: none;
+}
+
+.brand-nav-popup.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.brand-nav-popup .brand-nav-btn {
+  width: 58px !important;
+  height: 58px !important;
+  min-width: 58px !important;
+  min-height: 58px !important;
+  max-width: 58px !important;
+  max-height: 58px !important;
+  border-radius: 14px !important;
+}
+
+.brand-nav-popup .brand-emoji {
+  font-size: 2.1rem !important;
+  line-height: 1 !important;
+}
+
+.brand-nav-popup .brand-calc-emoji {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.brand-nav-popup .brand-nav-btn:hover {
+  transform: translateY(-2px) scale(1.08) !important;
+}
+
+[data-theme="light"] .brand-nav-popup {
+  background: #ffffff !important;
+  border-color: rgba(234, 88, 12, 0.28) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12), 0 2px 10px rgba(234, 88, 12, 0.1) !important;
+}
+
+@media (max-width: 640px) {
+  .brand-nav-popup {
+    bottom: calc(100% + 8px);
+    gap: 7px;
+    padding: 7px;
+  }
+  .brand-nav-popup .brand-nav-btn {
+    width: 54px !important;
+    height: 54px !important;
+    min-width: 54px !important;
+    min-height: 54px !important;
+    max-width: 54px !important;
+    max-height: 54px !important;
+    border-radius: 13px !important;
+  }
+  .brand-nav-popup .brand-emoji {
+    font-size: 1.95rem !important;
+  }
+  .brand-nav-popup .brand-calc-emoji {
+    width: 34px !important;
+    height: 34px !important;
+  }
+}
+
 .brand-nav-fullscreen-backdrop {
   position: fixed;
   inset: 0;
