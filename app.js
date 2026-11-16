@@ -1997,28 +1997,145 @@ window.addEventListener('orientationchange', () => {
 // ==========================================================================
 // DISABLE ALL ZOOMING & GESTURE ZOOM (WITHOUT BREAKING TAPS OR SCROLLING)
 // ==========================================================================
-// 1. Prevent multi-finger pinch zooming on touchscreens
+// ==========================================================================
+// PINCH GESTURE ZOOM DETECTION & FOCUS (ZEN) MODE
+// ==========================================================================
+let isZenForced = false;
+let pinchCooldownUntil = 0;
+let touchPinchStartDist = 0;
+let touchPinchTriggered = false;
+let singleTouchStartTime = 0;
+let singleTouchStartX = 0;
+let singleTouchStartY = 0;
+let singleTouchMoved = false;
+let singleTouchTarget = null;
+
+// 1. Multi-finger pinch gesture detection (Pinch-out / spread forces Zen mode, Pinch-in exits)
 document.addEventListener('touchstart', (e) => {
   if (e.touches && e.touches.length > 1) {
     e.preventDefault();
+    if (e.touches.length === 2) {
+      touchPinchStartDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      touchPinchTriggered = false;
+    }
+  } else if (e.touches && e.touches.length === 1) {
+    singleTouchStartTime = Date.now();
+    singleTouchStartX = e.touches[0].clientX;
+    singleTouchStartY = e.touches[0].clientY;
+    singleTouchMoved = false;
+    singleTouchTarget = e.target;
   }
 }, { passive: false });
 
 document.addEventListener('touchmove', (e) => {
   if (e.touches && e.touches.length > 1) {
     e.preventDefault();
+    if (e.touches.length === 2 && touchPinchStartDist > 0 && !touchPinchTriggered) {
+      const currentDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const delta = currentDist - touchPinchStartDist;
+      const ratio = currentDist / touchPinchStartDist;
+
+      if (delta > 25 || ratio > 1.12) {
+        // Pinch-out / spread gesture: force Zen mode
+        touchPinchTriggered = true;
+        enterFocusMode(true);
+        pinchCooldownUntil = Date.now() + 650;
+      } else if (delta < -25 || ratio < 0.88) {
+        // Pinch-in gesture: exit Zen mode
+        if (document.body.classList.contains('sched-focus-autohide')) {
+          touchPinchTriggered = true;
+          exitFocusMode();
+          pinchCooldownUntil = Date.now() + 650;
+          resetIdleTimer();
+        }
+      }
+    }
+  } else if (e.touches && e.touches.length === 1) {
+    const dx = Math.abs(e.touches[0].clientX - singleTouchStartX);
+    const dy = Math.abs(e.touches[0].clientY - singleTouchStartY);
+    if (dx > 8 || dy > 8) {
+      singleTouchMoved = true;
+    }
   }
 }, { passive: false });
 
-// 2. Prevent iOS Safari gesture zooming
-document.addEventListener('gesturestart', (e) => e.preventDefault());
-document.addEventListener('gesturechange', (e) => e.preventDefault());
-document.addEventListener('gestureend', (e) => e.preventDefault());
+document.addEventListener('touchend', (e) => {
+  if (touchPinchStartDist > 0 && (!e.touches || e.touches.length < 2)) {
+    touchPinchStartDist = 0;
+    pinchCooldownUntil = Date.now() + 650;
+    setTimeout(() => { touchPinchTriggered = false; }, 200);
+    return;
+  }
 
-// 3. Prevent Ctrl + Wheel (mouse & trackpad pinch-to-zoom)
+  // If in forced Zen mode, a clean tap on the timetable background restores controls
+  if (Date.now() >= pinchCooldownUntil && !singleTouchMoved && (Date.now() - singleTouchStartTime < 300)) {
+    if (document.body.classList.contains('sched-focus-autohide')) {
+      if (!singleTouchTarget || !singleTouchTarget.closest('.sched-event-block')) {
+        exitFocusMode();
+        resetIdleTimer();
+      }
+    }
+  }
+}, { passive: false });
+
+document.addEventListener('touchcancel', () => {
+  touchPinchStartDist = 0;
+  pinchCooldownUntil = Date.now() + 650;
+  touchPinchTriggered = false;
+}, { passive: false });
+
+// 2. iOS Safari Gesture API (gesturestart, gesturechange, gestureend)
+let gestureTriggered = false;
+document.addEventListener('gesturestart', (e) => {
+  e.preventDefault();
+  gestureTriggered = false;
+});
+document.addEventListener('gesturechange', (e) => {
+  e.preventDefault();
+  if (gestureTriggered) return;
+  if (e.scale > 1.12) {
+    gestureTriggered = true;
+    enterFocusMode(true);
+    pinchCooldownUntil = Date.now() + 650;
+  } else if (e.scale < 0.88 && document.body.classList.contains('sched-focus-autohide')) {
+    gestureTriggered = true;
+    exitFocusMode();
+    pinchCooldownUntil = Date.now() + 650;
+    resetIdleTimer();
+  }
+});
+document.addEventListener('gestureend', (e) => {
+  e.preventDefault();
+  pinchCooldownUntil = Date.now() + 650;
+  setTimeout(() => { gestureTriggered = false; }, 200);
+});
+
+// 3. Prevent browser zoom on Ctrl + Wheel and map trackpad pinch to Zen mode
+let trackpadAccum = 0;
+let trackpadTimer = null;
 window.addEventListener('wheel', (e) => {
   if (e.ctrlKey) {
     e.preventDefault();
+    trackpadAccum += e.deltaY;
+    clearTimeout(trackpadTimer);
+    trackpadTimer = setTimeout(() => { trackpadAccum = 0; }, 200);
+
+    if (trackpadAccum < -20) {
+      enterFocusMode(true);
+      pinchCooldownUntil = Date.now() + 650;
+      trackpadAccum = 0;
+    } else if (trackpadAccum > 20 && document.body.classList.contains('sched-focus-autohide')) {
+      exitFocusMode();
+      pinchCooldownUntil = Date.now() + 650;
+      resetIdleTimer();
+      trackpadAccum = 0;
+    }
   }
 }, { passive: false });
 
@@ -2044,6 +2161,13 @@ window.addEventListener('keydown', (e) => {
     }
   }
 
+  if (e.key === 'Escape' && document.body.classList.contains('sched-focus-autohide')) {
+    e.preventDefault();
+    exitFocusMode();
+    resetIdleTimer();
+    return;
+  }
+
   if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
     e.preventDefault();
   }
@@ -2062,8 +2186,12 @@ const IDLE_DELAY_MS = 10000; // 10 seconds
 let lastClientX = null;
 let lastClientY = null;
 
-function enterFocusMode() {
+function enterFocusMode(forced = false) {
   if (isModalOpen) return; // Never hide UI while confirmation prompt is open
+  if (forced) {
+    isZenForced = true;
+    clearTimeout(idleTimeout);
+  }
   if (!document.body.classList.contains('sched-focus-autohide')) {
     document.body.classList.add('sched-focus-autohide');
     const isMob = isMobileLayout();
@@ -2082,6 +2210,7 @@ function enterFocusMode() {
 }
 
 function exitFocusMode() {
+  isZenForced = false;
   if (document.body.classList.contains('sched-focus-autohide')) {
     document.body.classList.remove('sched-focus-autohide');
     const isMob = isMobileLayout();
@@ -2107,15 +2236,19 @@ function exitFocusMode() {
 }
 
 function resetIdleTimer() {
+  if (Date.now() < pinchCooldownUntil) return;
+  if (isZenForced) return;
   exitFocusMode();
   clearTimeout(idleTimeout);
   if (!isModalOpen) {
-    idleTimeout = setTimeout(enterFocusMode, IDLE_DELAY_MS);
+    idleTimeout = setTimeout(() => enterFocusMode(false), IDLE_DELAY_MS);
   }
 }
 
 // Activity event listeners to reset the 10-second timer
 window.addEventListener('mousemove', (e) => {
+  if (Date.now() < pinchCooldownUntil) return;
+  if (isZenForced) return;
   if (lastClientX !== null && lastClientY !== null) {
     const dx = Math.abs(e.clientX - lastClientX);
     const dy = Math.abs(e.clientY - lastClientY);
@@ -2127,7 +2260,12 @@ window.addEventListener('mousemove', (e) => {
 }, { passive: true });
 
 ['mousedown', 'touchstart', 'touchmove', 'wheel', 'scroll'].forEach(evt => {
-  window.addEventListener(evt, resetIdleTimer, { passive: true });
+  window.addEventListener(evt, (e) => {
+    if (Date.now() < pinchCooldownUntil) return;
+    if (e.touches && e.touches.length > 1) return;
+    if (isZenForced) return;
+    resetIdleTimer();
+  }, { passive: true });
 });
 
 window.addEventListener('keydown', (e) => {
@@ -2145,6 +2283,8 @@ window.addEventListener('keydown', (e) => {
   if (ignoredKeys.includes(e.key) || e.key.toLowerCase() === 's' || e.altKey || e.metaKey) {
     return;
   }
+  if (Date.now() < pinchCooldownUntil) return;
+  if (isZenForced) return;
   resetIdleTimer();
 }, { passive: true });
 
