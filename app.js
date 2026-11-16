@@ -1841,12 +1841,12 @@ function initSharedLinkFullscreenModal() {
   const fullModal = document.getElementById('brand-nav-fullscreen-modal');
   if (!fullModal) return;
 
-  // Check if visitor is joining via a shared link (e.g. ?nav=1, #nav, ?portal=1, ?share=1)
+  // Open full-screen popup when joining via shared link or direct visit
   const urlParams = new URLSearchParams(window.location.search);
   const hash = window.location.hash;
-  const isSharedLink = urlParams.has('nav') || urlParams.has('portal') || urlParams.has('share') || hash === '#nav' || hash === '#portal';
+  const isDirectSwitch = urlParams.get('switch') === '1' || hash === '#app';
 
-  if (isSharedLink) {
+  if (!isDirectSwitch) {
     fullModal.classList.add('is-open');
     fullModal.setAttribute('aria-hidden', 'false');
   }
