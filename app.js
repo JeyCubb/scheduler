@@ -975,7 +975,6 @@ function openSemesterModal() {
           <div class="sched-sem-option-title">${sem.name}</div>
           <div class="sched-sem-option-meta">${sem.meta}</div>
         </div>
-        <div class="sched-sem-option-badge">${isActive ? 'Active Term' : 'Select'}</div>
       </button>
     `;
   }).join('');

@@ -3586,8 +3586,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 
 .sched-sem-option-main,
 .sched-sem-option-title,
-.sched-sem-option-meta,
-.sched-sem-option-badge {
+.sched-sem-option-meta {
   pointer-events: none;
 }
 
@@ -3630,22 +3629,6 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   line-height: 1.15;
 }
 
-.sched-sem-option-badge {
-  font-size: 0.70rem;
-  font-weight: 700;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #cbd5e1;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.sched-sem-option.is-active .sched-sem-option-badge {
-  background: #f97316;
-  color: #ffffff;
-}
-
 [data-theme="light"] .sched-sem-option {
   background: #ffffff;
   border: 1px solid #e2d7ce;
@@ -3672,16 +3655,6 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 
 [data-theme="light"] .sched-sem-option-meta {
   color: #64748b;
-}
-
-[data-theme="light"] .sched-sem-option-badge {
-  background: #f1f5f9;
-  color: #475569;
-}
-
-[data-theme="light"] .sched-sem-option.is-active .sched-sem-option-badge {
-  background: #ea580c;
-  color: #ffffff;
 }
 
 /* Empty Term State in Subject List */
