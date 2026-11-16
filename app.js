@@ -898,7 +898,7 @@ function promptRemoveSubject(courseCode) {
   previewEl.style.borderLeftColor = course.border || course.color;
 
   const secTime = section ? section.desc : '';
-  const secRoomOnly = (section && section.room) ? `Room ${section.room}` : '';
+  const secRoomOnly = (section && section.room) ? section.room : '';
 
   previewEl.innerHTML = `
     <table class="sched-modal-table">
@@ -922,7 +922,7 @@ function promptRemoveSubject(courseCode) {
         </tr>
         <tr>
           <th scope="row">Section</th>
-          <td><span class="sched-modal-course-sec">Section ${sectionId}</span></td>
+          <td><span class="sched-modal-course-sec">${sectionId}</span></td>
         </tr>
         ${secTime ? `
         <tr>
