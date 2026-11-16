@@ -970,29 +970,23 @@ function openSemesterModal() {
   listEl.innerHTML = SEMESTERS.map(sem => {
     const isActive = sem.id === activeSemesterId;
     return `
-      <div class="sched-sem-option${isActive ? ' is-active' : ''}" data-sem-id="${sem.id}" role="button" tabindex="0">
+      <button type="button" class="sched-sem-option${isActive ? ' is-active' : ''}" data-sem-id="${sem.id}" onclick="switchSemester('${sem.id}')">
         <div class="sched-sem-option-main">
           <div class="sched-sem-option-title">${sem.name}</div>
           <div class="sched-sem-option-meta">${sem.meta}</div>
         </div>
         <div class="sched-sem-option-badge">${isActive ? 'Active Term' : 'Select'}</div>
-      </div>
+      </button>
     `;
   }).join('');
 
-  listEl.querySelectorAll('.sched-sem-option').forEach(opt => {
-    opt.addEventListener('click', () => {
-      const semId = opt.dataset.semId;
+  listEl.onclick = (e) => {
+    const opt = e.target.closest('.sched-sem-option');
+    if (opt) {
+      const semId = opt.getAttribute('data-sem-id') || opt.dataset.semId;
       if (semId) switchSemester(semId);
-    });
-    opt.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        const semId = opt.dataset.semId;
-        if (semId) switchSemester(semId);
-      }
-    });
-  });
+    }
+  };
 
   exitFocusMode();
   isModalOpen = true;
@@ -1021,6 +1015,7 @@ function closeSemesterModal() {
 }
 
 function switchSemester(newSemId) {
+  if (!newSemId) return;
   if (activeSemesterId === newSemId) {
     closeSemesterModal();
     return;

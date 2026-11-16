@@ -3576,6 +3576,19 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   text-align: left;
   width: 100%;
   box-sizing: border-box;
+  font-family: inherit;
+  color: inherit;
+  font-size: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+.sched-sem-option-main,
+.sched-sem-option-title,
+.sched-sem-option-meta,
+.sched-sem-option-badge {
+  pointer-events: none;
 }
 
 .sched-sem-option:hover {
