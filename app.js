@@ -817,6 +817,12 @@ function applySchedulePreset(preset) {
         else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'Requested';
         else userScheduleSelection[c.code] = 'ME32S1';
       });
+    } else if (preset === 'C') {
+      courses.forEach(c => {
+        const match = c.sections.find(s => s.id === 'ME32S2');
+        if (match) userScheduleSelection[c.code] = match.id;
+        else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
+      });
     }
   } else if (activeSemesterId === '4th-summer') {
     const targetSec = preset === 'A' ? 'ME40S1' : 'ME40S2';
@@ -826,14 +832,14 @@ function applySchedulePreset(preset) {
       else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
     });
   } else if (activeSemesterId === '4th-1st') {
-    const targetSec = preset === 'A' ? 'ME41S1' : 'ME41S2';
+    const targetSec = preset === 'A' ? 'ME41S1' : (preset === 'B' ? 'ME41S2' : 'ME41S3');
     courses.forEach(c => {
       const match = c.sections.find(s => s.id === targetSec);
       if (match) userScheduleSelection[c.code] = match.id;
       else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
     });
   } else if (activeSemesterId === '4th-2nd') {
-    const targetSec = preset === 'A' ? 'ME42S1' : 'ME42S2';
+    const targetSec = preset === 'A' ? 'ME42S1' : (preset === 'B' ? 'ME42S2' : 'ME42S3');
     courses.forEach(c => {
       const match = c.sections.find(s => s.id === targetSec);
       if (match) userScheduleSelection[c.code] = match.id;
@@ -1752,6 +1758,7 @@ function updateScheduleStats() {
   // Dynamic preset button labels and states across all terms
   const btnA = document.getElementById('btn-preset-choice-a');
   const btnB = document.getElementById('btn-preset-choice-b');
+  const btnC = document.getElementById('btn-preset-choice-c');
   const hasPresets = courses.length > 0;
   if (btnA) {
     btnA.style.opacity = hasPresets ? '' : '0.4';
@@ -1770,6 +1777,16 @@ function updateScheduleStats() {
     else if (activeSemesterId === '4th-1st') subB = '(ME41S2 Block)';
     else if (activeSemesterId === '4th-2nd') subB = '(ME42S2 Block)';
     btnB.innerHTML = `Choice B<span class="sched-btn-sub"> ${subB}</span>`;
+  }
+  if (btnC) {
+    const hasC = hasPresets && activeSemesterId !== '4th-summer';
+    btnC.style.display = hasC ? '' : 'none';
+    btnC.style.opacity = hasC ? '' : '0.4';
+    btnC.style.pointerEvents = hasC ? '' : 'none';
+    let subC = '(ME32S2 Block)';
+    if (activeSemesterId === '4th-1st') subC = '(ME41S3 Block)';
+    else if (activeSemesterId === '4th-2nd') subC = '(ME42S3 Block)';
+    btnC.innerHTML = `Choice C<span class="sched-btn-sub"> ${subC}</span>`;
   }
 }
 
@@ -1924,10 +1941,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const btnA = document.getElementById('btn-preset-choice-a');
   const btnB = document.getElementById('btn-preset-choice-b');
+  const btnC = document.getElementById('btn-preset-choice-c');
   const btnClr = document.getElementById('btn-sched-clear-all');
 
   if (btnA) btnA.addEventListener('click', () => applySchedulePreset('A'));
   if (btnB) btnB.addEventListener('click', () => applySchedulePreset('B'));
+  if (btnC) btnC.addEventListener('click', () => applySchedulePreset('C'));
   if (btnClr) btnClr.addEventListener('click', () => {
     userScheduleSelection = {};
     saveScheduleCreatorState();
