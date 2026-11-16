@@ -3279,7 +3279,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 
 .sched-modal-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.85rem;
   padding: 1.25rem 1.25rem 0.85rem 1.25rem;
   position: relative;
@@ -3337,7 +3337,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   justify-content: center;
   cursor: pointer;
   transition: var(--transition);
-  margin-top: -4px;
+  margin-top: 0;
   margin-right: -4px;
   flex-shrink: 0;
 }
@@ -3598,6 +3598,10 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   max-width: 320px !important;
 }
 
+.sched-sem-modal-card .sched-modal-title {
+  text-align: center;
+}
+
 .sched-sem-options-list {
   display: flex;
   flex-direction: column;
@@ -3608,14 +3612,14 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 .sched-sem-option {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0.65rem 0.85rem;
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 9px;
   cursor: pointer;
   transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
-  text-align: left;
+  text-align: center;
   width: 100%;
   box-sizing: border-box;
   font-family: inherit;
@@ -3651,7 +3655,11 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 .sched-sem-option-main {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 0.12rem;
+  width: 100%;
+  text-align: center;
 }
 
 .sched-sem-option-title {
@@ -3659,6 +3667,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   font-weight: 700;
   color: #f8fafc;
   line-height: 1.2;
+  text-align: center;
 }
 
 .sched-sem-option.is-active .sched-sem-option-title {
@@ -3669,6 +3678,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   font-size: 0.74rem;
   color: #94a3b8;
   line-height: 1.15;
+  text-align: center;
 }
 
 [data-theme="light"] .sched-sem-option {
