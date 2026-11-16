@@ -1242,15 +1242,16 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
+  color: var(--text-muted, #94a3b8);
 }
 
 .sched-stat-badge {
-  color: var(--accent-primary);
-  font-weight: 800;
-  background: rgba(249, 115, 22, 0.12);
-  padding: 0.12rem 0.45rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(249, 115, 22, 0.25);
+  color: var(--text-primary);
+  font-weight: 700;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
 }
 
 .sched-conflict-alert {
@@ -1414,9 +1415,13 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 }
 
 [data-theme="light"] .sched-stat-badge {
-  background: #f5ede5 !important;
-  border-color: #e2d7ce !important;
-  color: var(--accent-primary) !important;
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme="light"] .sched-stat-item {
+  color: #64748b !important;
 }
 
 [data-theme="light"] .sched-conflict-alert,
@@ -2169,8 +2174,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   .score-tag,
-  .header-badge,
-  .sched-stat-badge {
+  .header-badge {
     padding: 0.25rem 0.65rem !important;
     font-size: 0.85rem !important;
     gap: 0.35rem !important;
@@ -2311,8 +2315,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   .score-tag,
-  .header-badge,
-  .sched-stat-badge {
+  .header-badge {
     padding: 0.2rem 0.5rem !important;
     font-size: 0.74rem !important;
     gap: 0.28rem !important;
@@ -2950,8 +2953,9 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 
     .sched-stat-badge {
       font-size: 0.74rem !important;
-      padding: 0.08rem 0.32rem !important;
-      border-radius: var(--radius-sm) !important;
+      padding: 0 !important;
+      background: none !important;
+      border: none !important;
     }
 
     /* Row 2: Light Mode Action Button (Right) */
@@ -3425,9 +3429,9 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 }
 
 .sched-toolbar-stats:hover {
-  background: rgba(249, 115, 22, 0.08) !important;
-  border-color: rgba(249, 115, 22, 0.4) !important;
-  box-shadow: 0 0 12px rgba(249, 115, 22, 0.18) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  box-shadow: none !important;
 }
 
 .sched-toolbar-stats:active {
@@ -3442,7 +3446,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 }
 
 .sched-toolbar-stats:hover .sched-stat-chevron {
-  color: #fdba74;
+  color: #cbd5e1;
   transform: translateY(1px);
 }
 
@@ -3452,9 +3456,9 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 }
 
 [data-theme="light"] .sched-toolbar-stats:hover {
-  background: #fff8f3 !important;
-  border-color: #ea580c !important;
-  box-shadow: 0 0 10px rgba(234, 88, 12, 0.15) !important;
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: none !important;
 }
 
 [data-theme="light"] .sched-stat-chevron {
