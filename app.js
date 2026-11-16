@@ -905,16 +905,11 @@ function promptRemoveSubject(courseCode) {
       <tbody>
         <tr>
           <th scope="row">Subject</th>
-          <td>
-            <div class="sched-modal-course-dot-row">
-              <span class="sched-modal-course-dot" style="background: ${course.color}; box-shadow: 0 0 6px ${course.color};"></span>
-              <span style="font-weight: 700; color: ${colorDisplay};">${course.title}</span>
-            </div>
-          </td>
+          <td>${course.title}</td>
         </tr>
         <tr>
           <th scope="row">Course Code</th>
-          <td><span class="sched-modal-course-code">${course.code}</span></td>
+          <td>${course.code}</td>
         </tr>
         <tr>
           <th scope="row">Units</th>
@@ -922,7 +917,7 @@ function promptRemoveSubject(courseCode) {
         </tr>
         <tr>
           <th scope="row">Section</th>
-          <td><span class="sched-modal-course-sec">${sectionId}</span></td>
+          <td>${sectionId}</td>
         </tr>
         ${secTime ? `
         <tr>
