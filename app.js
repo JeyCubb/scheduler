@@ -823,6 +823,12 @@ function applySchedulePreset(preset) {
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
       });
+    } else if (preset === 'D') {
+      courses.forEach(c => {
+        const match = c.sections.find(s => s.id === 'ME32S3');
+        if (match) userScheduleSelection[c.code] = match.id;
+        else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
+      });
     }
   } else if (activeSemesterId === '4th-summer') {
     const targetSec = preset === 'A' ? 'ME40S1' : 'ME40S2';
@@ -1759,6 +1765,7 @@ function updateScheduleStats() {
   const btnA = document.getElementById('btn-preset-choice-a');
   const btnB = document.getElementById('btn-preset-choice-b');
   const btnC = document.getElementById('btn-preset-choice-c');
+  const btnD = document.getElementById('btn-preset-choice-d');
   const hasPresets = courses.length > 0;
   if (btnA) {
     btnA.style.opacity = hasPresets ? '' : '0.4';
@@ -1787,6 +1794,14 @@ function updateScheduleStats() {
     if (activeSemesterId === '4th-1st') subC = '(ME41S3 Block)';
     else if (activeSemesterId === '4th-2nd') subC = '(ME42S3 Block)';
     btnC.innerHTML = `Choice C<span class="sched-btn-sub"> ${subC}</span>`;
+  }
+  if (btnD) {
+    const hasD = hasPresets && activeSemesterId === '3rd-2nd';
+    btnD.style.display = hasD ? '' : 'none';
+    btnD.style.opacity = hasD ? '' : '0.4';
+    btnD.style.pointerEvents = hasD ? '' : 'none';
+    let subD = '(ME32S3 Block)';
+    btnD.innerHTML = `Choice D<span class="sched-btn-sub"> ${subD}</span>`;
   }
 }
 
@@ -1942,11 +1957,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnA = document.getElementById('btn-preset-choice-a');
   const btnB = document.getElementById('btn-preset-choice-b');
   const btnC = document.getElementById('btn-preset-choice-c');
+  const btnD = document.getElementById('btn-preset-choice-d');
   const btnClr = document.getElementById('btn-sched-clear-all');
 
   if (btnA) btnA.addEventListener('click', () => applySchedulePreset('A'));
   if (btnB) btnB.addEventListener('click', () => applySchedulePreset('B'));
   if (btnC) btnC.addEventListener('click', () => applySchedulePreset('C'));
+  if (btnD) btnD.addEventListener('click', () => applySchedulePreset('D'));
   if (btnClr) btnClr.addEventListener('click', () => {
     userScheduleSelection = {};
     saveScheduleCreatorState();
