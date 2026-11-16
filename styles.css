@@ -1024,12 +1024,6 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   transform: scale(0.985);
 }
 
-.brand-nav-card.is-active {
-  background: rgba(249, 115, 22, 0.09);
-  border-color: var(--accent-primary, #f97316);
-  box-shadow: 0 0 20px rgba(249, 115, 22, 0.18);
-}
-
 .brand-nav-card-icon {
   width: 48px;
   height: 48px;
@@ -1122,10 +1116,6 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   color: var(--accent-primary, #f97316);
 }
 
-.brand-nav-card.is-active .brand-nav-card-arrow {
-  color: var(--accent-primary, #f97316);
-}
-
 /* Light Theme Overrides */
 [data-theme="light"] .brand-nav-fullscreen-backdrop {
   background-color: rgba(255, 255, 255, 0.94);
@@ -1154,12 +1144,6 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   background: #fff7ed;
   border-color: rgba(234, 88, 12, 0.4);
   box-shadow: 0 8px 24px rgba(234, 88, 12, 0.12);
-}
-
-[data-theme="light"] .brand-nav-card.is-active {
-  background: #fff7ed;
-  border-color: #ea580c;
-  box-shadow: 0 0 16px rgba(234, 88, 12, 0.15);
 }
 
 /* Full Screen Mobile & Small Viewports Adaptation */
