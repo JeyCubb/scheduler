@@ -771,7 +771,9 @@ body.sched-show-saturday .sched-grid-body {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  z-index: 50;
+  position: relative !important;
+  overflow: visible !important;
+  z-index: 500 !important;
 }
 
 .brand-group {
@@ -779,6 +781,7 @@ body.sched-show-saturday .sched-grid-body {
   align-items: center;
   gap: 0.35rem;
   flex-shrink: 0;
+  overflow: visible !important;
 }
 
 /* Symmetrical Brand Navigation Buttons */
@@ -849,6 +852,8 @@ body.sched-show-saturday .sched-grid-body {
   position: relative !important;
   display: inline-flex !important;
   align-items: center !important;
+  overflow: visible !important;
+  z-index: 501 !important;
 }
 
 .brand-nav-trigger,
@@ -882,37 +887,37 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
    COMPACT DOCK POP-UP BRAND NAVIGATION (Matching Grade Calculator & Reviewer)
    ========================================================================== */
 .brand-nav-popup {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 8px;
-  background: var(--bg-card, #1a1613);
-  border: 1.5px solid var(--border-color, rgba(249, 115, 22, 0.28));
-  border-radius: 16px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 16px var(--accent-glow, rgba(249, 115, 22, 0.2));
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  z-index: 1000;
-  width: max-content;
-  box-sizing: border-box;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(6px) scale(0.92);
-  transform-origin: bottom left;
+  position: absolute !important;
+  bottom: calc(100% + 10px) !important;
+  left: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  padding: 8px !important;
+  background: var(--bg-card, #1a1613) !important;
+  border: 1.5px solid var(--border-color, rgba(249, 115, 22, 0.28)) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 16px var(--accent-glow, rgba(249, 115, 22, 0.2)) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  z-index: 9999 !important;
+  width: max-content !important;
+  box-sizing: border-box !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(6px) scale(0.92) !important;
+  transform-origin: bottom left !important;
   transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.18s;
-  pointer-events: none;
+              visibility 0.18s !important;
+  pointer-events: none !important;
 }
 
 .brand-nav-popup.is-open {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) scale(1) !important;
+  pointer-events: auto !important;
 }
 
 .brand-nav-popup .brand-nav-btn {
@@ -2347,7 +2352,9 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
-    overflow: hidden !important;
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 500 !important;
     white-space: nowrap !important;
   }
 
@@ -2581,6 +2588,12 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     flex-direction: column !important;
     justify-content: space-between !important;
     box-sizing: border-box !important;
+  }
+
+  .app-header {
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 500 !important;
   }
 
   #sched-view-container {

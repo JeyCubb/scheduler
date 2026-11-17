@@ -1889,17 +1889,21 @@ function initBrandNavPopup() {
   }
 
   trigger.addEventListener('click', (e) => {
+    e.preventDefault();
     e.stopPropagation();
     togglePopup();
   });
 
-  document.addEventListener('click', (e) => {
+  const handleOutsideClose = (e) => {
     if (popup.classList.contains('is-open')) {
       if (!popup.contains(e.target) && !trigger.contains(e.target)) {
         togglePopup(false);
       }
     }
-  });
+  };
+
+  document.addEventListener('click', handleOutsideClose);
+  document.addEventListener('pointerdown', handleOutsideClose);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && popup.classList.contains('is-open')) {
