@@ -1971,12 +1971,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Aggressive Subject Scroll Snap
+  const sidebarCardEl = document.querySelector('.sched-sidebar-card');
   const subjectListEl = document.getElementById('sched-subject-list');
+  const scrollContainer = sidebarCardEl || subjectListEl;
   let isSubjectSnapping = false;
 
   function onSubjectWheel(e) {
     if (Math.abs(e.deltaY) < 14) return;
-    if (!subjectListEl) return;
+    if (!scrollContainer || !subjectListEl) return;
 
     const cards = Array.from(subjectListEl.querySelectorAll('.sched-course-row'));
     if (!cards.length) return;
@@ -1987,8 +1989,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isSubjectSnapping) return;
     isSubjectSnapping = true;
 
-    const containerTop = subjectListEl.getBoundingClientRect().top;
-    const currentScrollTop = subjectListEl.scrollTop;
+    const containerTop = scrollContainer.getBoundingClientRect().top;
+    const currentScrollTop = scrollContainer.scrollTop;
 
     let targetCard = null;
     if (e.deltaY > 0) {
@@ -2004,12 +2006,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (targetCard) {
       const targetScroll = currentScrollTop + (targetCard.getBoundingClientRect().top - containerTop);
-      subjectListEl.scrollTo({
+      scrollContainer.scrollTo({
         top: Math.max(0, targetScroll),
         behavior: 'smooth'
       });
     } else if (e.deltaY < 0) {
-      subjectListEl.scrollTo({
+      scrollContainer.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
@@ -2020,8 +2022,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 180);
   }
 
-  if (subjectListEl) {
-    subjectListEl.addEventListener('wheel', onSubjectWheel, { passive: false, capture: true });
+  if (scrollContainer) {
+    scrollContainer.addEventListener('wheel', onSubjectWheel, { passive: false, capture: true });
   }
 
   // Remove Subject Confirmation Modal Handlers

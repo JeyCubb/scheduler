@@ -1653,7 +1653,9 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
     padding: 0.35rem 0.50rem !important;
     gap: 0.35rem !important;
   }
@@ -1787,7 +1789,13 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(249, 115, 22, 0.45) transparent !important;
+    scroll-behavior: smooth !important;
+    overscroll-behavior-y: contain !important;
     padding: 0.35rem 0.65rem !important;
     gap: 0.35rem !important;
   }
@@ -1795,6 +1803,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   .sched-sidebar-header {
     flex-shrink: 0 !important;
     padding-bottom: 0.35rem !important;
+    width: 100% !important;
   }
 
   #sched-subject-list {
@@ -1802,14 +1811,12 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 0.25rem 0.35rem !important;
     align-content: start !important;
-    flex: 1 1 auto !important;
+    flex: none !important;
+    height: auto !important;
     min-height: 0 !important;
-    overflow-y: auto !important;
-    scrollbar-width: thin !important;
-    scrollbar-color: rgba(249, 115, 22, 0.45) transparent !important;
-    padding-right: 4px !important;
-    scroll-behavior: smooth !important;
-    overscroll-behavior-y: contain !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding-right: 0 !important;
   }
 
   .sched-course-row {
