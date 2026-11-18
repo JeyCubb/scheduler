@@ -3293,9 +3293,11 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  cursor: pointer;
 }
 
 .sched-modal-card {
+  cursor: default;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg, 18px);

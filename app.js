@@ -2106,7 +2106,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (removeBtn) removeBtn.addEventListener('click', confirmRemoveSubject);
   if (modalEl) {
     modalEl.addEventListener('click', (e) => {
-      if (e.target === modalEl) {
+      if (!e.target.closest('.sched-modal-card')) {
         closeRemoveModal();
       }
     });
@@ -2130,7 +2130,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (semCloseBtn) semCloseBtn.addEventListener('click', closeSemesterModal);
   if (semModal) {
     semModal.addEventListener('click', (e) => {
-      if (e.target === semModal) {
+      if (!e.target.closest('.sched-modal-card')) {
         closeSemesterModal();
       }
     });
@@ -2245,6 +2245,18 @@ document.addEventListener('touchend', (e) => {
         exitFocusMode();
         resetIdleTimer();
       }
+    }
+  }
+
+  // If a modal is open, tapping anywhere outside the modal card automatically cancels/closes it
+  if (isModalOpen && !singleTouchMoved) {
+    const rawTarget = (e.target && e.target.nodeType === 1) ? e.target : (e.target && e.target.parentElement);
+    if (rawTarget && !rawTarget.closest('.sched-modal-card')) {
+      e.preventDefault();
+      closeRemoveModal();
+      closeSemesterModal();
+      lastTouchEndTime = 0;
+      return;
     }
   }
 
