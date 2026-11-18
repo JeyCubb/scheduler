@@ -605,17 +605,17 @@ body.sched-show-saturday .sched-grid-body {
   line-height: 1;
 }
 
-/* Section Enlistment & Enrollment Badge */
+/* Section Enlistment out of Total Capacity Badge */
 .sched-pill .pill-capacity {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 3px;
-  font-size: 0.50rem;
-  font-weight: 600;
+  gap: 1.5px;
+  font-size: 0.56rem;
+  font-weight: 700;
   color: #94a3b8;
   margin-top: 2px;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.01em;
   line-height: 1.1;
   white-space: nowrap;
   max-width: 100%;
@@ -624,13 +624,14 @@ body.sched-show-saturday .sched-grid-body {
 }
 
 .sched-pill .pill-capacity .pill-sep {
-  opacity: 0.5;
-  font-size: 0.45rem;
+  opacity: 0.45;
+  font-size: 0.50rem;
+  margin: 0 1px;
 }
 
 .sched-pill.active .pill-capacity {
   color: inherit;
-  opacity: 0.92;
+  opacity: 0.95;
 }
 
 [data-theme="light"] .sched-pill .pill-capacity {
