@@ -888,8 +888,9 @@ function applySchedulePreset(preset) {
     } else if (preset === 'Marinell') {
       courses.forEach(c => {
         if (c.code === 'ME 407' || c.code === 'ME 409') return; // Heat Transfer (ME 403) is a prerequisite
-        if (c.code === 'GEE 003') userScheduleSelection[c.code] = 'ARCH22S5';
-        else if (c.code === 'ME 404' || c.code === 'ME 406') userScheduleSelection[c.code] = 'ME32S2';
+        if (c.code === 'GEE 002') userScheduleSelection[c.code] = 'ME22S3';
+        else if (c.code === 'GEE 003') userScheduleSelection[c.code] = 'ME32S3';
+        else if (c.code === 'ECE 006' || c.code === 'ME 411' || c.code === 'ME 404' || c.code === 'ME 406') userScheduleSelection[c.code] = 'ME32S2';
         else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ECE32S1';
         else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'Requested';
         else if (c.code === 'ME 403' || c.code === 'ME 204') userScheduleSelection[c.code] = 'Retake';
@@ -2186,6 +2187,7 @@ let singleTouchStartX = 0;
 let singleTouchStartY = 0;
 let singleTouchMoved = false;
 let singleTouchTarget = null;
+let lastTouchEndTime = 0;
 
 // 1. Multi-finger pinch gesture detection (Pinch-out / spread forces Zen mode, Pinch-in exits)
 document.addEventListener('touchstart', (e) => {
@@ -2247,11 +2249,19 @@ document.addEventListener('touchend', (e) => {
     touchPinchStartDist = 0;
     pinchCooldownUntil = Date.now() + 650;
     setTimeout(() => { touchPinchTriggered = false; }, 200);
+    lastTouchEndTime = 0;
+    return;
+  }
+
+  const now = Date.now();
+
+  if (singleTouchMoved) {
+    lastTouchEndTime = 0;
     return;
   }
 
   // If in forced Zen mode, a clean tap on the timetable background restores controls
-  if (Date.now() >= pinchCooldownUntil && !singleTouchMoved && (Date.now() - singleTouchStartTime < 300)) {
+  if (now >= pinchCooldownUntil && (now - singleTouchStartTime < 300)) {
     if (document.body.classList.contains('sched-focus-autohide')) {
       if (!singleTouchTarget || !singleTouchTarget.closest('.sched-event-block')) {
         exitFocusMode();
@@ -2259,6 +2269,28 @@ document.addEventListener('touchend', (e) => {
       }
     }
   }
+
+  // Hard-block iOS / iPadOS Safari double-tap & spam-tap zoom!
+  // On rapid consecutive taps (<= 500ms), preventDefault() cancels native
+  // double-tap zoom while dispatching .click() directly on interactive controls
+  // so spam-tapping pills/buttons remains 100% responsive with zero zooming.
+  const isRapidTap = (now - lastTouchEndTime) <= 500;
+  lastTouchEndTime = now;
+
+  if (isRapidTap && !e.defaultPrevented && (!e.touches || e.touches.length === 0)) {
+    e.preventDefault();
+    const rawTarget = (e.target && e.target.nodeType === 1) ? e.target : (e.target && e.target.parentElement);
+    const tapTarget = rawTarget && rawTarget.closest
+      ? rawTarget.closest('button, a, [role="button"], .sched-pill, .sched-preset-btn, .sched-sem-option')
+      : null;
+    if (tapTarget && !tapTarget.disabled) {
+      tapTarget.click();
+    }
+  }
+}, { passive: false });
+
+document.addEventListener('dblclick', (e) => {
+  e.preventDefault();
 }, { passive: false });
 
 document.addEventListener('touchcancel', () => {
