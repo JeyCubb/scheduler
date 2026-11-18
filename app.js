@@ -788,6 +788,35 @@ function getStorageKeyForSemester(semId) {
 // ==========================================================================
 // STATE MANAGEMENT & PERSISTENCE
 // ==========================================================================
+// Prerequisite mutual-exclusion map:
+// Selecting a failed/retake prerequisite automatically deselects courses that depend on it
+// (and vice versa if switching back to a dependent course).
+const PREREQUISITE_DEPENDENTS = {
+  'ME 403': ['ME 407', 'ME 409'] // Heat Transfer -> Refrigeration Systems, Combustion Engineering
+};
+
+function enforcePrerequisiteRules(selectedCode) {
+  if (selectedCode && PREREQUISITE_DEPENDENTS[selectedCode]) {
+    PREREQUISITE_DEPENDENTS[selectedCode].forEach(depCode => {
+      delete userScheduleSelection[depCode];
+    });
+  } else if (selectedCode) {
+    Object.keys(PREREQUISITE_DEPENDENTS).forEach(prereqCode => {
+      if (PREREQUISITE_DEPENDENTS[prereqCode].includes(selectedCode) && userScheduleSelection[prereqCode]) {
+        delete userScheduleSelection[prereqCode];
+      }
+    });
+  } else {
+    Object.keys(PREREQUISITE_DEPENDENTS).forEach(prereqCode => {
+      if (userScheduleSelection[prereqCode]) {
+        PREREQUISITE_DEPENDENTS[prereqCode].forEach(depCode => {
+          delete userScheduleSelection[depCode];
+        });
+      }
+    });
+  }
+}
+
 let userScheduleSelection = {};
 
 function initScheduleCreatorState() {
@@ -814,6 +843,7 @@ function initScheduleCreatorState() {
     // Fresh semester visit: pre-populate with recommended Choice A
     applySchedulePreset('A');
   }
+  enforcePrerequisiteRules();
 }
 
 function saveScheduleCreatorState() {
@@ -857,6 +887,7 @@ function applySchedulePreset(preset) {
       });
     } else if (preset === 'Marinell') {
       courses.forEach(c => {
+        if (c.code === 'ME 407' || c.code === 'ME 409') return; // Heat Transfer (ME 403) is a prerequisite
         if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ECE32S1';
         else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'Requested';
         else if (c.code === 'ME 403' || c.code === 'ME 204') userScheduleSelection[c.code] = 'Retake';
@@ -900,6 +931,7 @@ function toggleScheduleSection(courseCode, sectionId) {
     delete userScheduleSelection[courseCode];
   } else {
     userScheduleSelection[courseCode] = sectionId;
+    enforcePrerequisiteRules(courseCode);
   }
   saveScheduleCreatorState();
   renderScheduleView();
@@ -1359,8 +1391,11 @@ function renderScheduleSidebar() {
     course.sections.forEach(sec => {
       const isAct = selectedSec === sec.id;
       const secKey = `${course.code}__${sec.id}`;
+      const blockingPrereq = Object.keys(PREREQUISITE_DEPENDENTS).find(
+        prereqCode => userScheduleSelection[prereqCode] && PREREQUISITE_DEPENDENTS[prereqCode].includes(course.code)
+      );
       const isConflict = isAct && conflicts.sections.has(secKey);
-      const isPotential = !isAct && conflicts.potentialSections.has(secKey);
+      const isPotential = !isAct && (conflicts.potentialSections.has(secKey) || Boolean(blockingPrereq));
 
       let pillClass = 'sched-pill';
       if (isAct) pillClass += ' active';
@@ -1384,7 +1419,11 @@ function renderScheduleSidebar() {
         const potSummaries = [...new Set(potConflicts.map(p => `• ${p.withTitle} (${p.withSection}) [${p.overlapTimeStr}]`))];
         if (potSummaries.length > 0) {
           pillConflictTitle = `\n\n⚠️ Notice: Conflicts with:\n${potSummaries.join('\n')}`;
-        } else {
+        }
+        if (blockingPrereq) {
+          if (!pillPartnerCodes.includes(blockingPrereq)) pillPartnerCodes.push(blockingPrereq);
+          pillConflictTitle += `\n\n⚠️ Prerequisite: Heat Transfer (${blockingPrereq}) is currently selected. Selecting this will deselect Heat Transfer.`;
+        } else if (!potSummaries.length) {
           pillConflictTitle = '\n⚠️ Notice: This section conflicts with another selected subject';
         }
       }
