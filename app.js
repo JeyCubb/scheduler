@@ -148,6 +148,28 @@ const SCHEDULE_COURSES = [
       { id: 'ECE22S1', desc: 'Mo 5:30–6:30 & We 7:30–8:30', room: 'Q-5320', slots: [{ day: 0, start: 1050, end: 1110, room: 'Q-5320' }, { day: 2, start: 1170, end: 1230, room: 'Q-5320' }] },
       { id: 'ECE32S1', desc: 'Tu/Th 12:00–1:00 PM', room: 'Q-9405', slots: [{ day: 1, start: 720, end: 780, room: 'Q-9405' }, { day: 3, start: 720, end: 780, room: 'Q-9405' }] }
     ]
+  },
+  {
+    code: 'ME 403',
+    title: 'Heat Transfer',
+    units: 2,
+    color: '#dc2626',
+    border: '#f87171',
+    isRetake: true,
+    sections: [
+      { id: 'Retake', desc: 'Tu/Th 10:30–11:30 AM', room: '', slots: [{ day: 1, start: 630, end: 690, room: '' }, { day: 3, start: 630, end: 690, room: '' }] }
+    ]
+  },
+  {
+    code: 'ME 204',
+    title: 'Machine Shop',
+    units: 2,
+    color: '#4d7c0f',
+    border: '#a3e635',
+    isRetake: true,
+    sections: [
+      { id: 'Retake', desc: 'Tu/Th 4:30–7:30 PM', room: '', slots: [{ day: 1, start: 990, end: 1170, room: '' }, { day: 3, start: 990, end: 1170, room: '' }] }
+    ]
   }
 ];
 
@@ -808,10 +830,12 @@ function applySchedulePreset(preset) {
   if (activeSemesterId === '3rd-2nd') {
     if (preset === 'A') {
       courses.forEach(c => {
+        if (c.isRetake) return;
         userScheduleSelection[c.code] = 'ME32S1';
       });
     } else if (preset === 'B') {
       courses.forEach(c => {
+        if (c.isRetake) return;
         if (c.code === 'ME 406') userScheduleSelection[c.code] = 'ME32S3';
         else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ECE32S1';
         else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'Requested';
@@ -819,12 +843,14 @@ function applySchedulePreset(preset) {
       });
     } else if (preset === 'C') {
       courses.forEach(c => {
+        if (c.isRetake) return;
         const match = c.sections.find(s => s.id === 'ME32S2');
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
       });
     } else if (preset === 'D') {
       courses.forEach(c => {
+        if (c.isRetake) return;
         const match = c.sections.find(s => s.id === 'ME32S3');
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
@@ -1319,7 +1345,7 @@ function renderScheduleSidebar() {
     const selectedSec = userScheduleSelection[course.code];
     const hasConflict = conflicts.courseCodes.has(course.code);
     const row = document.createElement('div');
-    row.className = 'sched-course-row' + (selectedSec ? ' active' : '') + (hasConflict ? ' has-conflict' : '');
+    row.className = 'sched-course-row' + (selectedSec ? ' active' : '') + (hasConflict ? ' has-conflict' : '') + (course.isRetake ? ' is-retake' : '');
     row.dataset.courseCode = course.code;
 
     let pillsHtml = '';
@@ -1374,8 +1400,7 @@ function renderScheduleSidebar() {
                 onmouseenter="highlightConflictPartners(${JSON.stringify(pillPartnerCodes)}); highlightInterferingOnGrid('${course.code}', '${sec.id}')"
                 onmouseleave="clearConflictPartners(); clearInterferingHighlights()"
                 title="${course.title} (${course.code})
-Section: ${sec.id} (${sec.desc})
-Room: ${sec.room}${pillConflictTitle}"
+Section: ${sec.id} (${sec.desc})${sec.room ? `\nRoom: ${sec.room}` : ''}${pillConflictTitle}"
                 style="${activeStyle}">
           <span class="pill-sec" style="${secStyle}">
             ${sec.id}${isConflict ? ' ⚠️' : ''}
@@ -1549,7 +1574,7 @@ function renderScheduleGrid() {
       ? `\n\n⚠️ CONFLICTS WITH:\n${partnerSummaries.join('\n')}`
       : (isConflict ? '\n\n⚠️ WARNING: Active time conflict with another enrolled subject!' : '');
 
-    card.title = `${ev.title}\nSection: ${ev.sectionId}\nRoom: ${ev.room}\nTime: ${formatTimeMinutes(ev.start)} - ${formatTimeMinutes(ev.end)}${conflictText}\n\n(Double-click to remove from schedule)`;
+    card.title = `${ev.title}\nSection: ${ev.sectionId}${ev.room ? `\nRoom: ${ev.room}` : ''}\nTime: ${formatTimeMinutes(ev.start)} - ${formatTimeMinutes(ev.end)}${conflictText}\n\n(Double-click to remove from schedule)`;
 
     // Double-click to prompt subject removal from timetable
     card.addEventListener('dblclick', (e) => {
@@ -1744,12 +1769,16 @@ function updateScheduleStats() {
   const courses = getActiveCourses();
   const sem = getActiveSemester();
 
+  let regularCourseCount = 0;
   let totalAvailableUnits = 0;
   let enrolledUnits = 0;
   let count = 0;
 
   courses.forEach(c => {
-    totalAvailableUnits += c.units;
+    if (!c.isRetake) {
+      regularCourseCount++;
+      totalAvailableUnits += c.units;
+    }
     if (userScheduleSelection[c.code]) {
       enrolledUnits += c.units;
       count++;
@@ -1758,7 +1787,7 @@ function updateScheduleStats() {
 
   const statCourses = document.getElementById('sched-stat-courses');
   const statUnits = document.getElementById('sched-stat-units');
-  if (statCourses) statCourses.textContent = `${count} / ${courses.length}`;
+  if (statCourses) statCourses.textContent = `${count} / ${regularCourseCount}`;
   if (statUnits) statUnits.textContent = `${enrolledUnits} / ${totalAvailableUnits}`;
 
   // Dynamic preset button labels and states across all terms
