@@ -866,19 +866,11 @@ function applySchedulePreset(preset) {
     } else if (preset === 'B') {
       courses.forEach(c => {
         if (c.isRetake) return;
-        if (c.code === 'ME 406') userScheduleSelection[c.code] = 'ME32S3';
-        else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ECE32S1';
-        else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'Requested';
-        else userScheduleSelection[c.code] = 'ME32S1';
-      });
-    } else if (preset === 'C') {
-      courses.forEach(c => {
-        if (c.isRetake) return;
         const match = c.sections.find(s => s.id === 'ME32S2');
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
       });
-    } else if (preset === 'D') {
+    } else if (preset === 'C') {
       courses.forEach(c => {
         if (c.isRetake) return;
         const match = c.sections.find(s => s.id === 'ME32S3');
@@ -1843,7 +1835,6 @@ function updateScheduleStats() {
   const btnA = document.getElementById('btn-preset-choice-a');
   const btnB = document.getElementById('btn-preset-choice-b');
   const btnC = document.getElementById('btn-preset-choice-c');
-  const btnD = document.getElementById('btn-preset-choice-d');
   const btnMarinell = document.getElementById('btn-preset-marinell');
   const hasPresets = courses.length > 0;
   if (btnA) {
@@ -1858,7 +1849,7 @@ function updateScheduleStats() {
   if (btnB) {
     btnB.style.opacity = hasPresets ? '' : '0.4';
     btnB.style.pointerEvents = hasPresets ? '' : 'none';
-    let subB = '(Sat Lab Block)';
+    let subB = '(ME32S2 Block)';
     if (activeSemesterId === '4th-summer') subB = '(ME40S2 Block)';
     else if (activeSemesterId === '4th-1st') subB = '(ME41S2 Block)';
     else if (activeSemesterId === '4th-2nd') subB = '(ME42S2 Block)';
@@ -1869,18 +1860,10 @@ function updateScheduleStats() {
     btnC.style.display = hasC ? '' : 'none';
     btnC.style.opacity = hasC ? '' : '0.4';
     btnC.style.pointerEvents = hasC ? '' : 'none';
-    let subC = '(ME32S2 Block)';
+    let subC = '(ME32S3 Block)';
     if (activeSemesterId === '4th-1st') subC = '(ME41S3 Block)';
     else if (activeSemesterId === '4th-2nd') subC = '(ME42S3 Block)';
     btnC.innerHTML = `Choice C<span class="sched-btn-sub"> ${subC}</span>`;
-  }
-  if (btnD) {
-    const hasD = hasPresets && activeSemesterId === '3rd-2nd';
-    btnD.style.display = hasD ? '' : 'none';
-    btnD.style.opacity = hasD ? '' : '0.4';
-    btnD.style.pointerEvents = hasD ? '' : 'none';
-    let subD = '(ME32S3 Block)';
-    btnD.innerHTML = `Choice D<span class="sched-btn-sub"> ${subD}</span>`;
   }
   if (btnMarinell) {
     const hasMarinell = hasPresets && activeSemesterId === '3rd-2nd';
@@ -2046,14 +2029,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnA = document.getElementById('btn-preset-choice-a');
   const btnB = document.getElementById('btn-preset-choice-b');
   const btnC = document.getElementById('btn-preset-choice-c');
-  const btnD = document.getElementById('btn-preset-choice-d');
   const btnMarinell = document.getElementById('btn-preset-marinell');
   const btnClr = document.getElementById('btn-sched-clear-all');
 
   if (btnA) btnA.addEventListener('click', () => applySchedulePreset('A'));
   if (btnB) btnB.addEventListener('click', () => applySchedulePreset('B'));
   if (btnC) btnC.addEventListener('click', () => applySchedulePreset('C'));
-  if (btnD) btnD.addEventListener('click', () => applySchedulePreset('D'));
   if (btnMarinell) btnMarinell.addEventListener('click', () => applySchedulePreset('Marinell'));
   if (btnClr) btnClr.addEventListener('click', () => {
     userScheduleSelection = {};

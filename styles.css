@@ -3004,7 +3004,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     /* Row 1: Presets Toolbar (Full Width) */
     .sched-preset-group {
       display: grid !important;
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      grid-template-columns: repeat(auto-fit, minmax(0, 1fr)) !important;
       gap: 0.25rem !important;
       width: 100% !important;
       order: 1 !important;
@@ -3018,7 +3018,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
       width: 100% !important;
       max-width: 100% !important;
       min-width: 0 !important;
-      font-size: 0.85rem !important;
+      font-size: 0.78rem !important;
       font-weight: 700 !important;
       padding: 0.32rem 0.2rem !important;
       text-align: center !important;
