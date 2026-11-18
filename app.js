@@ -888,7 +888,9 @@ function applySchedulePreset(preset) {
     } else if (preset === 'Marinell') {
       courses.forEach(c => {
         if (c.code === 'ME 407' || c.code === 'ME 409') return; // Heat Transfer (ME 403) is a prerequisite
-        if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ECE32S1';
+        if (c.code === 'GEE 003') userScheduleSelection[c.code] = 'ARCH22S5';
+        else if (c.code === 'ME 404' || c.code === 'ME 406') userScheduleSelection[c.code] = 'ME32S2';
+        else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ECE32S1';
         else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'Requested';
         else if (c.code === 'ME 403' || c.code === 'ME 204') userScheduleSelection[c.code] = 'Retake';
         else userScheduleSelection[c.code] = 'ME32S1';
