@@ -168,7 +168,7 @@ body.brand-nav-modal-open {
   top: 44px;
   left: 50%;
   transform: translateX(-50%) translateY(-6px) scale(0.96);
-  width: min(340px, 92vw);
+  width: min(220px, 86vw);
   background: var(--bg-card, #1a1613) !important;
   border: 1px solid var(--border-color) !important;
   border-radius: 12px !important;
@@ -235,11 +235,11 @@ body.brand-nav-modal-open {
 .sched-zen-popup-item {
   width: 100% !important;
   display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  justify-content: center !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
   text-align: left !important;
-  padding: 7px 10px !important;
+  padding: 8px 12px !important;
   border-radius: 8px !important;
   border: 1px solid transparent !important;
   background: var(--bg-card-hover, rgba(255, 255, 255, 0.03)) !important;
@@ -275,12 +275,11 @@ body.brand-nav-modal-open {
 }
 
 .sched-zen-popup-item-name {
-  font-size: 0.86rem !important;
-  font-weight: 800 !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
   color: var(--text-primary) !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
   width: 100% !important;
 }
 
@@ -289,11 +288,7 @@ body.brand-nav-modal-open {
 }
 
 .sched-zen-popup-item-desc {
-  font-size: 0.68rem !important;
-  font-weight: 500 !important;
-  color: var(--text-secondary) !important;
-  line-height: 1.25 !important;
-  margin-top: 1px !important;
+  display: none !important;
 }
 
 .sched-zen-popup-divider {
