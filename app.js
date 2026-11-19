@@ -943,11 +943,22 @@ function saveScheduleCreatorState() {
   }
 }
 
+let currentSchedulePreset = null;
+
 function applySchedulePreset(preset) {
   const courses = getActiveCourses();
   userScheduleSelection = {};
   const isA = preset === 'A' || preset === 'S1';
   const isB = preset === 'B' || preset === 'S2';
+  if (preset === 'Joshua & Karl' || preset === 'Joshua' || preset === 'Karl') {
+    currentSchedulePreset = 'Joshua & Karl';
+  } else if (preset === 'Marinell') {
+    currentSchedulePreset = 'Marinell';
+  } else if (preset === 'Andrei') {
+    currentSchedulePreset = 'Andrei';
+  } else {
+    currentSchedulePreset = null;
+  }
   if (activeSemesterId === '3rd-2nd') {
     if (isA) {
       courses.forEach(c => {
@@ -976,7 +987,7 @@ function applySchedulePreset(preset) {
         else if (c.code === 'ME 223') userScheduleSelection[c.code] = 'ME22S3';
         else if (c.code === 'ECE 006') userScheduleSelection[c.code] = 'ME32S3';
       });
-    } else if (preset === 'Joshua' || preset === 'Karl') {
+    } else if (preset === 'Joshua & Karl' || preset === 'Joshua' || preset === 'Karl') {
       courses.forEach(c => {
         if (c.code === 'ECE 006') userScheduleSelection[c.code] = 'ME32S1';
         else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ME32S3';
@@ -1231,6 +1242,7 @@ function switchSemester(newSemId) {
     closeSemesterModal();
     return;
   }
+  currentSchedulePreset = null;
   activeSemesterId = newSemId;
   localStorage.setItem('tip_sched_active_sem', newSemId);
   initScheduleCreatorState();
@@ -1991,9 +2003,8 @@ function updateScheduleStats() {
   const btnB = document.getElementById('btn-preset-choice-b');
   const btnC = document.getElementById('btn-preset-choice-c');
   const btnMarinell = document.getElementById('btn-preset-marinell');
-  const btnJoshua = document.getElementById('btn-preset-joshua');
+  const btnJoshuaKarl = document.getElementById('btn-preset-joshua-karl');
   const btnAndrei = document.getElementById('btn-preset-andrei');
-  const btnKarl = document.getElementById('btn-preset-karl');
   const semBadge = document.getElementById('sched-presets-sem-badge');
   if (semBadge && sem) {
     semBadge.textContent = sem.name;
@@ -2025,23 +2036,17 @@ function updateScheduleStats() {
     btnMarinell.style.opacity = hasMarinell ? '' : '0.4';
     btnMarinell.style.pointerEvents = hasMarinell ? '' : 'none';
   }
-  if (btnJoshua) {
-    const hasJoshua = hasPresets && is3rd2nd;
-    btnJoshua.style.display = hasJoshua ? '' : 'none';
-    btnJoshua.style.opacity = hasJoshua ? '' : '0.4';
-    btnJoshua.style.pointerEvents = hasJoshua ? '' : 'none';
+  if (btnJoshuaKarl) {
+    const hasJoshuaKarl = hasPresets && is3rd2nd;
+    btnJoshuaKarl.style.display = hasJoshuaKarl ? '' : 'none';
+    btnJoshuaKarl.style.opacity = hasJoshuaKarl ? '' : '0.4';
+    btnJoshuaKarl.style.pointerEvents = hasJoshuaKarl ? '' : 'none';
   }
   if (btnAndrei) {
     const hasAndrei = hasPresets && is3rd2nd;
     btnAndrei.style.display = hasAndrei ? '' : 'none';
     btnAndrei.style.opacity = hasAndrei ? '' : '0.4';
     btnAndrei.style.pointerEvents = hasAndrei ? '' : 'none';
-  }
-  if (btnKarl) {
-    const hasKarl = hasPresets && is3rd2nd;
-    btnKarl.style.display = hasKarl ? '' : 'none';
-    btnKarl.style.opacity = hasKarl ? '' : '0.4';
-    btnKarl.style.pointerEvents = hasKarl ? '' : 'none';
   }
 
   // Detect active preset for corner button label and active highlight
@@ -2057,7 +2062,7 @@ function updateScheduleStats() {
                s['GEE 003'] === 'ME32S1' && s['ME 007'] === 'ME32S1' && s['ME 401'] === 'ME32S3' &&
                s['ME 403'] === 'ME31S1' && s['ME 404'] === 'ME32S1' && s['ME 411'] === 'ME32S1' &&
                s['ME 523'] === 'ME41S1' && Object.keys(s).length === 10) {
-      activePresetName = 'Joshua / Karl';
+      activePresetName = 'Joshua & Karl';
     } else if (s['ME 403'] === 'ME31S1' && s['ME 411'] === 'ME32S1' && s['ME 404'] === 'ME32S1' &&
                s['EMAN 001'] === 'ME32S3' && s['ME 007'] === 'ME32S1' && s['GEE 002'] === 'ME32S1' &&
                s['GEE 003'] === 'ME32S1' && s['ME 401'] === 'ME32S3' && s['ME 223'] === 'ME22S3' &&
@@ -2074,16 +2079,34 @@ function updateScheduleStats() {
   }
 
   // Highlight active preset in toolbar buttons
-  [btnA, btnB, btnC, btnMarinell, btnJoshua, btnAndrei, btnKarl].forEach(b => {
+  [btnA, btnB, btnC, btnMarinell, btnJoshuaKarl, btnAndrei].forEach(b => {
     if (b) b.classList.remove('is-active-preset');
   });
   if (activePresetName === 'S1' && btnA) btnA.classList.add('is-active-preset');
   else if (activePresetName === 'S2' && btnB) btnB.classList.add('is-active-preset');
   else if (activePresetName === 'Marinell' && btnMarinell) btnMarinell.classList.add('is-active-preset');
-  else if (activePresetName === 'Joshua / Karl') {
-    if (btnJoshua) btnJoshua.classList.add('is-active-preset');
-    if (btnKarl) btnKarl.classList.add('is-active-preset');
+  else if (activePresetName === 'Joshua & Karl' && btnJoshuaKarl) {
+    btnJoshuaKarl.classList.add('is-active-preset');
   } else if (activePresetName === 'Andrei' && btnAndrei) btnAndrei.classList.add('is-active-preset');
+
+  // Update Zen Mode Person Preset Row (Extra row on top of Time and Day, disregarding S1 & S2)
+  const zenPresetRow = document.getElementById('sched-zen-preset-row');
+  const zenPresetName = document.getElementById('sched-zen-preset-name');
+  if (zenPresetRow && zenPresetName) {
+    const personName = (activePresetName === 'Joshua & Karl' || activePresetName === 'Marinell' || activePresetName === 'Andrei')
+      ? activePresetName
+      : ((currentSchedulePreset === 'Joshua & Karl' || currentSchedulePreset === 'Marinell' || currentSchedulePreset === 'Andrei') ? currentSchedulePreset : null);
+
+    if (personName && activePresetName !== 'S1' && activePresetName !== 'S2') {
+      zenPresetName.textContent = personName;
+      zenPresetRow.setAttribute('data-has-person', 'true');
+      zenPresetRow.setAttribute('title', `${personName}'s Schedule`);
+    } else {
+      zenPresetName.textContent = '';
+      zenPresetRow.removeAttribute('data-has-person');
+      zenPresetRow.removeAttribute('title');
+    }
+  }
 }
 
 // ==========================================================================
@@ -2243,20 +2266,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnB = document.getElementById('btn-preset-choice-b');
   const btnC = document.getElementById('btn-preset-choice-c');
   const btnMarinell = document.getElementById('btn-preset-marinell');
-  const btnJoshua = document.getElementById('btn-preset-joshua');
+  const btnJoshuaKarl = document.getElementById('btn-preset-joshua-karl');
   const btnAndrei = document.getElementById('btn-preset-andrei');
-  const btnKarl = document.getElementById('btn-preset-karl');
   const btnClr = document.getElementById('btn-sched-clear-all');
 
   if (btnA) btnA.addEventListener('click', () => applySchedulePreset('A'));
   if (btnB) btnB.addEventListener('click', () => applySchedulePreset('B'));
   if (btnC) btnC.addEventListener('click', () => applySchedulePreset('C'));
   if (btnMarinell) btnMarinell.addEventListener('click', () => applySchedulePreset('Marinell'));
-  if (btnJoshua) btnJoshua.addEventListener('click', () => applySchedulePreset('Joshua'));
+  if (btnJoshuaKarl) btnJoshuaKarl.addEventListener('click', () => applySchedulePreset('Joshua & Karl'));
   if (btnAndrei) btnAndrei.addEventListener('click', () => applySchedulePreset('Andrei'));
-  if (btnKarl) btnKarl.addEventListener('click', () => applySchedulePreset('Karl'));
   if (btnClr) btnClr.addEventListener('click', () => {
     userScheduleSelection = {};
+    currentSchedulePreset = null;
     saveScheduleCreatorState();
     renderScheduleView();
   });
