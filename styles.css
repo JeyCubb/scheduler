@@ -154,6 +154,7 @@ body.brand-nav-modal-open {
 
 .sched-grid-header {
   display: grid;
+  grid-template-columns: 80px repeat(5, minmax(0, 1fr));
   border-bottom: 2px solid var(--border-color);
 }
 
@@ -167,6 +168,7 @@ body.brand-nav-modal-open {
   color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap !important;
 }
 
 .sched-sat-col {
