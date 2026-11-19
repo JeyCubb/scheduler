@@ -2073,11 +2073,6 @@ function updateScheduleStats() {
     }
   }
 
-  const cornerLabel = document.querySelector('.corner-txt-full');
-  if (cornerLabel) {
-    cornerLabel.textContent = 'Time';
-  }
-
   // Highlight active preset in toolbar buttons
   [btnA, btnB, btnC, btnMarinell, btnJoshua, btnAndrei, btnKarl].forEach(b => {
     if (b) b.classList.remove('is-active-preset');
@@ -2089,34 +2084,6 @@ function updateScheduleStats() {
     if (btnJoshua) btnJoshua.classList.add('is-active-preset');
     if (btnKarl) btnKarl.classList.add('is-active-preset');
   } else if (activePresetName === 'Andrei' && btnAndrei) btnAndrei.classList.add('is-active-preset');
-
-  // Highlight active preset in popup list items
-  const popup = document.getElementById('sched-presets-popup');
-  if (popup) {
-    const nameA = popup.querySelector('.sched-popup-item[data-preset="A"] .sched-popup-item-name');
-    if (nameA) nameA.textContent = is3rd2nd ? 'S1' : 'Choice A';
-    const nameB = popup.querySelector('.sched-popup-item[data-preset="B"] .sched-popup-item-name');
-    if (nameB) nameB.textContent = is3rd2nd ? 'S2' : 'Choice B';
-
-    const popupItems = popup.querySelectorAll('.sched-popup-item[data-preset]');
-    popupItems.forEach(item => {
-      const p = item.dataset.preset;
-      if (['Marinell', 'Joshua', 'Andrei', 'Karl'].includes(p)) {
-        item.style.display = is3rd2nd ? '' : 'none';
-      } else if (p === 'C') {
-        item.style.display = (activeSemesterId === '4th-1st' || activeSemesterId === '4th-2nd') ? '' : 'none';
-      }
-      const isMatch = (p === activePresetName) ||
-        ((p === 'S1' || p === 'A') && (activePresetName === 'S1' || activePresetName === 'Choice A')) ||
-        ((p === 'S2' || p === 'B') && (activePresetName === 'S2' || activePresetName === 'Choice B')) ||
-        (activePresetName === 'Joshua / Karl' && (p === 'Joshua' || p === 'Karl'));
-      if (isMatch) {
-        item.classList.add('is-active-preset');
-      } else {
-        item.classList.remove('is-active-preset');
-      }
-    });
-  }
 }
 
 // ==========================================================================
@@ -2228,82 +2195,6 @@ function initBrandNavPopup() {
 }
 
 // ==========================================================================
-// CORNER PRESETS POP-UP TOGGLE CONTROLLER
-// ==========================================================================
-function initCornerPresetsPopup() {
-  const trigger = document.getElementById('btn-corner-presets');
-  const popup = document.getElementById('sched-presets-popup');
-  if (!trigger || !popup) return;
-
-  function togglePopup(forceState) {
-    const willOpen = forceState !== undefined ? forceState : !popup.classList.contains('is-open');
-    if (willOpen) {
-      const rect = trigger.getBoundingClientRect();
-      const popupWidth = popup.offsetWidth || 180;
-      let left = Math.round(rect.left);
-      if (left + popupWidth > window.innerWidth - 12) {
-        left = Math.max(8, window.innerWidth - popupWidth - 12);
-      }
-      popup.style.top = `${Math.round(rect.bottom + 6)}px`;
-      popup.style.left = `${Math.max(8, left)}px`;
-      popup.classList.add('is-open');
-      popup.setAttribute('aria-hidden', 'false');
-      trigger.setAttribute('aria-expanded', 'true');
-      trigger.classList.add('is-active');
-    } else {
-      popup.classList.remove('is-open');
-      popup.setAttribute('aria-hidden', 'true');
-      trigger.setAttribute('aria-expanded', 'false');
-      trigger.classList.remove('is-active');
-    }
-  }
-
-  trigger.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    togglePopup();
-  });
-
-  popup.addEventListener('click', (e) => {
-    const item = e.target.closest('.sched-popup-item');
-    if (!item) return;
-    const preset = item.dataset.preset;
-    if (preset === 'clear') {
-      userScheduleSelection = {};
-      saveScheduleCreatorState();
-      renderScheduleView();
-    } else if (preset) {
-      applySchedulePreset(preset);
-    }
-    togglePopup(false);
-  });
-
-  const handleOutsideClose = (e) => {
-    if (popup.classList.contains('is-open')) {
-      if (!popup.contains(e.target) && !trigger.contains(e.target)) {
-        togglePopup(false);
-      }
-    }
-  };
-
-  document.addEventListener('click', handleOutsideClose);
-  document.addEventListener('pointerdown', handleOutsideClose);
-
-  window.addEventListener('resize', () => {
-    if (popup.classList.contains('is-open')) {
-      togglePopup(false);
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && popup.classList.contains('is-open')) {
-      togglePopup(false);
-      trigger.focus();
-    }
-  });
-}
-
-// ==========================================================================
 // FULL-SCREEN BRAND PORTAL MODAL (Shown only when freshly joining via shared link)
 // ==========================================================================
 function initSharedLinkFullscreenModal() {
@@ -2346,7 +2237,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initScheduleCreatorState();
   initBrandNavPopup();
-  initCornerPresetsPopup();
   initSharedLinkFullscreenModal();
 
   const btnA = document.getElementById('btn-preset-choice-a');
