@@ -2104,11 +2104,12 @@ function updateScheduleStats() {
   const zenBanner = document.getElementById('sched-zen-preset-banner');
   const zenPresetName = document.getElementById('sched-zen-preset-name');
   if (zenBanner && zenPresetName) {
+    // Only display person indicator for designated people (Marinell, Joshua & Karl, Andrei); disregard for S1 & S2
     const personName = (activePresetName === 'Joshua & Karl' || activePresetName === 'Marinell' || activePresetName === 'Andrei')
       ? activePresetName
       : ((currentSchedulePreset === 'Joshua & Karl' || currentSchedulePreset === 'Marinell' || currentSchedulePreset === 'Andrei') 
           ? currentSchedulePreset 
-          : (activePresetName === 'S1' || activePresetName === 'S2' ? activePresetName : (currentSchedulePreset === 'S1' || currentSchedulePreset === 'S2' ? currentSchedulePreset : null)));
+          : null);
 
     if (personName) {
       zenPresetName.textContent = personName;
@@ -2294,26 +2295,43 @@ function initSharedLinkFullscreenModal() {
 function initZenPresetsPopup() {
   const banner = document.getElementById('sched-zen-preset-banner');
   const popup = document.getElementById('sched-zen-presets-popup');
-  if (!banner || !popup) return;
+  const gridHeader = document.querySelector('.sched-grid-header');
+  if (!popup) return;
 
   function togglePopup(forceState) {
     const willOpen = forceState !== undefined ? forceState : !popup.classList.contains('is-open');
     if (willOpen) {
       popup.classList.add('is-open');
       popup.setAttribute('aria-hidden', 'false');
-      banner.setAttribute('aria-expanded', 'true');
+      if (banner) banner.setAttribute('aria-expanded', 'true');
     } else {
       popup.classList.remove('is-open');
       popup.setAttribute('aria-hidden', 'true');
-      banner.setAttribute('aria-expanded', 'false');
+      if (banner) banner.setAttribute('aria-expanded', 'false');
     }
   }
 
-  banner.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    togglePopup();
-  });
+  if (banner) {
+    banner.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      togglePopup();
+    });
+  }
+
+  if (gridHeader) {
+    gridHeader.addEventListener('click', (e) => {
+      // In Zen mode when person banner is disregarded (e.g. S1 or S2), tapping header opens section popup
+      if (document.body.classList.contains('sched-focus-autohide')) {
+        const isBannerShown = banner && banner.getAttribute('data-has-person') === 'true';
+        if (!isBannerShown) {
+          e.preventDefault();
+          e.stopPropagation();
+          togglePopup();
+        }
+      }
+    });
+  }
 
   popup.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -2337,7 +2355,9 @@ function initZenPresetsPopup() {
   // Tapping outside closes the popup but keeps Zen mode intact
   document.addEventListener('click', (e) => {
     if (popup.classList.contains('is-open')) {
-      if (!popup.contains(e.target) && !banner.contains(e.target)) {
+      const bannerHasTarget = banner && banner.contains(e.target);
+      const headerHasTarget = gridHeader && gridHeader.contains(e.target);
+      if (!popup.contains(e.target) && !bannerHasTarget && !headerHasTarget) {
         togglePopup(false);
       }
     }
@@ -2590,6 +2610,7 @@ document.addEventListener('touchend', (e) => {
       const isZenInteractive = singleTouchTarget && (
         singleTouchTarget.closest('#sched-zen-preset-banner') ||
         singleTouchTarget.closest('#sched-zen-presets-popup') ||
+        singleTouchTarget.closest('.sched-grid-header') ||
         singleTouchTarget.closest('.sched-event-block')
       );
       if (isPopupOpen) {
