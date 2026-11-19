@@ -2003,7 +2003,7 @@ function updateScheduleStats() {
   if (btnA) {
     btnA.style.opacity = hasPresets ? '' : '0.4';
     btnA.style.pointerEvents = hasPresets ? '' : 'none';
-    let labelA = activeSemesterId === '3rd-2nd' ? 'Jacob S1' : 'Choice A';
+    let labelA = activeSemesterId === '3rd-2nd' ? 'S1' : 'Choice A';
     let subA = '(ME32S1 Block)';
     if (activeSemesterId === '4th-summer') subA = '(ME40S1 Block)';
     else if (activeSemesterId === '4th-1st') subA = '(ME41S1 Block)';
@@ -2013,7 +2013,7 @@ function updateScheduleStats() {
   if (btnB) {
     btnB.style.opacity = hasPresets ? '' : '0.4';
     btnB.style.pointerEvents = hasPresets ? '' : 'none';
-    let labelB = activeSemesterId === '3rd-2nd' ? 'Kevin S2' : 'Choice B';
+    let labelB = activeSemesterId === '3rd-2nd' ? 'S2' : 'Choice B';
     let subB = '(ME32S2 Block)';
     if (activeSemesterId === '4th-summer') subB = '(ME40S2 Block)';
     else if (activeSemesterId === '4th-1st') subB = '(ME41S2 Block)';
