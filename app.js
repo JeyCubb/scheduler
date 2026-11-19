@@ -168,6 +168,26 @@ const SCHEDULE_COURSES = [
     sections: [
       { id: 'ME22S3', enlisted: 0, total: 30, desc: 'Tu/Th 1:30–4:30 PM (Lab)', room: 'Q-2105', slots: [{ day: 1, start: 810, end: 990, room: 'Q-2105', tag: 'LAB' }, { day: 3, start: 810, end: 990, room: 'Q-2105', tag: 'LAB' }] }
     ]
+  },
+  {
+    code: 'ME 523',
+    title: 'ME Laws, Ethics, Codes and Standards',
+    units: 2,
+    color: '#f59e0b',
+    border: '#fbbf24',
+    isAdvance: true,
+    sections: [
+      {
+        id: 'ME41S1',
+        enlisted: 0, total: 40,
+        desc: 'Mo/We 4:30–5:30 PM',
+        room: 'Q-5508',
+        slots: [
+          { day: 0, start: 990, end: 1050, room: 'Q-5508' },
+          { day: 2, start: 990, end: 1050, room: 'Q-5508' }
+        ]
+      }
+    ]
   }
 ];
 
@@ -941,6 +961,19 @@ function applySchedulePreset(preset) {
         else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'ME32S3';
         else if (c.code === 'ME 223') userScheduleSelection[c.code] = 'ME22S3';
         else if (c.code === 'ECE 006') userScheduleSelection[c.code] = 'ME32S3';
+      });
+    } else if (preset === 'Joshua') {
+      courses.forEach(c => {
+        if (c.code === 'ECE 006') userScheduleSelection[c.code] = 'ME32S1';
+        else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ME32S3';
+        else if (c.code === 'GEE 002') userScheduleSelection[c.code] = 'ME32S1';
+        else if (c.code === 'GEE 003') userScheduleSelection[c.code] = 'ME32S1';
+        else if (c.code === 'ME 007') userScheduleSelection[c.code] = 'ME32S1';
+        else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'ME32S3';
+        else if (c.code === 'ME 403') userScheduleSelection[c.code] = 'ME31S1';
+        else if (c.code === 'ME 404') userScheduleSelection[c.code] = 'ME32S1';
+        else if (c.code === 'ME 411') userScheduleSelection[c.code] = 'ME32S1';
+        else if (c.code === 'ME 523') userScheduleSelection[c.code] = 'ME41S1';
       });
     }
   } else if (activeSemesterId === '4th-summer') {
@@ -1930,6 +1963,7 @@ function updateScheduleStats() {
   const btnB = document.getElementById('btn-preset-choice-b');
   const btnC = document.getElementById('btn-preset-choice-c');
   const btnMarinell = document.getElementById('btn-preset-marinell');
+  const btnJoshua = document.getElementById('btn-preset-joshua');
   const hasPresets = courses.length > 0;
   if (btnA) {
     btnA.style.opacity = hasPresets ? '' : '0.4';
@@ -1959,6 +1993,12 @@ function updateScheduleStats() {
     btnMarinell.style.display = hasMarinell ? '' : 'none';
     btnMarinell.style.opacity = hasMarinell ? '' : '0.4';
     btnMarinell.style.pointerEvents = hasMarinell ? '' : 'none';
+  }
+  if (btnJoshua) {
+    const hasJoshua = hasPresets && activeSemesterId === '3rd-2nd';
+    btnJoshua.style.display = hasJoshua ? '' : 'none';
+    btnJoshua.style.opacity = hasJoshua ? '' : '0.4';
+    btnJoshua.style.pointerEvents = hasJoshua ? '' : 'none';
   }
 }
 
@@ -2119,12 +2159,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnB = document.getElementById('btn-preset-choice-b');
   const btnC = document.getElementById('btn-preset-choice-c');
   const btnMarinell = document.getElementById('btn-preset-marinell');
+  const btnJoshua = document.getElementById('btn-preset-joshua');
   const btnClr = document.getElementById('btn-sched-clear-all');
 
   if (btnA) btnA.addEventListener('click', () => applySchedulePreset('A'));
   if (btnB) btnB.addEventListener('click', () => applySchedulePreset('B'));
   if (btnC) btnC.addEventListener('click', () => applySchedulePreset('C'));
   if (btnMarinell) btnMarinell.addEventListener('click', () => applySchedulePreset('Marinell'));
+  if (btnJoshua) btnJoshua.addEventListener('click', () => applySchedulePreset('Joshua'));
   if (btnClr) btnClr.addEventListener('click', () => {
     userScheduleSelection = {};
     saveScheduleCreatorState();
