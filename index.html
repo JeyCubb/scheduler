@@ -22,7 +22,7 @@
       } catch (e) {}
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=92" />
+  <link rel="stylesheet" href="styles.css?v=93" />
 </head>
 <body>
   <div class="app-container">
@@ -33,7 +33,13 @@
         <div class="sched-calendar-card">
           <div class="sched-grid-wrapper">
             <div class="sched-grid-header">
-              <div class="sched-day-label">Time</div>
+              <div class="sched-day-label sched-corner-header" id="sched-corner-header">
+                <button type="button" class="sched-corner-toggle-btn" id="btn-corner-presets" aria-haspopup="true" aria-expanded="false" title="Preset Schedules (S1, S2, Marinell, Joshua, Andrei, Karl...)">
+                  <span class="corner-txt-full">Presets</span>
+                  <span class="corner-txt-short">⚡</span>
+                  <span class="corner-dropdown-arrow">▾</span>
+                </button>
+              </div>
               <div class="sched-day-label"><span class="day-full">Monday</span><span class="day-short">Mon</span></div>
               <div class="sched-day-label"><span class="day-full">Tuesday</span><span class="day-short">Tue</span></div>
               <div class="sched-day-label"><span class="day-full">Wednesday</span><span class="day-short">Wed</span></div>
@@ -134,29 +140,6 @@
 
       <!-- Schedule Preset & Stats Toolbar -->
       <div class="sched-header-toolbar" id="sched-header-toolbar">
-        <div class="sched-preset-group">
-          <button type="button" class="sched-preset-btn" id="btn-preset-choice-a" title="Load Section 1 Schedule (ME32S1 Block)">
-            S1<span class="sched-btn-sub"> (ME32S1 Block)</span>
-          </button>
-          <button type="button" class="sched-preset-btn" id="btn-preset-choice-b" title="Load Section 2 Schedule (ME32S2 Block)">
-            S2<span class="sched-btn-sub"> (ME32S2 Block)</span>
-          </button>
-          <button type="button" class="sched-preset-btn" id="btn-preset-marinell" title="Load Marinell's Schedule (23 Units: Heat Transfer, Machine Shop &amp; Control Eng)">
-            Marinell
-          </button>
-          <button type="button" class="sched-preset-btn" id="btn-preset-joshua" title="Load Joshua's Schedule (23 Units: Heat Transfer &amp; ME Laws)">
-            Joshua
-          </button>
-          <button type="button" class="sched-preset-btn" id="btn-preset-andrei" title="Load Andrei's Schedule (24 Units: ME32S2 Block + Computer Applications &amp; ME Laws)">
-            Andrei
-          </button>
-          <button type="button" class="sched-preset-btn" id="btn-preset-karl" title="Load Karl's Schedule (23 Units: Heat Transfer &amp; ME Laws)">
-            Karl
-          </button>
-          <button type="button" class="sched-preset-btn" id="btn-sched-clear-all" title="Deselect all sections">
-            Clear All
-          </button>
-        </div>
         <div class="sched-toolbar-stats" id="sched-sem-selector-trigger" role="button" tabindex="0" title="Switch Semester" aria-label="Switch Semester" onclick="openSemesterModal()">
           <div class="sched-stat-item">Enrolled: <span class="sched-stat-badge" id="sched-stat-courses">0 / 11</span></div>
           <span class="sched-stat-divider">•</span>
@@ -173,6 +156,51 @@
         </button>
       </div>
     </header>
+  </div>
+
+  <!-- Presets Pop-up Menu Dialog -->
+  <div class="sched-presets-popup" id="sched-presets-popup" role="menu" aria-label="Preset Schedules" aria-hidden="true">
+    <div class="sched-presets-popup-header">
+      <div class="sched-presets-popup-title">
+        <span>⚡ Preset Schedules</span>
+      </div>
+      <span class="sched-presets-popup-badge" id="sched-presets-sem-badge">3rd Year, 2nd Sem</span>
+    </div>
+    <div class="sched-presets-popup-list">
+      <button type="button" class="sched-preset-btn sched-popup-item" id="btn-preset-choice-a" title="Load Section 1 Schedule (ME32S1 Block)">
+        <span class="sched-popup-item-name">S1</span>
+        <span class="sched-popup-item-desc">ME32S1 Block • 27 Units</span>
+      </button>
+      <button type="button" class="sched-preset-btn sched-popup-item" id="btn-preset-choice-b" title="Load Section 2 Schedule (ME32S2 Block)">
+        <span class="sched-popup-item-name">S2</span>
+        <span class="sched-popup-item-desc">ME32S2 Block • 27 Units</span>
+      </button>
+      <button type="button" class="sched-preset-btn sched-popup-item" id="btn-preset-choice-c" title="Load Section 3 Schedule">
+        <span class="sched-popup-item-name">Choice C</span>
+        <span class="sched-popup-item-desc">ME32S3 Block</span>
+      </button>
+      <button type="button" class="sched-preset-btn sched-popup-item" id="btn-preset-marinell" title="Load Marinell's Schedule (23 Units)">
+        <span class="sched-popup-item-name">Marinell</span>
+        <span class="sched-popup-item-desc">23 Units • Heat Trans, Machine Shop, ECE</span>
+      </button>
+      <button type="button" class="sched-preset-btn sched-popup-item" id="btn-preset-joshua" title="Load Joshua's Schedule (23 Units)">
+        <span class="sched-popup-item-name">Joshua</span>
+        <span class="sched-popup-item-desc">23 Units • Heat Transfer &amp; ME Laws</span>
+      </button>
+      <button type="button" class="sched-preset-btn sched-popup-item" id="btn-preset-andrei" title="Load Andrei's Schedule (24 Units)">
+        <span class="sched-popup-item-name">Andrei</span>
+        <span class="sched-popup-item-desc">24 Units • ME32S2 Block + Comp Apps &amp; Laws</span>
+      </button>
+      <button type="button" class="sched-preset-btn sched-popup-item" id="btn-preset-karl" title="Load Karl's Schedule (23 Units)">
+        <span class="sched-popup-item-name">Karl</span>
+        <span class="sched-popup-item-desc">23 Units • Heat Transfer &amp; ME Laws</span>
+      </button>
+      <div class="sched-popup-divider"></div>
+      <button type="button" class="sched-preset-btn sched-popup-item sched-popup-item-clear" id="btn-sched-clear-all" title="Deselect all sections">
+        <span class="sched-popup-item-name">Clear All</span>
+        <span class="sched-popup-item-desc">Deselect all enrolled sections</span>
+      </button>
+    </div>
   </div>
 
   <!-- Remove Subject Confirmation Modal Dialog -->
@@ -355,6 +383,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=106"></script>
+  <script src="app.js?v=107"></script>
 </body>
 </html>

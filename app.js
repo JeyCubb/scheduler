@@ -1999,54 +1999,121 @@ function updateScheduleStats() {
   const btnJoshua = document.getElementById('btn-preset-joshua');
   const btnAndrei = document.getElementById('btn-preset-andrei');
   const btnKarl = document.getElementById('btn-preset-karl');
+  const semBadge = document.getElementById('sched-presets-sem-badge');
+  if (semBadge && sem) {
+    semBadge.textContent = sem.name;
+  }
   const hasPresets = courses.length > 0;
   if (btnA) {
     btnA.style.opacity = hasPresets ? '' : '0.4';
     btnA.style.pointerEvents = hasPresets ? '' : 'none';
     let labelA = activeSemesterId === '3rd-2nd' ? 'S1' : 'Choice A';
-    let subA = '(ME32S1 Block)';
-    if (activeSemesterId === '4th-summer') subA = '(ME40S1 Block)';
-    else if (activeSemesterId === '4th-1st') subA = '(ME41S1 Block)';
-    else if (activeSemesterId === '4th-2nd') subA = '(ME42S1 Block)';
-    btnA.innerHTML = `${labelA}<span class="sched-btn-sub"> ${subA}</span>`;
+    let subA = activeSemesterId === '3rd-2nd' ? 'ME32S1 Block • 27 Units' : (
+      activeSemesterId === '4th-summer' ? 'ME40S1 Block' : (
+        activeSemesterId === '4th-1st' ? 'ME41S1 Block' : (
+          activeSemesterId === '4th-2nd' ? 'ME42S1 Block' : 'Block 1'
+        )
+      )
+    );
+    btnA.innerHTML = `<span class="sched-popup-item-name">${labelA}</span><span class="sched-popup-item-desc">${subA}</span>`;
   }
   if (btnB) {
     btnB.style.opacity = hasPresets ? '' : '0.4';
     btnB.style.pointerEvents = hasPresets ? '' : 'none';
     let labelB = activeSemesterId === '3rd-2nd' ? 'S2' : 'Choice B';
-    let subB = '(ME32S2 Block)';
-    if (activeSemesterId === '4th-summer') subB = '(ME40S2 Block)';
-    else if (activeSemesterId === '4th-1st') subB = '(ME41S2 Block)';
-    else if (activeSemesterId === '4th-2nd') subB = '(ME42S2 Block)';
-    btnB.innerHTML = `${labelB}<span class="sched-btn-sub"> ${subB}</span>`;
+    let subB = activeSemesterId === '3rd-2nd' ? 'ME32S2 Block • 27 Units' : (
+      activeSemesterId === '4th-summer' ? 'ME40S2 Block' : (
+        activeSemesterId === '4th-1st' ? 'ME41S2 Block' : (
+          activeSemesterId === '4th-2nd' ? 'ME42S2 Block' : 'Block 2'
+        )
+      )
+    );
+    btnB.innerHTML = `<span class="sched-popup-item-name">${labelB}</span><span class="sched-popup-item-desc">${subB}</span>`;
   }
   if (btnC) {
-    btnC.style.display = 'none';
+    const showC = activeSemesterId === '4th-1st' || activeSemesterId === '4th-2nd';
+    btnC.style.display = showC ? '' : 'none';
+    if (showC) {
+      let subC = activeSemesterId === '4th-1st' ? 'ME41S3 Block' : 'ME42S3 Block';
+      btnC.innerHTML = `<span class="sched-popup-item-name">Choice C</span><span class="sched-popup-item-desc">${subC}</span>`;
+    }
   }
+  const is3rd2nd = activeSemesterId === '3rd-2nd';
   if (btnMarinell) {
-    const hasMarinell = hasPresets && activeSemesterId === '3rd-2nd';
+    const hasMarinell = hasPresets && is3rd2nd;
     btnMarinell.style.display = hasMarinell ? '' : 'none';
     btnMarinell.style.opacity = hasMarinell ? '' : '0.4';
     btnMarinell.style.pointerEvents = hasMarinell ? '' : 'none';
   }
   if (btnJoshua) {
-    const hasJoshua = hasPresets && activeSemesterId === '3rd-2nd';
+    const hasJoshua = hasPresets && is3rd2nd;
     btnJoshua.style.display = hasJoshua ? '' : 'none';
     btnJoshua.style.opacity = hasJoshua ? '' : '0.4';
     btnJoshua.style.pointerEvents = hasJoshua ? '' : 'none';
   }
   if (btnAndrei) {
-    const hasAndrei = hasPresets && activeSemesterId === '3rd-2nd';
+    const hasAndrei = hasPresets && is3rd2nd;
     btnAndrei.style.display = hasAndrei ? '' : 'none';
     btnAndrei.style.opacity = hasAndrei ? '' : '0.4';
     btnAndrei.style.pointerEvents = hasAndrei ? '' : 'none';
   }
   if (btnKarl) {
-    const hasKarl = hasPresets && activeSemesterId === '3rd-2nd';
+    const hasKarl = hasPresets && is3rd2nd;
     btnKarl.style.display = hasKarl ? '' : 'none';
     btnKarl.style.opacity = hasKarl ? '' : '0.4';
     btnKarl.style.pointerEvents = hasKarl ? '' : 'none';
   }
+
+  // Detect active preset for corner button label and active highlight
+  let activePresetName = null;
+  if (is3rd2nd) {
+    const s = userScheduleSelection;
+    if (s['ECE 006'] === 'ME32S2' && s['EMAN 001'] === 'ME32S2' && s['ME 007'] === 'ME32S2' &&
+        s['ME 401'] === 'ME32S2' && s['ME 404'] === 'ME32S2' && s['ME 406'] === 'ME32S2' &&
+        s['ME 407'] === 'ME32S2' && s['ME 409'] === 'ME32S2' && s['ME 411'] === 'ME32S2' &&
+        s['ME 320'] === 'ME31S1' && s['ME 523'] === 'ME41S1' && Object.keys(s).length === 11) {
+      activePresetName = 'Andrei';
+    } else if (s['ECE 006'] === 'ME32S1' && s['EMAN 001'] === 'ME32S3' && s['GEE 002'] === 'ME32S1' &&
+               s['GEE 003'] === 'ME32S1' && s['ME 007'] === 'ME32S1' && s['ME 401'] === 'ME32S3' &&
+               s['ME 403'] === 'ME31S1' && s['ME 404'] === 'ME32S1' && s['ME 411'] === 'ME32S1' &&
+               s['ME 523'] === 'ME41S1' && Object.keys(s).length === 10) {
+      activePresetName = 'Joshua / Karl';
+    } else if (s['ME 403'] === 'ME31S1' && s['ME 411'] === 'ME32S1' && s['ME 404'] === 'ME32S1' &&
+               s['EMAN 001'] === 'ME32S3' && s['ME 007'] === 'ME32S1' && s['GEE 002'] === 'ME32S1' &&
+               s['GEE 003'] === 'ME32S1' && s['ME 401'] === 'ME32S3' && s['ME 223'] === 'ME22S3' &&
+               s['ECE 006'] === 'ME32S3' && Object.keys(s).length === 10) {
+      activePresetName = 'Marinell';
+    } else {
+      const regular = courses.filter(c => !c.isRetake && !c.isAdvance && c.code !== 'ME 523' && c.code !== 'ME 320');
+      if (regular.length > 0 && regular.every(c => s[c.code] === 'ME32S1') && Object.keys(s).length === regular.length) {
+        activePresetName = 'S1';
+      } else if (regular.length > 0 && regular.every(c => s[c.code] === 'ME32S2') && Object.keys(s).length === regular.length) {
+        activePresetName = 'S2';
+      }
+    }
+  }
+
+  const cornerLabel = document.querySelector('.corner-txt-full');
+  if (cornerLabel) {
+    if (activePresetName === 'Joshua / Karl') {
+      cornerLabel.textContent = 'Joshua';
+    } else if (activePresetName) {
+      cornerLabel.textContent = activePresetName;
+    } else {
+      cornerLabel.textContent = 'Presets';
+    }
+  }
+
+  [btnA, btnB, btnC, btnMarinell, btnJoshua, btnAndrei, btnKarl].forEach(b => {
+    if (b) b.classList.remove('is-active-preset');
+  });
+  if (activePresetName === 'S1' && btnA) btnA.classList.add('is-active-preset');
+  else if (activePresetName === 'S2' && btnB) btnB.classList.add('is-active-preset');
+  else if (activePresetName === 'Marinell' && btnMarinell) btnMarinell.classList.add('is-active-preset');
+  else if (activePresetName === 'Joshua / Karl') {
+    if (btnJoshua) btnJoshua.classList.add('is-active-preset');
+    if (btnKarl) btnKarl.classList.add('is-active-preset');
+  } else if (activePresetName === 'Andrei' && btnAndrei) btnAndrei.classList.add('is-active-preset');
 }
 
 // ==========================================================================
@@ -2158,6 +2225,74 @@ function initBrandNavPopup() {
 }
 
 // ==========================================================================
+// CORNER PRESETS POP-UP TOGGLE CONTROLLER
+// ==========================================================================
+function initCornerPresetsPopup() {
+  const trigger = document.getElementById('btn-corner-presets');
+  const popup = document.getElementById('sched-presets-popup');
+  if (!trigger || !popup) return;
+
+  function togglePopup(forceState) {
+    const willOpen = forceState !== undefined ? forceState : !popup.classList.contains('is-open');
+    if (willOpen) {
+      const rect = trigger.getBoundingClientRect();
+      const popupWidth = popup.offsetWidth || 280;
+      let left = Math.round(rect.left);
+      if (left + popupWidth > window.innerWidth - 12) {
+        left = Math.max(8, window.innerWidth - popupWidth - 12);
+      }
+      popup.style.top = `${Math.round(rect.bottom + 6)}px`;
+      popup.style.left = `${Math.max(8, left)}px`;
+      popup.classList.add('is-open');
+      popup.setAttribute('aria-hidden', 'false');
+      trigger.setAttribute('aria-expanded', 'true');
+      trigger.classList.add('is-active');
+    } else {
+      popup.classList.remove('is-open');
+      popup.setAttribute('aria-hidden', 'true');
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.classList.remove('is-active');
+    }
+  }
+
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    togglePopup();
+  });
+
+  popup.addEventListener('click', (e) => {
+    if (e.target.closest('.sched-popup-item')) {
+      togglePopup(false);
+    }
+  });
+
+  const handleOutsideClose = (e) => {
+    if (popup.classList.contains('is-open')) {
+      if (!popup.contains(e.target) && !trigger.contains(e.target)) {
+        togglePopup(false);
+      }
+    }
+  };
+
+  document.addEventListener('click', handleOutsideClose);
+  document.addEventListener('pointerdown', handleOutsideClose);
+
+  window.addEventListener('resize', () => {
+    if (popup.classList.contains('is-open')) {
+      togglePopup(false);
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && popup.classList.contains('is-open')) {
+      togglePopup(false);
+      trigger.focus();
+    }
+  });
+}
+
+// ==========================================================================
 // FULL-SCREEN BRAND PORTAL MODAL (Shown only when freshly joining via shared link)
 // ==========================================================================
 function initSharedLinkFullscreenModal() {
@@ -2200,6 +2335,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initScheduleCreatorState();
   initBrandNavPopup();
+  initCornerPresetsPopup();
   initSharedLinkFullscreenModal();
 
   const btnA = document.getElementById('btn-preset-choice-a');
