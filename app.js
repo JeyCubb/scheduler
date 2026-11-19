@@ -943,7 +943,7 @@ function saveScheduleCreatorState() {
   }
 }
 
-let currentSchedulePreset = null;
+let currentSchedulePreset = localStorage.getItem('tip_sched_active_preset') || null;
 
 function applySchedulePreset(preset) {
   const courses = getActiveCourses();
@@ -952,12 +952,16 @@ function applySchedulePreset(preset) {
   const isB = preset === 'B' || preset === 'S2';
   if (preset === 'Joshua & Karl' || preset === 'Joshua' || preset === 'Karl') {
     currentSchedulePreset = 'Joshua & Karl';
+    localStorage.setItem('tip_sched_active_preset', 'Joshua & Karl');
   } else if (preset === 'Marinell') {
     currentSchedulePreset = 'Marinell';
+    localStorage.setItem('tip_sched_active_preset', 'Marinell');
   } else if (preset === 'Andrei') {
     currentSchedulePreset = 'Andrei';
+    localStorage.setItem('tip_sched_active_preset', 'Andrei');
   } else {
     currentSchedulePreset = null;
+    localStorage.removeItem('tip_sched_active_preset');
   }
   if (activeSemesterId === '3rd-2nd') {
     if (isA) {
@@ -1243,6 +1247,7 @@ function switchSemester(newSemId) {
     return;
   }
   currentSchedulePreset = null;
+  localStorage.removeItem('tip_sched_active_preset');
   activeSemesterId = newSemId;
   localStorage.setItem('tip_sched_active_sem', newSemId);
   initScheduleCreatorState();
@@ -2056,17 +2061,17 @@ function updateScheduleStats() {
     if (s['ECE 006'] === 'ME32S2' && s['EMAN 001'] === 'ME32S2' && s['ME 007'] === 'ME32S2' &&
         s['ME 401'] === 'ME32S2' && s['ME 404'] === 'ME32S2' && s['ME 406'] === 'ME32S2' &&
         s['ME 407'] === 'ME32S2' && s['ME 409'] === 'ME32S2' && s['ME 411'] === 'ME32S2' &&
-        s['ME 320'] === 'ME31S1' && s['ME 523'] === 'ME41S1' && Object.keys(s).length === 11) {
+        s['ME 320'] === 'ME31S1' && s['ME 523'] === 'ME41S1') {
       activePresetName = 'Andrei';
     } else if (s['ECE 006'] === 'ME32S1' && s['EMAN 001'] === 'ME32S3' && s['GEE 002'] === 'ME32S1' &&
                s['GEE 003'] === 'ME32S1' && s['ME 007'] === 'ME32S1' && s['ME 401'] === 'ME32S3' &&
                s['ME 403'] === 'ME31S1' && s['ME 404'] === 'ME32S1' && s['ME 411'] === 'ME32S1' &&
-               s['ME 523'] === 'ME41S1' && Object.keys(s).length === 10) {
+               s['ME 523'] === 'ME41S1') {
       activePresetName = 'Joshua & Karl';
     } else if (s['ME 403'] === 'ME31S1' && s['ME 411'] === 'ME32S1' && s['ME 404'] === 'ME32S1' &&
                s['EMAN 001'] === 'ME32S3' && s['ME 007'] === 'ME32S1' && s['GEE 002'] === 'ME32S1' &&
                s['GEE 003'] === 'ME32S1' && s['ME 401'] === 'ME32S3' && s['ME 223'] === 'ME22S3' &&
-               s['ECE 006'] === 'ME32S3' && Object.keys(s).length === 10) {
+               s['ECE 006'] === 'ME32S3') {
       activePresetName = 'Marinell';
     } else {
       const regular = courses.filter(c => !c.isRetake && !c.isAdvance && c.code !== 'ME 523' && c.code !== 'ME 320');
@@ -2089,22 +2094,22 @@ function updateScheduleStats() {
     btnJoshuaKarl.classList.add('is-active-preset');
   } else if (activePresetName === 'Andrei' && btnAndrei) btnAndrei.classList.add('is-active-preset');
 
-  // Update Zen Mode Person Preset Row (Extra row on top of Time and Day, disregarding S1 & S2)
-  const zenPresetRow = document.getElementById('sched-zen-preset-row');
+  // Update Zen Mode Top Row Schedule Name (disregarding S1 & S2)
+  const zenBanner = document.getElementById('sched-zen-preset-banner');
   const zenPresetName = document.getElementById('sched-zen-preset-name');
-  if (zenPresetRow && zenPresetName) {
+  if (zenBanner && zenPresetName) {
     const personName = (activePresetName === 'Joshua & Karl' || activePresetName === 'Marinell' || activePresetName === 'Andrei')
       ? activePresetName
       : ((currentSchedulePreset === 'Joshua & Karl' || currentSchedulePreset === 'Marinell' || currentSchedulePreset === 'Andrei') ? currentSchedulePreset : null);
 
     if (personName && activePresetName !== 'S1' && activePresetName !== 'S2') {
       zenPresetName.textContent = personName;
-      zenPresetRow.setAttribute('data-has-person', 'true');
-      zenPresetRow.setAttribute('title', `${personName}'s Schedule`);
+      zenBanner.setAttribute('data-has-person', 'true');
+      zenBanner.setAttribute('title', `${personName}'s Schedule`);
     } else {
       zenPresetName.textContent = '';
-      zenPresetRow.removeAttribute('data-has-person');
-      zenPresetRow.removeAttribute('title');
+      zenBanner.removeAttribute('data-has-person');
+      zenBanner.removeAttribute('title');
     }
   }
 }
@@ -2279,6 +2284,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnClr) btnClr.addEventListener('click', () => {
     userScheduleSelection = {};
     currentSchedulePreset = null;
+    localStorage.removeItem('tip_sched_active_preset');
     saveScheduleCreatorState();
     renderScheduleView();
   });

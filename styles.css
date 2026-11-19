@@ -157,7 +157,7 @@ body.brand-nav-modal-open {
   border-bottom: 2px solid var(--border-color);
 }
 
-.sched-zen-preset-row {
+.sched-zen-preset-banner {
   display: none !important;
 }
 
@@ -1560,7 +1560,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   border-bottom: 2px solid var(--border-color) !important;
 }
 
-[data-theme="light"] body.sched-focus-autohide .sched-zen-preset-row[data-has-person="true"] {
+[data-theme="light"] body.sched-focus-autohide .sched-zen-preset-banner[data-has-person="true"] {
   color: var(--accent-primary, #ea580c) !important;
   background: rgba(234, 88, 12, 0.08) !important;
   border-bottom-color: rgba(234, 88, 12, 0.2) !important;
@@ -2082,16 +2082,16 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     margin-bottom: 0.25rem !important;
   }
 
-  body.sched-focus-autohide .sched-zen-preset-row[data-has-person="true"] {
+  body.sched-focus-autohide .sched-zen-preset-banner[data-has-person="true"] {
     display: flex !important;
-    grid-column: 1 / -1 !important;
+    width: 100% !important;
     justify-content: center !important;
     align-items: center !important;
     text-align: center !important;
-    padding: 0.32rem 0.5rem !important;
+    padding: 0.35rem 0.5rem !important;
     margin-bottom: 0.25rem !important;
     border-bottom: 1.5px solid var(--border-color) !important;
-    font-size: 1.22rem !important;
+    font-size: 1.25rem !important;
     font-weight: 800 !important;
     letter-spacing: 0.06em !important;
     text-transform: uppercase !important;
@@ -2099,6 +2099,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     background: rgba(249, 115, 22, 0.07) !important;
     border-radius: 6px !important;
     box-sizing: border-box !important;
+    flex-shrink: 0 !important;
   }
 
   body.sched-focus-autohide .sched-day-label {
@@ -3240,7 +3241,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     grid-auto-rows: minmax(0, 1fr) !important;
   }
 
-  body.sched-focus-autohide .sched-zen-preset-row[data-has-person="true"] {
+  body.sched-focus-autohide .sched-zen-preset-banner[data-has-person="true"] {
     font-size: 0.88rem !important;
     padding: 0.16rem 0.35rem !important;
     margin-bottom: 0.15rem !important;
