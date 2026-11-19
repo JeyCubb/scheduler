@@ -981,7 +981,7 @@ function applySchedulePreset(preset) {
         else if (c.code === 'ME 223') userScheduleSelection[c.code] = 'ME22S3';
         else if (c.code === 'ECE 006') userScheduleSelection[c.code] = 'ME32S3';
       });
-    } else if (preset === 'Joshua') {
+    } else if (preset === 'Joshua' || preset === 'Karl') {
       courses.forEach(c => {
         if (c.code === 'ECE 006') userScheduleSelection[c.code] = 'ME32S1';
         else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ME32S3';
@@ -1998,6 +1998,7 @@ function updateScheduleStats() {
   const btnMarinell = document.getElementById('btn-preset-marinell');
   const btnJoshua = document.getElementById('btn-preset-joshua');
   const btnAndrei = document.getElementById('btn-preset-andrei');
+  const btnKarl = document.getElementById('btn-preset-karl');
   const hasPresets = courses.length > 0;
   if (btnA) {
     btnA.style.opacity = hasPresets ? '' : '0.4';
@@ -2039,6 +2040,12 @@ function updateScheduleStats() {
     btnAndrei.style.display = hasAndrei ? '' : 'none';
     btnAndrei.style.opacity = hasAndrei ? '' : '0.4';
     btnAndrei.style.pointerEvents = hasAndrei ? '' : 'none';
+  }
+  if (btnKarl) {
+    const hasKarl = hasPresets && activeSemesterId === '3rd-2nd';
+    btnKarl.style.display = hasKarl ? '' : 'none';
+    btnKarl.style.opacity = hasKarl ? '' : '0.4';
+    btnKarl.style.pointerEvents = hasKarl ? '' : 'none';
   }
 }
 
@@ -2201,6 +2208,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnMarinell = document.getElementById('btn-preset-marinell');
   const btnJoshua = document.getElementById('btn-preset-joshua');
   const btnAndrei = document.getElementById('btn-preset-andrei');
+  const btnKarl = document.getElementById('btn-preset-karl');
   const btnClr = document.getElementById('btn-sched-clear-all');
 
   if (btnA) btnA.addEventListener('click', () => applySchedulePreset('A'));
@@ -2209,6 +2217,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnMarinell) btnMarinell.addEventListener('click', () => applySchedulePreset('Marinell'));
   if (btnJoshua) btnJoshua.addEventListener('click', () => applySchedulePreset('Joshua'));
   if (btnAndrei) btnAndrei.addEventListener('click', () => applySchedulePreset('Andrei'));
+  if (btnKarl) btnKarl.addEventListener('click', () => applySchedulePreset('Karl'));
   if (btnClr) btnClr.addEventListener('click', () => {
     userScheduleSelection = {};
     saveScheduleCreatorState();
