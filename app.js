@@ -157,18 +157,37 @@ const SCHEDULE_COURSES = [
     border: '#f87171',
     isRetake: true,
     sections: [
-      { id: 'Retake', enlisted: 0, total: 45, desc: 'Tu/Th 10:30–11:30 AM', room: '', slots: [{ day: 1, start: 630, end: 690, room: '' }, { day: 3, start: 630, end: 690, room: '' }] }
+      { id: 'ME31S1', enlisted: 0, total: 45, desc: 'Tu/Th 10:30–11:30 AM', room: '', slots: [{ day: 1, start: 630, end: 690, room: '' }, { day: 3, start: 630, end: 690, room: '' }] }
     ]
   },
   {
-    code: 'ME 204',
-    title: 'Machine Shop',
+    code: 'ME 223',
+    title: 'Machine Shop Theory',
     units: 2,
     color: '#4d7c0f',
     border: '#a3e635',
     isRetake: true,
     sections: [
-      { id: 'Retake', enlisted: 0, total: 30, desc: 'Tu/Th 4:30–7:30 PM', room: '', slots: [{ day: 1, start: 990, end: 1170, room: '' }, { day: 3, start: 990, end: 1170, room: '' }] }
+      { id: 'ME22S3', enlisted: 0, total: 30, desc: 'Tu/Th 4:30–7:30 PM', room: '', slots: [{ day: 1, start: 990, end: 1170, room: '' }, { day: 3, start: 990, end: 1170, room: '' }] }
+    ]
+  },
+  {
+    code: 'ME 523',
+    title: 'ME Laws, Ethics, Codes and Standards',
+    units: 2,
+    color: '#f59e0b',
+    border: '#fbbf24',
+    isAdvance: true,
+    sections: [
+      {
+        id: 'ME41S1',
+        enlisted: 0, total: 40,
+        desc: 'Tue 1:30–3:30 PM',
+        room: 'Q-5508',
+        slots: [
+          { day: 1, start: 810, end: 930, room: 'Q-5508' }
+        ]
+      }
     ]
   }
 ];
@@ -921,11 +940,16 @@ function applySchedulePreset(preset) {
       });
     } else if (preset === 'Marinell') {
       courses.forEach(c => {
-        if (c.code === 'ME 407' || c.code === 'ME 409') return; // Heat Transfer (ME 403) is a prerequisite
-        if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ECE32S1';
-        else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'Requested';
-        else if (c.code === 'ME 403' || c.code === 'ME 204') userScheduleSelection[c.code] = 'Retake';
-        else userScheduleSelection[c.code] = 'ME32S1';
+        if (c.code === 'ME 403') userScheduleSelection[c.code] = 'ME31S1';
+        else if (c.code === 'ME 411') userScheduleSelection[c.code] = 'ME32S1';
+        else if (c.code === 'ME 404') userScheduleSelection[c.code] = 'ME32S1';
+        else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ME32S3';
+        else if (c.code === 'ME 007') userScheduleSelection[c.code] = 'ME32S1';
+        else if (c.code === 'GEE 002') userScheduleSelection[c.code] = 'ME32S1';
+        else if (c.code === 'GEE 003') userScheduleSelection[c.code] = 'ME32S1';
+        else if (c.code === 'ME 223') userScheduleSelection[c.code] = 'ME22S3';
+        else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'ME32S3';
+        else if (c.code === 'ME 523') userScheduleSelection[c.code] = 'ME41S1';
       });
     }
   } else if (activeSemesterId === '4th-summer') {
@@ -1427,7 +1451,7 @@ function renderScheduleSidebar() {
     const selectedSec = userScheduleSelection[course.code];
     const hasConflict = conflicts.courseCodes.has(course.code);
     const row = document.createElement('div');
-    row.className = 'sched-course-row' + (selectedSec ? ' active' : '') + (hasConflict ? ' has-conflict' : '') + (course.isRetake ? ' is-retake' : '');
+    row.className = 'sched-course-row' + (selectedSec ? ' active' : '') + (hasConflict ? ' has-conflict' : '') + (course.isRetake ? ' is-retake' : '') + (course.isAdvance ? ' is-advance' : '');
     row.dataset.courseCode = course.code;
 
     let pillsHtml = '';
@@ -1879,7 +1903,7 @@ function updateScheduleStats() {
   let count = 0;
 
   courses.forEach(c => {
-    if (!c.isRetake) {
+    if (!c.isRetake && !c.isAdvance) {
       regularCourseCount++;
       totalAvailableUnits += c.units;
     }
