@@ -2008,34 +2008,19 @@ function updateScheduleStats() {
     btnA.style.opacity = hasPresets ? '' : '0.4';
     btnA.style.pointerEvents = hasPresets ? '' : 'none';
     let labelA = activeSemesterId === '3rd-2nd' ? 'S1' : 'Choice A';
-    let subA = activeSemesterId === '3rd-2nd' ? 'ME32S1 Block • 27 Units' : (
-      activeSemesterId === '4th-summer' ? 'ME40S1 Block' : (
-        activeSemesterId === '4th-1st' ? 'ME41S1 Block' : (
-          activeSemesterId === '4th-2nd' ? 'ME42S1 Block' : 'Block 1'
-        )
-      )
-    );
-    btnA.innerHTML = `<span class="sched-popup-item-name">${labelA}</span><span class="sched-popup-item-desc">${subA}</span>`;
+    btnA.textContent = labelA;
   }
   if (btnB) {
     btnB.style.opacity = hasPresets ? '' : '0.4';
     btnB.style.pointerEvents = hasPresets ? '' : 'none';
     let labelB = activeSemesterId === '3rd-2nd' ? 'S2' : 'Choice B';
-    let subB = activeSemesterId === '3rd-2nd' ? 'ME32S2 Block • 27 Units' : (
-      activeSemesterId === '4th-summer' ? 'ME40S2 Block' : (
-        activeSemesterId === '4th-1st' ? 'ME41S2 Block' : (
-          activeSemesterId === '4th-2nd' ? 'ME42S2 Block' : 'Block 2'
-        )
-      )
-    );
-    btnB.innerHTML = `<span class="sched-popup-item-name">${labelB}</span><span class="sched-popup-item-desc">${subB}</span>`;
+    btnB.textContent = labelB;
   }
   if (btnC) {
     const showC = activeSemesterId === '4th-1st' || activeSemesterId === '4th-2nd';
     btnC.style.display = showC ? '' : 'none';
     if (showC) {
-      let subC = activeSemesterId === '4th-1st' ? 'ME41S3 Block' : 'ME42S3 Block';
-      btnC.innerHTML = `<span class="sched-popup-item-name">Choice C</span><span class="sched-popup-item-desc">${subC}</span>`;
+      btnC.textContent = 'Choice C';
     }
   }
   const is3rd2nd = activeSemesterId === '3rd-2nd';
@@ -2095,15 +2080,10 @@ function updateScheduleStats() {
 
   const cornerLabel = document.querySelector('.corner-txt-full');
   if (cornerLabel) {
-    if (activePresetName === 'Joshua / Karl') {
-      cornerLabel.textContent = 'Joshua';
-    } else if (activePresetName) {
-      cornerLabel.textContent = activePresetName;
-    } else {
-      cornerLabel.textContent = 'Presets';
-    }
+    cornerLabel.textContent = 'Time';
   }
 
+  // Highlight active preset in toolbar buttons
   [btnA, btnB, btnC, btnMarinell, btnJoshua, btnAndrei, btnKarl].forEach(b => {
     if (b) b.classList.remove('is-active-preset');
   });
@@ -2114,6 +2094,25 @@ function updateScheduleStats() {
     if (btnJoshua) btnJoshua.classList.add('is-active-preset');
     if (btnKarl) btnKarl.classList.add('is-active-preset');
   } else if (activePresetName === 'Andrei' && btnAndrei) btnAndrei.classList.add('is-active-preset');
+
+  // Highlight active preset in popup list items
+  const popup = document.getElementById('sched-presets-popup');
+  if (popup) {
+    const popupItems = popup.querySelectorAll('.sched-popup-item[data-preset]');
+    popupItems.forEach(item => {
+      const p = item.dataset.preset;
+      if (['Marinell', 'Joshua', 'Andrei', 'Karl'].includes(p)) {
+        item.style.display = is3rd2nd ? '' : 'none';
+      } else if (p === 'C') {
+        item.style.display = (activeSemesterId === '4th-1st' || activeSemesterId === '4th-2nd') ? '' : 'none';
+      }
+      if (p === activePresetName || (activePresetName === 'Joshua / Karl' && (p === 'Joshua' || p === 'Karl'))) {
+        item.classList.add('is-active-preset');
+      } else {
+        item.classList.remove('is-active-preset');
+      }
+    });
+  }
 }
 
 // ==========================================================================
@@ -2262,9 +2261,17 @@ function initCornerPresetsPopup() {
   });
 
   popup.addEventListener('click', (e) => {
-    if (e.target.closest('.sched-popup-item')) {
-      togglePopup(false);
+    const item = e.target.closest('.sched-popup-item');
+    if (!item) return;
+    const preset = item.dataset.preset;
+    if (preset === 'clear') {
+      userScheduleSelection = {};
+      saveScheduleCreatorState();
+      renderScheduleView();
+    } else if (preset) {
+      applySchedulePreset(preset);
     }
+    togglePopup(false);
   });
 
   const handleOutsideClose = (e) => {
