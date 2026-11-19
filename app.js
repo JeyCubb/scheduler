@@ -2093,6 +2093,11 @@ function updateScheduleStats() {
   // Highlight active preset in popup list items
   const popup = document.getElementById('sched-presets-popup');
   if (popup) {
+    const nameA = popup.querySelector('.sched-popup-item[data-preset="A"] .sched-popup-item-name');
+    if (nameA) nameA.textContent = is3rd2nd ? 'S1' : 'Choice A';
+    const nameB = popup.querySelector('.sched-popup-item[data-preset="B"] .sched-popup-item-name');
+    if (nameB) nameB.textContent = is3rd2nd ? 'S2' : 'Choice B';
+
     const popupItems = popup.querySelectorAll('.sched-popup-item[data-preset]');
     popupItems.forEach(item => {
       const p = item.dataset.preset;
@@ -2234,7 +2239,7 @@ function initCornerPresetsPopup() {
     const willOpen = forceState !== undefined ? forceState : !popup.classList.contains('is-open');
     if (willOpen) {
       const rect = trigger.getBoundingClientRect();
-      const popupWidth = popup.offsetWidth || 280;
+      const popupWidth = popup.offsetWidth || 180;
       let left = Math.round(rect.left);
       if (left + popupWidth > window.innerWidth - 12) {
         left = Math.max(8, window.innerWidth - popupWidth - 12);
