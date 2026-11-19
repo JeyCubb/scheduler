@@ -162,6 +162,41 @@ body.brand-nav-modal-open {
   display: none !important;
 }
 
+body.sched-focus-autohide .sched-zen-preset-banner {
+  display: flex !important;
+  width: 100% !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding: 0.28rem 0.5rem 0.26rem 0.5rem !important;
+  margin-bottom: 0.20rem !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  font-size: 1.18rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: var(--accent-primary) !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  transition: opacity 0.16s ease, color 0.16s ease !important;
+}
+
+body.sched-focus-autohide .sched-zen-preset-banner:hover,
+body.sched-focus-autohide .sched-zen-preset-banner:active {
+  opacity: 0.82 !important;
+}
+
+[data-theme="light"] body.sched-focus-autohide .sched-zen-preset-banner {
+  color: var(--accent-primary, #ea580c) !important;
+  background: transparent !important;
+  border-bottom-color: rgba(234, 88, 12, 0.18) !important;
+}
+
 /* Zen Mode Section Selector Popup */
 .sched-zen-presets-popup {
   position: absolute !important;
@@ -1719,12 +1754,6 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   border-bottom: 2px solid var(--border-color) !important;
 }
 
-[data-theme="light"] body.sched-focus-autohide .sched-zen-preset-banner[data-has-person="true"] {
-  color: var(--accent-primary, #ea580c) !important;
-  background: transparent !important;
-  border-bottom-color: rgba(234, 88, 12, 0.18) !important;
-}
-
 [data-theme="light"] .sched-day-label,
 [data-theme="light"] .sched-time-label {
   color: var(--text-secondary) !important;
@@ -2241,33 +2270,8 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     margin-bottom: 0.25rem !important;
   }
 
-  body.sched-focus-autohide .sched-zen-preset-banner[data-has-person="true"] {
-    display: flex !important;
-    width: 100% !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-    padding: 0.28rem 0.5rem 0.26rem 0.5rem !important;
-    margin-bottom: 0.20rem !important;
-    border-bottom: 1px solid var(--border-color) !important;
+  body.sched-focus-autohide .sched-zen-preset-banner {
     font-size: 1.22rem !important;
-    font-weight: 800 !important;
-    letter-spacing: 0.08em !important;
-    text-transform: uppercase !important;
-    color: var(--accent-primary) !important;
-    background: transparent !important;
-    border-radius: 0 !important;
-    box-sizing: border-box !important;
-    flex-shrink: 0 !important;
-    cursor: pointer !important;
-    user-select: none !important;
-    -webkit-user-select: none !important;
-    transition: opacity 0.16s ease, color 0.16s ease !important;
-  }
-
-  body.sched-focus-autohide .sched-zen-preset-banner[data-has-person="true"]:hover,
-  body.sched-focus-autohide .sched-zen-preset-banner[data-has-person="true"]:active {
-    opacity: 0.82 !important;
   }
 
   body.sched-focus-autohide .sched-day-label {
@@ -3409,9 +3413,10 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     grid-auto-rows: minmax(0, 1fr) !important;
   }
 
-  body.sched-focus-autohide .sched-zen-preset-banner[data-has-person="true"] {
-    font-size: 0.88rem !important;
-    padding: 0.14rem 0.35rem !important;
+  body.sched-focus-autohide .sched-zen-preset-banner {
+    display: flex !important;
+    font-size: 0.92rem !important;
+    padding: 0.16rem 0.35rem !important;
     margin-bottom: 0.12rem !important;
     letter-spacing: 0.06em !important;
     border-radius: 0 !important;

@@ -2104,22 +2104,10 @@ function updateScheduleStats() {
   const zenBanner = document.getElementById('sched-zen-preset-banner');
   const zenPresetName = document.getElementById('sched-zen-preset-name');
   if (zenBanner && zenPresetName) {
-    // Only display person indicator for designated people (Marinell, Joshua & Karl, Andrei); disregard for S1 & S2
-    const personName = (activePresetName === 'Joshua & Karl' || activePresetName === 'Marinell' || activePresetName === 'Andrei')
-      ? activePresetName
-      : ((currentSchedulePreset === 'Joshua & Karl' || currentSchedulePreset === 'Marinell' || currentSchedulePreset === 'Andrei') 
-          ? currentSchedulePreset 
-          : null);
-
-    if (personName) {
-      zenPresetName.textContent = personName;
-      zenBanner.setAttribute('data-has-person', 'true');
-      zenBanner.setAttribute('title', `Section: ${personName} (Tap to change)`);
-    } else {
-      zenPresetName.textContent = '';
-      zenBanner.removeAttribute('data-has-person');
-      zenBanner.removeAttribute('title');
-    }
+    const schedName = activePresetName || currentSchedulePreset || (Object.keys(userScheduleSelection).length > 0 ? 'Custom Schedule' : 'Select Section');
+    zenPresetName.textContent = schedName;
+    zenBanner.setAttribute('data-has-preset', 'true');
+    zenBanner.setAttribute('title', `Schedule: ${schedName} (Tap to change)`);
   }
 
   // Highlight active preset in Zen popup list items
