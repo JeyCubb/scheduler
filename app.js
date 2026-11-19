@@ -833,7 +833,7 @@ function getStorageKeyForSemester(semId) {
 // Selecting a failed/retake prerequisite automatically deselects courses that depend on it
 // (and vice versa if switching back to a dependent course).
 const PREREQUISITE_DEPENDENTS = {
-  'ME 403': ['ME 407', 'ME 409'] // Heat Transfer -> Refrigeration Systems, Combustion Engineering
+  'ME 403': ['ME 407', 'ME 409', 'ME 406'] // Heat Transfer -> Refrigeration Systems, Combustion Engineering, Fluid Machineries
 };
 
 function enforcePrerequisiteRules(selectedCode) {
