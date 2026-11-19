@@ -188,6 +188,25 @@ const SCHEDULE_COURSES = [
         ]
       }
     ]
+  },
+  {
+    code: 'ME 320',
+    title: 'Computer Applications for ME',
+    units: 1,
+    color: '#0891b2',
+    border: '#06b6d4',
+    isRetake: true,
+    sections: [
+      {
+        id: 'ME31S1',
+        enlisted: 0, total: 40,
+        desc: 'Fr 7:30–10:30 AM (Lab)',
+        room: 'Q-3210',
+        slots: [
+          { day: 4, start: 450, end: 630, room: 'Q-3210', tag: 'LAB' }
+        ]
+      }
+    ]
   }
 ];
 
@@ -930,21 +949,21 @@ function applySchedulePreset(preset) {
   if (activeSemesterId === '3rd-2nd') {
     if (preset === 'A') {
       courses.forEach(c => {
-        if (c.isRetake || c.isAdvance || c.code === 'ME 523') return;
+        if (c.isRetake || c.isAdvance || c.code === 'ME 523' || c.code === 'ME 320') return;
         const match = c.sections.find(s => s.id === 'ME32S1');
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
       });
     } else if (preset === 'B') {
       courses.forEach(c => {
-        if (c.isRetake || c.isAdvance || c.code === 'ME 523') return;
+        if (c.isRetake || c.isAdvance || c.code === 'ME 523' || c.code === 'ME 320') return;
         const match = c.sections.find(s => s.id === 'ME32S2');
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
       });
     } else if (preset === 'C') {
       courses.forEach(c => {
-        if (c.isRetake || c.isAdvance || c.code === 'ME 523') return;
+        if (c.isRetake || c.isAdvance || c.code === 'ME 523' || c.code === 'ME 320') return;
         const match = c.sections.find(s => s.id === 'ME32S3');
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
@@ -973,6 +992,20 @@ function applySchedulePreset(preset) {
         else if (c.code === 'ME 403') userScheduleSelection[c.code] = 'ME31S1';
         else if (c.code === 'ME 404') userScheduleSelection[c.code] = 'ME32S1';
         else if (c.code === 'ME 411') userScheduleSelection[c.code] = 'ME32S1';
+        else if (c.code === 'ME 523') userScheduleSelection[c.code] = 'ME41S1';
+      });
+    } else if (preset === 'Andrei') {
+      courses.forEach(c => {
+        if (c.code === 'ECE 006') userScheduleSelection[c.code] = 'ME32S2';
+        else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ME32S2';
+        else if (c.code === 'ME 007') userScheduleSelection[c.code] = 'ME32S2';
+        else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'ME32S2';
+        else if (c.code === 'ME 404') userScheduleSelection[c.code] = 'ME32S2';
+        else if (c.code === 'ME 406') userScheduleSelection[c.code] = 'ME32S2';
+        else if (c.code === 'ME 407') userScheduleSelection[c.code] = 'ME32S2';
+        else if (c.code === 'ME 409') userScheduleSelection[c.code] = 'ME32S2';
+        else if (c.code === 'ME 411') userScheduleSelection[c.code] = 'ME32S2';
+        else if (c.code === 'ME 320') userScheduleSelection[c.code] = 'ME31S1';
         else if (c.code === 'ME 523') userScheduleSelection[c.code] = 'ME41S1';
       });
     }
@@ -1964,6 +1997,7 @@ function updateScheduleStats() {
   const btnC = document.getElementById('btn-preset-choice-c');
   const btnMarinell = document.getElementById('btn-preset-marinell');
   const btnJoshua = document.getElementById('btn-preset-joshua');
+  const btnAndrei = document.getElementById('btn-preset-andrei');
   const hasPresets = courses.length > 0;
   if (btnA) {
     btnA.style.opacity = hasPresets ? '' : '0.4';
@@ -1999,6 +2033,12 @@ function updateScheduleStats() {
     btnJoshua.style.display = hasJoshua ? '' : 'none';
     btnJoshua.style.opacity = hasJoshua ? '' : '0.4';
     btnJoshua.style.pointerEvents = hasJoshua ? '' : 'none';
+  }
+  if (btnAndrei) {
+    const hasAndrei = hasPresets && activeSemesterId === '3rd-2nd';
+    btnAndrei.style.display = hasAndrei ? '' : 'none';
+    btnAndrei.style.opacity = hasAndrei ? '' : '0.4';
+    btnAndrei.style.pointerEvents = hasAndrei ? '' : 'none';
   }
 }
 
@@ -2160,6 +2200,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnC = document.getElementById('btn-preset-choice-c');
   const btnMarinell = document.getElementById('btn-preset-marinell');
   const btnJoshua = document.getElementById('btn-preset-joshua');
+  const btnAndrei = document.getElementById('btn-preset-andrei');
   const btnClr = document.getElementById('btn-sched-clear-all');
 
   if (btnA) btnA.addEventListener('click', () => applySchedulePreset('A'));
@@ -2167,6 +2208,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnC) btnC.addEventListener('click', () => applySchedulePreset('C'));
   if (btnMarinell) btnMarinell.addEventListener('click', () => applySchedulePreset('Marinell'));
   if (btnJoshua) btnJoshua.addEventListener('click', () => applySchedulePreset('Joshua'));
+  if (btnAndrei) btnAndrei.addEventListener('click', () => applySchedulePreset('Andrei'));
   if (btnClr) btnClr.addEventListener('click', () => {
     userScheduleSelection = {};
     saveScheduleCreatorState();
