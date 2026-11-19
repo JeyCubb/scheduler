@@ -971,6 +971,7 @@ function applySchedulePreset(preset) {
       }
     });
   }
+  enforcePrerequisiteRules();
   saveScheduleCreatorState();
   renderScheduleView();
 }
@@ -1452,8 +1453,11 @@ function renderScheduleSidebar() {
       const blockingPrereq = Object.keys(PREREQUISITE_DEPENDENTS).find(
         prereqCode => userScheduleSelection[prereqCode] && PREREQUISITE_DEPENDENTS[prereqCode].includes(course.code)
       );
+      const selectedDependents = (PREREQUISITE_DEPENDENTS[course.code] || []).filter(
+        depCode => Boolean(userScheduleSelection[depCode])
+      );
       const isConflict = isAct && conflicts.sections.has(secKey);
-      const isPotential = !isAct && (conflicts.potentialSections.has(secKey) || Boolean(blockingPrereq));
+      const isPotential = !isAct && (conflicts.potentialSections.has(secKey) || Boolean(blockingPrereq) || selectedDependents.length > 0);
 
       let pillClass = 'sched-pill';
       if (isAct) pillClass += ' active';
@@ -1480,8 +1484,20 @@ function renderScheduleSidebar() {
         }
         if (blockingPrereq) {
           if (!pillPartnerCodes.includes(blockingPrereq)) pillPartnerCodes.push(blockingPrereq);
-          pillConflictTitle += `\n\n⚠️ Prerequisite: Heat Transfer (${blockingPrereq}) is currently selected. Selecting this will deselect Heat Transfer.`;
-        } else if (!potSummaries.length) {
+          const prereqObj = getActiveCourses().find(c => c.code === blockingPrereq);
+          const prereqName = prereqObj ? prereqObj.title : blockingPrereq;
+          pillConflictTitle += `\n\n⚠️ Prerequisite rule: ${prereqName} (${blockingPrereq}) is currently selected. Selecting this section will automatically deselect ${prereqName}.`;
+        }
+        if (selectedDependents.length > 0) {
+          selectedDependents.forEach(depCode => {
+            if (!pillPartnerCodes.includes(depCode)) pillPartnerCodes.push(depCode);
+          });
+          const depTitles = selectedDependents.map(depCode => {
+            const depCourse = getActiveCourses().find(c => c.code === depCode);
+            return `${depCourse ? depCourse.title : depCode} (${depCode})`;
+          }).join(', ');
+          pillConflictTitle += `\n\n⚠️ Prerequisite rule: Selecting Heat Transfer will automatically deselect: ${depTitles}.`;
+        } else if (!potSummaries.length && !blockingPrereq) {
           pillConflictTitle = '\n⚠️ Notice: This section conflicts with another selected subject';
         }
       }
