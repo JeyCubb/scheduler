@@ -2908,7 +2908,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     width: 100% !important;
     max-width: 100% !important;
     display: grid !important;
-    grid-template-columns: 34px repeat(5, minmax(0, 1fr)) !important;
+    grid-template-columns: 42px repeat(5, minmax(0, 1fr)) !important;
     gap: 1.5px !important;
     padding-bottom: 0.15rem !important;
     margin-bottom: 0.1rem !important;
@@ -2916,7 +2916,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   body.sched-show-saturday .sched-grid-header {
-    grid-template-columns: 34px repeat(6, minmax(0, 1fr)) !important;
+    grid-template-columns: 42px repeat(6, minmax(0, 1fr)) !important;
   }
 
   .sched-day-label {
@@ -2926,13 +2926,20 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     text-align: center !important;
     min-width: 0 !important;
     overflow: hidden !important;
+    white-space: nowrap !important;
+  }
+
+  .sched-grid-header > .sched-day-label:first-child {
+    font-size: 0.72rem !important;
+    letter-spacing: 0.01em !important;
+    overflow: visible !important;
   }
 
   .sched-grid-body {
     width: 100% !important;
     max-width: 100% !important;
     display: grid !important;
-    grid-template-columns: 34px repeat(5, minmax(0, 1fr)) !important;
+    grid-template-columns: 42px repeat(5, minmax(0, 1fr)) !important;
     grid-auto-rows: 20px !important;
     gap: 1.5px !important;
     height: auto !important;
@@ -2946,7 +2953,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   body.sched-show-saturday .sched-grid-body {
-    grid-template-columns: 34px repeat(6, minmax(0, 1fr)) !important;
+    grid-template-columns: 42px repeat(6, minmax(0, 1fr)) !important;
   }
 
   .sched-time-label {
@@ -3424,8 +3431,15 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   body.sched-focus-autohide .sched-day-label {
-    font-size: 0.95rem !important;
-    padding: 0.18rem 0 !important;
+    font-size: 0.82rem !important;
+    padding: 0.16rem 0 !important;
+    white-space: nowrap !important;
+  }
+
+  body.sched-focus-autohide .sched-grid-header > .sched-day-label:first-child {
+    font-size: 0.74rem !important;
+    letter-spacing: 0.02em !important;
+    overflow: visible !important;
   }
 
   body.sched-focus-autohide .sched-time-label {
