@@ -157,7 +157,7 @@ const SCHEDULE_COURSES = [
     border: '#f87171',
     isRetake: true,
     sections: [
-      { id: 'ME31S1', enlisted: 0, total: 45, desc: 'Tu/Th 10:30–11:30 AM', room: '', slots: [{ day: 1, start: 630, end: 690, room: '' }, { day: 3, start: 630, end: 690, room: '' }] }
+      { id: 'ME31S1', enlisted: 0, total: 45, desc: 'Tu/Th 10:30–11:30 AM', room: 'Q-5414', slots: [{ day: 1, start: 630, end: 690, room: 'Q-5414' }, { day: 3, start: 630, end: 690, room: 'Q-5414' }] }
     ]
   },
   {
@@ -168,7 +168,7 @@ const SCHEDULE_COURSES = [
     border: '#a3e635',
     isRetake: true,
     sections: [
-      { id: 'ME22S3', enlisted: 0, total: 30, desc: 'Tu/Th 4:30–7:30 PM', room: '', slots: [{ day: 1, start: 990, end: 1170, room: '' }, { day: 3, start: 990, end: 1170, room: '' }] }
+      { id: 'ME22S3', enlisted: 0, total: 30, desc: 'Tu/Th 1:30–4:30 PM (Lab)', room: 'Q-2105', slots: [{ day: 1, start: 810, end: 990, room: 'Q-2105', tag: 'LAB' }, { day: 3, start: 810, end: 990, room: 'Q-2105', tag: 'LAB' }] }
     ]
   },
   {
@@ -182,10 +182,11 @@ const SCHEDULE_COURSES = [
       {
         id: 'ME41S1',
         enlisted: 0, total: 40,
-        desc: 'Tue 1:30–3:30 PM',
+        desc: 'Mo/We 4:30–5:30 PM',
         room: 'Q-5508',
         slots: [
-          { day: 1, start: 810, end: 930, room: 'Q-5508' }
+          { day: 0, start: 990, end: 1050, room: 'Q-5508' },
+          { day: 2, start: 990, end: 1050, room: 'Q-5508' }
         ]
       }
     ]
@@ -391,10 +392,11 @@ const COURSES_4TH_1ST = [
       {
         id: 'ME41S1',
         enlisted: 0, total: 40,
-        desc: 'Tue 1:30–3:30 PM',
+        desc: 'Mo/We 4:30–5:30 PM',
         room: 'Q-5508',
         slots: [
-          { day: 1, start: 810, end: 930, room: 'Q-5508' }
+          { day: 0, start: 990, end: 1050, room: 'Q-5508' },
+          { day: 2, start: 990, end: 1050, room: 'Q-5508' }
         ]
       },
       {
