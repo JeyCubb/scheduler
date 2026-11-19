@@ -947,11 +947,11 @@ function applySchedulePreset(preset) {
         else if (c.code === 'ME 404') userScheduleSelection[c.code] = 'ME32S1';
         else if (c.code === 'EMAN 001') userScheduleSelection[c.code] = 'ME32S3';
         else if (c.code === 'ME 007') userScheduleSelection[c.code] = 'ME32S1';
-        else if (c.code === 'ECE 006') userScheduleSelection[c.code] = 'ME32S1';
         else if (c.code === 'GEE 002') userScheduleSelection[c.code] = 'ME32S1';
         else if (c.code === 'GEE 003') userScheduleSelection[c.code] = 'ME32S1';
         else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'ME32S3';
-        else if (c.code === 'ME 523') userScheduleSelection[c.code] = 'ME41S1';
+        else if (c.code === 'ME 223') userScheduleSelection[c.code] = 'ME22S3';
+        else if (c.code === 'ECE 006') userScheduleSelection[c.code] = 'ME32S3';
       });
     }
   } else if (activeSemesterId === '4th-summer') {
