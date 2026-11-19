@@ -961,13 +961,6 @@ function applySchedulePreset(preset) {
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
       });
-    } else if (preset === 'C') {
-      courses.forEach(c => {
-        if (c.isRetake || c.isAdvance || c.code === 'ME 523' || c.code === 'ME 320') return;
-        const match = c.sections.find(s => s.id === 'ME32S3');
-        if (match) userScheduleSelection[c.code] = match.id;
-        else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
-      });
     } else if (preset === 'Marinell') {
       courses.forEach(c => {
         if (c.code === 'ME 403') userScheduleSelection[c.code] = 'ME31S1';
