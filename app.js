@@ -26,9 +26,9 @@ const SCHEDULE_COURSES = [
     color: '#0284c7',
     border: '#38bdf8',
     sections: [
-      { id: 'ME32S1', enlisted: 0, total: 45, desc: 'Tu/Th 7:30–9:00 AM', room: 'Q-5504', slots: [{ day: 1, start: 450, end: 540, room: 'Q-5504' }, { day: 3, start: 450, end: 540, room: 'Q-5504' }] },
-      { id: 'ME32S2', enlisted: 0, total: 45, desc: 'We/Fr 1:30–3:00 PM', room: 'Q-5508', slots: [{ day: 2, start: 810, end: 900, room: 'Q-5508' }, { day: 4, start: 810, end: 900, room: 'Q-5508' }] },
-      { id: 'ME32S3', enlisted: 0, total: 45, desc: 'Tu/Th 7:30–9:00 PM', room: 'Q-5504', slots: [{ day: 1, start: 1170, end: 1260, room: 'Q-5504' }, { day: 3, start: 1170, end: 1260, room: 'Q-5504' }] }
+      { id: 'ME32S1', enlisted: 3, enrolled: 0, total: 45, desc: 'Tu/Th 7:30–9:00 AM', room: 'Q-5504', slots: [{ day: 1, start: 450, end: 540, room: 'Q-5504' }, { day: 3, start: 450, end: 540, room: 'Q-5504' }] },
+      { id: 'ME32S2', enlisted: 7, enrolled: 2, total: 45, desc: 'We/Fr 1:30–3:00 PM', room: 'Q-5508', slots: [{ day: 2, start: 810, end: 900, room: 'Q-5508' }, { day: 4, start: 810, end: 900, room: 'Q-5508' }] },
+      { id: 'ME32S3', enlisted: 0, enrolled: 0, total: 45, desc: 'Tu/Th 7:30–9:00 PM', room: 'Q-5504', slots: [{ day: 1, start: 1170, end: 1260, room: 'Q-5504' }, { day: 3, start: 1170, end: 1260, room: 'Q-5504' }] }
     ]
   },
   {
@@ -74,9 +74,9 @@ const SCHEDULE_COURSES = [
     color: '#16a34a',
     border: '#4ade80',
     sections: [
-      { id: 'ME32S1', enlisted: 0, total: 30, desc: 'We 10:30-12:30 (L) & Fr 10:30-1:30 (Lab)', room: 'Q-2106', slots: [{ day: 2, start: 630, end: 750, room: 'Q-2106', tag: 'LEC' }, { day: 4, start: 630, end: 810, room: 'Q-2106', tag: 'LAB' }] },
-      { id: 'ME32S2', enlisted: 0, total: 30, desc: 'Tu 3-5 PM (L) & Th 3-6 PM (Lab)', room: 'Q-2106', slots: [{ day: 1, start: 900, end: 1020, room: 'Q-2106', tag: 'LEC' }, { day: 3, start: 900, end: 1080, room: 'Q-2106', tag: 'LAB' }] },
-      { id: 'ME32S3', enlisted: 0, total: 30, desc: 'We 5:30-7:30 (L) & Fr 4:30-7:30 (Lab)', room: 'Q-2106', slots: [{ day: 2, start: 1050, end: 1170, room: 'Q-2106', tag: 'LEC' }, { day: 4, start: 990, end: 1170, room: 'Q-2106', tag: 'LAB' }] }
+      { id: 'ME32S1', enlisted: 4, enrolled: 0, total: 30, desc: 'We 10:30-12:30 (L) & Fr 10:30-1:30 (Lab)', room: 'Q-2106', slots: [{ day: 2, start: 630, end: 750, room: 'Q-2106', tag: 'LEC' }, { day: 4, start: 630, end: 810, room: 'Q-2106', tag: 'LAB' }] },
+      { id: 'ME32S2', enlisted: 3, enrolled: 0, total: 30, desc: 'Tu 3-5 PM (L) & Th 3-6 PM (Lab)', room: 'Q-2106', slots: [{ day: 1, start: 900, end: 1020, room: 'Q-2106', tag: 'LEC' }, { day: 3, start: 900, end: 1080, room: 'Q-2106', tag: 'LAB' }] },
+      { id: 'ME32S3', enlisted: 1, enrolled: 0, total: 30, desc: 'We 5:30-7:30 (L) & Fr 4:30-7:30 (Lab)', room: 'Q-2106', slots: [{ day: 2, start: 1050, end: 1170, room: 'Q-2106', tag: 'LEC' }, { day: 4, start: 990, end: 1170, room: 'Q-2106', tag: 'LAB' }] }
     ]
   },
   {
@@ -86,9 +86,9 @@ const SCHEDULE_COURSES = [
     color: '#0d9488',
     border: '#2dd4bf',
     sections: [
-      { id: 'ME32S1', enlisted: 0, total: 30, desc: 'Thu 10:30 AM–1:30 PM', room: 'Q-2105', slots: [{ day: 3, start: 630, end: 810, room: 'Q-2105' }] },
-      { id: 'ME32S2', enlisted: 0, total: 30, desc: 'Tue 10:30 AM–1:30 PM', room: 'Q-2105', slots: [{ day: 1, start: 630, end: 810, room: 'Q-2105' }] },
-      { id: 'ME32S3', enlisted: 0, total: 30, desc: 'Wed 1:30–4:30 PM', room: 'Q-2105', slots: [{ day: 2, start: 810, end: 990, room: 'Q-2105' }] },
+      { id: 'ME32S1', enlisted: 3, enrolled: 0, total: 30, desc: 'Thu 10:30 AM–1:30 PM', room: 'Q-2105', slots: [{ day: 3, start: 630, end: 810, room: 'Q-2105' }] },
+      { id: 'ME32S2', enlisted: 4, enrolled: 0, total: 30, desc: 'Tue 10:30 AM–1:30 PM', room: 'Q-2105', slots: [{ day: 1, start: 630, end: 810, room: 'Q-2105' }] },
+      { id: 'ME32S3', enlisted: 1, enrolled: 1, total: 30, desc: 'Wed 1:30–4:30 PM', room: 'Q-2105', slots: [{ day: 2, start: 810, end: 990, room: 'Q-2105' }] },
       { id: 'Requested', enlisted: 0, total: 30, desc: 'Sat 10:30 AM–1:30 PM', room: 'Q-2105', slots: [{ day: 5, start: 630, end: 810, room: 'Q-2105' }] }
     ]
   },
@@ -99,10 +99,10 @@ const SCHEDULE_COURSES = [
     color: '#db2777',
     border: '#f472b6',
     sections: [
-      { id: 'ME32S1', enlisted: 0, total: 30, desc: 'Tu 1:30-4:30 (Lab) & Th 2:30-4:30 (Lec)', room: 'Q-5322/5507', slots: [{ day: 1, start: 810, end: 990, room: 'Q-5322', tag: 'LAB' }, { day: 3, start: 870, end: 990, room: 'Q-5507', tag: 'LEC' }] },
-      { id: 'ME32S2', enlisted: 0, total: 30, desc: 'Tu 7:30-10:30 (Lab) & Th 7:30-9:30 (Lec)', room: 'Q-5322/5507', slots: [{ day: 1, start: 450, end: 630, room: 'Q-5322', tag: 'LAB' }, { day: 3, start: 450, end: 570, room: 'Q-5507', tag: 'LEC' }] },
-      { id: 'ME32S3', enlisted: 0, total: 30, desc: 'Tu 4:30-6:30 (Lec) & Th 4:30-7:30 (Lab)', room: 'Q-5507/5322', slots: [{ day: 1, start: 990, end: 1110, room: 'Q-5507', tag: 'LEC' }, { day: 3, start: 990, end: 1170, room: 'Q-5322', tag: 'LAB' }] },
-      { id: 'ME31S1', enlisted: 0, total: 30, desc: 'We 2:30-4:30 (Lec) & Fr 1:30-4:30 (Lab)', room: 'Q-5414/5322', slots: [{ day: 2, start: 870, end: 990, room: 'Q-5414', tag: 'LEC' }, { day: 4, start: 810, end: 990, room: 'Q-5322', tag: 'LAB' }] }
+      { id: 'ME32S1', enlisted: 3, enrolled: 0, total: 30, desc: 'Tu 1:30-4:30 (Lab) & Th 2:30-4:30 (Lec)', room: 'Q-5322/5507', slots: [{ day: 1, start: 810, end: 990, room: 'Q-5322', tag: 'LAB' }, { day: 3, start: 870, end: 990, room: 'Q-5507', tag: 'LEC' }] },
+      { id: 'ME32S2', enlisted: 4, enrolled: 0, total: 30, desc: 'Tu 7:30-10:30 (Lab) & Th 7:30-9:30 (Lec)', room: 'Q-5322/5507', slots: [{ day: 1, start: 450, end: 630, room: 'Q-5322', tag: 'LAB' }, { day: 3, start: 450, end: 570, room: 'Q-5507', tag: 'LEC' }] },
+      { id: 'ME32S3', enlisted: 3, enrolled: 1, total: 30, desc: 'Tu 4:30-6:30 (Lec) & Th 4:30-7:30 (Lab)', room: 'Q-5507/5322', slots: [{ day: 1, start: 990, end: 1110, room: 'Q-5507', tag: 'LEC' }, { day: 3, start: 990, end: 1170, room: 'Q-5322', tag: 'LAB' }] },
+      { id: 'ME31S1', enlisted: 0, enrolled: 0, total: 30, desc: 'We 2:30-4:30 (Lec) & Fr 1:30-4:30 (Lab)', room: 'Q-5414/5322', slots: [{ day: 2, start: 870, end: 990, room: 'Q-5414', tag: 'LEC' }, { day: 4, start: 810, end: 990, room: 'Q-5322', tag: 'LAB' }] }
     ]
   },
   {
@@ -112,10 +112,10 @@ const SCHEDULE_COURSES = [
     color: '#64748b',
     border: '#94a3b8',
     sections: [
-      { id: 'ME32S1', enlisted: 0, total: 45, desc: 'M/W/F 8:30–9:30 AM', room: 'Q-5507', slots: [{ day: 0, start: 510, end: 570, room: 'Q-5507' }, { day: 2, start: 510, end: 570, room: 'Q-5507' }, { day: 4, start: 510, end: 570, room: 'Q-5507' }] },
+      { id: 'ME32S1', enlisted: 11, enrolled: 4, total: 45, desc: 'M/W/F 8:30–9:30 AM', room: 'Q-5507', slots: [{ day: 0, start: 510, end: 570, room: 'Q-5507' }, { day: 2, start: 510, end: 570, room: 'Q-5507' }, { day: 4, start: 510, end: 570, room: 'Q-5507' }] },
       { id: 'ME32S2', enlisted: 0, total: 45, desc: 'M/W/F 10:30–11:30 AM', room: 'Q-5508', slots: [{ day: 0, start: 630, end: 690, room: 'Q-5508' }, { day: 2, start: 630, end: 690, room: 'Q-5508' }, { day: 4, start: 630, end: 690, room: 'Q-5508' }] },
       { id: 'ME32S3', enlisted: 0, total: 45, desc: 'M/W/F 11:30 AM–12:30 PM', room: 'Q-5503', slots: [{ day: 0, start: 690, end: 750, room: 'Q-5503' }, { day: 2, start: 690, end: 750, room: 'Q-5503' }, { day: 4, start: 690, end: 750, room: 'Q-5503' }] },
-      { id: 'ME22S2', enlisted: 0, total: 45, desc: 'M/W/F 2:30–3:30 PM', room: 'Q-9506', slots: [{ day: 0, start: 870, end: 930, room: 'Q-9506' }, { day: 2, start: 870, end: 930, room: 'Q-9506' }, { day: 4, start: 870, end: 930, room: 'Q-9506' }] },
+      { id: 'ME22S2', enlisted: 18, enrolled: 18, total: 45, desc: 'M/W/F 2:30–3:30 PM', room: 'Q-9506', slots: [{ day: 0, start: 870, end: 930, room: 'Q-9506' }, { day: 2, start: 870, end: 930, room: 'Q-9506' }, { day: 4, start: 870, end: 930, room: 'Q-9506' }] },
       { id: 'ME22S3', enlisted: 0, total: 45, desc: 'M/W/F 9:30–10:30 AM', room: 'Q-5507', slots: [{ day: 0, start: 570, end: 630, room: 'Q-5507' }, { day: 2, start: 570, end: 630, room: 'Q-5507' }, { day: 4, start: 570, end: 630, room: 'Q-5507' }] },
       { id: 'BAFM22S1', enlisted: 0, total: 45, desc: 'Tu/Th 10:30 AM–12:00 PM', room: 'Q-9301', slots: [{ day: 1, start: 630, end: 720, room: 'Q-9301' }, { day: 3, start: 630, end: 720, room: 'Q-9301' }] }
     ]
@@ -127,12 +127,12 @@ const SCHEDULE_COURSES = [
     color: '#475569',
     border: '#64748b',
     sections: [
-      { id: 'ME32S1', enlisted: 0, total: 45, desc: 'M/W/F 7:30–8:30 AM', room: 'Q-5504', slots: [{ day: 0, start: 450, end: 510, room: 'Q-5504' }, { day: 2, start: 450, end: 510, room: 'Q-5504' }, { day: 4, start: 450, end: 510, room: 'Q-5504' }] },
+      { id: 'ME32S1', enlisted: 9, enrolled: 6, total: 45, desc: 'M/W/F 7:30–8:30 AM', room: 'Q-5504', slots: [{ day: 0, start: 450, end: 510, room: 'Q-5504' }, { day: 2, start: 450, end: 510, room: 'Q-5504' }, { day: 4, start: 450, end: 510, room: 'Q-5504' }] },
       { id: 'ME32S2', enlisted: 0, total: 45, desc: 'M/W/F 9:30–10:30 AM', room: 'Q-5414', slots: [{ day: 0, start: 570, end: 630, room: 'Q-5414' }, { day: 2, start: 570, end: 630, room: 'Q-5414' }, { day: 4, start: 570, end: 630, room: 'Q-5414' }] },
       { id: 'ME32S3', enlisted: 0, total: 45, desc: 'Tu/Th 1:30–3:00 PM', room: 'Q-5508', slots: [{ day: 1, start: 810, end: 900, room: 'Q-5508' }, { day: 3, start: 810, end: 900, room: 'Q-5508' }] },
-      { id: 'ARCH22S4', enlisted: 0, total: 45, desc: 'Tu/Th 7:30–9:00 AM', room: 'Q-9503', slots: [{ day: 1, start: 450, end: 540, room: 'Q-9503' }, { day: 3, start: 450, end: 540, room: 'Q-9503' }] },
-      { id: 'ARCH22S5', enlisted: 0, total: 45, desc: 'Tu/Th 9:00–10:30 AM', room: 'Q-9503', slots: [{ day: 1, start: 540, end: 630, room: 'Q-9503' }, { day: 3, start: 540, end: 630, room: 'Q-9503' }] },
-      { id: 'ARCH22S3', enlisted: 0, total: 45, desc: 'Tu/Th 12:00–1:30 PM', room: 'Q-9503', slots: [{ day: 1, start: 720, end: 810, room: 'Q-9503' }, { day: 3, start: 720, end: 810, room: 'Q-9503' }] }
+      { id: 'ARCH22S4', enlisted: 0, total: 35, desc: 'Tu/Th 7:30–9:00 AM', room: 'Q-9503', slots: [{ day: 1, start: 450, end: 540, room: 'Q-9503' }, { day: 3, start: 450, end: 540, room: 'Q-9503' }] },
+      { id: 'ARCH22S5', enlisted: 0, total: 35, desc: 'Tu/Th 9:00–10:30 AM', room: 'Q-9503', slots: [{ day: 1, start: 540, end: 630, room: 'Q-9503' }, { day: 3, start: 540, end: 630, room: 'Q-9503' }] },
+      { id: 'ARCH22S3', enlisted: 0, total: 35, desc: 'Tu/Th 12:00–1:30 PM', room: 'Q-9503', slots: [{ day: 1, start: 720, end: 810, room: 'Q-9503' }, { day: 3, start: 720, end: 810, room: 'Q-9503' }] }
     ]
   },
   {
@@ -142,9 +142,9 @@ const SCHEDULE_COURSES = [
     color: '#ea580c',
     border: '#fb923c',
     sections: [
-      { id: 'ME32S1', enlisted: 0, total: 45, desc: 'Tue 10:30 AM–12:30 PM', room: 'Q-5504', slots: [{ day: 1, start: 630, end: 750, room: 'Q-5504' }] },
-      { id: 'ME32S2', enlisted: 0, total: 45, desc: 'Thu 10:30 AM–12:30 PM', room: 'Q-5504', slots: [{ day: 3, start: 630, end: 750, room: 'Q-5504' }] },
-      { id: 'ME32S3', enlisted: 0, total: 45, desc: 'Wed 7:30–9:30 PM', room: 'Q-5504', slots: [{ day: 2, start: 1170, end: 1290, room: 'Q-5504' }] },
+      { id: 'ME32S1', enlisted: 17, enrolled: 14, total: 45, desc: 'Tue 10:30 AM–12:30 PM', room: 'Q-5504', slots: [{ day: 1, start: 630, end: 750, room: 'Q-5504' }] },
+      { id: 'ME32S2', enlisted: 7, enrolled: 3, total: 45, desc: 'Thu 10:30 AM–12:30 PM', room: 'Q-5504', slots: [{ day: 3, start: 630, end: 750, room: 'Q-5504' }] },
+      { id: 'ME32S3', enlisted: 13, enrolled: 13, total: 45, desc: 'Wed 7:30–9:30 PM', room: 'Q-5504', slots: [{ day: 2, start: 1170, end: 1290, room: 'Q-5504' }] },
       { id: 'ECE22S1', enlisted: 0, total: 45, desc: 'Mo 5:30–6:30 & We 7:30–8:30', room: 'Q-5320', slots: [{ day: 0, start: 1050, end: 1110, room: 'Q-5320' }, { day: 2, start: 1170, end: 1230, room: 'Q-5320' }] },
       { id: 'ECE32S1', enlisted: 0, total: 45, desc: 'Tu/Th 12:00–1:00 PM', room: 'Q-9405', slots: [{ day: 1, start: 720, end: 780, room: 'Q-9405' }, { day: 3, start: 720, end: 780, room: 'Q-9405' }] }
     ]
