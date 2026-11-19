@@ -1918,30 +1918,25 @@ function updateScheduleStats() {
   if (btnA) {
     btnA.style.opacity = hasPresets ? '' : '0.4';
     btnA.style.pointerEvents = hasPresets ? '' : 'none';
+    let labelA = activeSemesterId === '3rd-2nd' ? 'Jacob S1' : 'Choice A';
     let subA = '(ME32S1 Block)';
     if (activeSemesterId === '4th-summer') subA = '(ME40S1 Block)';
     else if (activeSemesterId === '4th-1st') subA = '(ME41S1 Block)';
     else if (activeSemesterId === '4th-2nd') subA = '(ME42S1 Block)';
-    btnA.innerHTML = `Choice A<span class="sched-btn-sub"> ${subA}</span>`;
+    btnA.innerHTML = `${labelA}<span class="sched-btn-sub"> ${subA}</span>`;
   }
   if (btnB) {
     btnB.style.opacity = hasPresets ? '' : '0.4';
     btnB.style.pointerEvents = hasPresets ? '' : 'none';
+    let labelB = activeSemesterId === '3rd-2nd' ? 'Kevin S2' : 'Choice B';
     let subB = '(ME32S2 Block)';
     if (activeSemesterId === '4th-summer') subB = '(ME40S2 Block)';
     else if (activeSemesterId === '4th-1st') subB = '(ME41S2 Block)';
     else if (activeSemesterId === '4th-2nd') subB = '(ME42S2 Block)';
-    btnB.innerHTML = `Choice B<span class="sched-btn-sub"> ${subB}</span>`;
+    btnB.innerHTML = `${labelB}<span class="sched-btn-sub"> ${subB}</span>`;
   }
   if (btnC) {
-    const hasC = hasPresets && activeSemesterId !== '4th-summer';
-    btnC.style.display = hasC ? '' : 'none';
-    btnC.style.opacity = hasC ? '' : '0.4';
-    btnC.style.pointerEvents = hasC ? '' : 'none';
-    let subC = '(ME32S3 Block)';
-    if (activeSemesterId === '4th-1st') subC = '(ME41S3 Block)';
-    else if (activeSemesterId === '4th-2nd') subC = '(ME42S3 Block)';
-    btnC.innerHTML = `Choice C<span class="sched-btn-sub"> ${subC}</span>`;
+    btnC.style.display = 'none';
   }
   if (btnMarinell) {
     const hasMarinell = hasPresets && activeSemesterId === '3rd-2nd';
