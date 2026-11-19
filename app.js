@@ -168,26 +168,6 @@ const SCHEDULE_COURSES = [
     sections: [
       { id: 'ME22S3', enlisted: 0, total: 30, desc: 'Tu/Th 1:30–4:30 PM (Lab)', room: 'Q-2105', slots: [{ day: 1, start: 810, end: 990, room: 'Q-2105', tag: 'LAB' }, { day: 3, start: 810, end: 990, room: 'Q-2105', tag: 'LAB' }] }
     ]
-  },
-  {
-    code: 'ME 523',
-    title: 'ME Laws, Ethics, Codes and Standards',
-    units: 2,
-    color: '#f59e0b',
-    border: '#fbbf24',
-    isAdvance: true,
-    sections: [
-      {
-        id: 'ME41S1',
-        enlisted: 0, total: 40,
-        desc: 'Mo/We 4:30–5:30 PM',
-        room: 'Q-5508',
-        slots: [
-          { day: 0, start: 990, end: 1050, room: 'Q-5508' },
-          { day: 2, start: 990, end: 1050, room: 'Q-5508' }
-        ]
-      }
-    ]
   }
 ];
 
@@ -904,6 +884,15 @@ function initScheduleCreatorState() {
     // Fresh semester visit: pre-populate with recommended Choice A
     applySchedulePreset('A');
   }
+
+  // Clean up any stale courses from previous selections that don't belong to this semester
+  const activeCourseCodes = new Set(getActiveCourses().map(c => c.code));
+  Object.keys(userScheduleSelection).forEach(code => {
+    if (!activeCourseCodes.has(code)) {
+      delete userScheduleSelection[code];
+    }
+  });
+
   enforcePrerequisiteRules();
 }
 
@@ -921,19 +910,21 @@ function applySchedulePreset(preset) {
   if (activeSemesterId === '3rd-2nd') {
     if (preset === 'A') {
       courses.forEach(c => {
-        if (c.isRetake) return;
-        userScheduleSelection[c.code] = 'ME32S1';
+        if (c.isRetake || c.isAdvance || c.code === 'ME 523') return;
+        const match = c.sections.find(s => s.id === 'ME32S1');
+        if (match) userScheduleSelection[c.code] = match.id;
+        else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
       });
     } else if (preset === 'B') {
       courses.forEach(c => {
-        if (c.isRetake) return;
+        if (c.isRetake || c.isAdvance || c.code === 'ME 523') return;
         const match = c.sections.find(s => s.id === 'ME32S2');
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
       });
     } else if (preset === 'C') {
       courses.forEach(c => {
-        if (c.isRetake) return;
+        if (c.isRetake || c.isAdvance || c.code === 'ME 523') return;
         const match = c.sections.find(s => s.id === 'ME32S3');
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
