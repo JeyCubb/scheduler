@@ -946,15 +946,17 @@ function saveScheduleCreatorState() {
 function applySchedulePreset(preset) {
   const courses = getActiveCourses();
   userScheduleSelection = {};
+  const isA = preset === 'A' || preset === 'S1';
+  const isB = preset === 'B' || preset === 'S2';
   if (activeSemesterId === '3rd-2nd') {
-    if (preset === 'A') {
+    if (isA) {
       courses.forEach(c => {
         if (c.isRetake || c.isAdvance || c.code === 'ME 523' || c.code === 'ME 320') return;
         const match = c.sections.find(s => s.id === 'ME32S1');
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
       });
-    } else if (preset === 'B') {
+    } else if (isB) {
       courses.forEach(c => {
         if (c.isRetake || c.isAdvance || c.code === 'ME 523' || c.code === 'ME 320') return;
         const match = c.sections.find(s => s.id === 'ME32S2');
@@ -1003,21 +1005,21 @@ function applySchedulePreset(preset) {
       });
     }
   } else if (activeSemesterId === '4th-summer') {
-    const targetSec = preset === 'A' ? 'ME40S1' : 'ME40S2';
+    const targetSec = isA ? 'ME40S1' : 'ME40S2';
     courses.forEach(c => {
       const match = c.sections.find(s => s.id === targetSec);
       if (match) userScheduleSelection[c.code] = match.id;
       else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
     });
   } else if (activeSemesterId === '4th-1st') {
-    const targetSec = preset === 'A' ? 'ME41S1' : (preset === 'B' ? 'ME41S2' : 'ME41S3');
+    const targetSec = isA ? 'ME41S1' : (isB ? 'ME41S2' : 'ME41S3');
     courses.forEach(c => {
       const match = c.sections.find(s => s.id === targetSec);
       if (match) userScheduleSelection[c.code] = match.id;
       else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
     });
   } else if (activeSemesterId === '4th-2nd') {
-    const targetSec = preset === 'A' ? 'ME42S1' : (preset === 'B' ? 'ME42S2' : 'ME42S3');
+    const targetSec = isA ? 'ME42S1' : (isB ? 'ME42S2' : 'ME42S3');
     courses.forEach(c => {
       const match = c.sections.find(s => s.id === targetSec);
       if (match) userScheduleSelection[c.code] = match.id;
@@ -2099,7 +2101,11 @@ function updateScheduleStats() {
       } else if (p === 'C') {
         item.style.display = (activeSemesterId === '4th-1st' || activeSemesterId === '4th-2nd') ? '' : 'none';
       }
-      if (p === activePresetName || (activePresetName === 'Joshua / Karl' && (p === 'Joshua' || p === 'Karl'))) {
+      const isMatch = (p === activePresetName) ||
+        ((p === 'S1' || p === 'A') && (activePresetName === 'S1' || activePresetName === 'Choice A')) ||
+        ((p === 'S2' || p === 'B') && (activePresetName === 'S2' || activePresetName === 'Choice B')) ||
+        (activePresetName === 'Joshua / Karl' && (p === 'Joshua' || p === 'Karl'));
+      if (isMatch) {
         item.classList.add('is-active-preset');
       } else {
         item.classList.remove('is-active-preset');

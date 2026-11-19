@@ -4012,6 +4012,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   border-radius: 4px;
 }
 
+.sched-presets-popup .sched-popup-item,
 .sched-presets-popup .sched-preset-btn.sched-popup-item {
   width: 100% !important;
   display: flex !important;
@@ -4030,22 +4031,26 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   gap: 1px !important;
 }
 
+.sched-presets-popup .sched-popup-item:hover,
 .sched-presets-popup .sched-preset-btn.sched-popup-item:hover {
   background: rgba(249, 115, 22, 0.14) !important;
   border-color: rgba(249, 115, 22, 0.35) !important;
   transform: translateX(2px) !important;
 }
 
+[data-theme="light"] .sched-presets-popup .sched-popup-item,
 [data-theme="light"] .sched-presets-popup .sched-preset-btn.sched-popup-item {
   background: #f8fafc !important;
   border-color: #e2e8f0 !important;
 }
 
+[data-theme="light"] .sched-presets-popup .sched-popup-item:hover,
 [data-theme="light"] .sched-presets-popup .sched-preset-btn.sched-popup-item:hover {
   background: rgba(249, 115, 22, 0.12) !important;
   border-color: var(--accent-primary) !important;
 }
 
+.sched-presets-popup .sched-popup-item.is-active-preset,
 .sched-presets-popup .sched-preset-btn.sched-popup-item.is-active-preset {
   background: rgba(249, 115, 22, 0.22) !important;
   border-color: var(--accent-primary) !important;
