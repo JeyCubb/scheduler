@@ -1854,6 +1854,13 @@ function renderScheduleGrid() {
 const titleMeasureCanvas = document.createElement('canvas');
 const titleMeasureCtx = titleMeasureCanvas.getContext('2d');
 
+function isCompactLandscape() {
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    return window.matchMedia('(orientation: landscape) and (max-height: 520px)').matches;
+  }
+  return window.innerWidth > window.innerHeight && window.innerHeight <= 520;
+}
+
 function isMobileLayout() {
   if (typeof window !== 'undefined' && window.matchMedia) {
     return window.matchMedia('(max-width: 768px), (max-width: 850px) and (orientation: portrait)').matches;
@@ -1864,6 +1871,7 @@ function isMobileLayout() {
 
 function fitScheduleEventTitles() {
   const isMobile = isMobileLayout();
+  const isCompactLand = isCompactLandscape();
   const isZen = document.body.classList.contains('sched-focus-autohide');
   const cards = document.querySelectorAll('.sched-event-block');
 
@@ -1886,7 +1894,10 @@ function fitScheduleEventTitles() {
 
       let maxMeta;
       let minMeta;
-      if (isMobile) {
+      if (isCompactLand) {
+        maxMeta = spanSteps <= 2 ? 6.5 : 7.2;
+        minMeta = 3.8;
+      } else if (isMobile) {
         maxMeta = spanSteps <= 2 ? 6.5 : 7.5;
         minMeta = 3.6;
       } else if (isZen) {
@@ -1947,10 +1958,13 @@ function fitScheduleEventTitles() {
       const innerCardW = Math.max(0, card.clientWidth - padLeft - padRight);
       const innerCardH = Math.max(0, card.clientHeight - padTop - padBottom);
       const metaH = metaEl ? metaEl.offsetHeight : 0;
-      const maxTitleH = Math.max(10, innerCardH - metaH - 2);
+      const maxTitleH = Math.max(6, innerCardH - metaH - 2);
 
-      let currentSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || (isZen ? (isMobile ? 10 : 16) : 14);
-      const minSize = isMobile ? 3.6 : 8.0;
+      const defaultSize = isZen
+        ? (isMobile || isCompactLand ? 10 : 16)
+        : (isCompactLand ? 8.5 : (isMobile ? 10 : 14));
+      let currentSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || defaultSize;
+      const minSize = isCompactLand ? 4.2 : (isMobile ? 3.6 : 8.0);
 
       const words = (titleEl.innerText || titleEl.textContent).trim().split(/\s+/).filter(Boolean);
 
