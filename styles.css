@@ -2987,27 +2987,26 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   .sched-event-title-main {
-    font-size: 0.90rem !important;
+    font-size: 0.74rem !important;
     font-weight: 800 !important;
-    line-height: 1.10 !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.01em !important;
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
     white-space: normal !important;
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-    hyphens: none !important;
-    -webkit-hyphens: none !important;
-    -ms-hyphens: none !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
     overflow: hidden !important;
   }
 
   .sched-event-meta {
-    font-size: 0.48rem !important;
+    font-size: 0.50rem !important;
     gap: 2px !important;
     margin-top: auto !important;
     padding-top: 1px !important;
+    padding-bottom: 1px !important;
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
@@ -3019,8 +3018,8 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   .sched-event-sec-badge {
-    font-size: 0.48rem !important;
-    padding: 0.02rem 0.12rem !important;
+    font-size: 0.50rem !important;
+    padding: 0.02rem 0.15rem !important;
     border-radius: 2px !important;
     line-height: 1.1 !important;
     white-space: nowrap !important;
@@ -3028,7 +3027,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   .sched-event-room {
-    font-size: 0.47rem !important;
+    font-size: 0.50rem !important;
     line-height: 1.1 !important;
     white-space: nowrap !important;
     overflow: hidden !important;
@@ -3239,28 +3238,35 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 
     /* Row 1: Presets Toolbar (Full Width) */
     .sched-preset-group {
-      display: grid !important;
-      grid-template-columns: repeat(auto-fit, minmax(0, 1fr)) !important;
-      gap: 0.25rem !important;
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 0.16rem !important;
       width: 100% !important;
       order: 1 !important;
       box-sizing: border-box !important;
       padding-bottom: 0.2rem !important;
       border-bottom: 1px solid var(--border-color) !important;
       margin-bottom: 0.05rem !important;
+      overflow-x: auto !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+
+    .sched-preset-group::-webkit-scrollbar {
+      display: none !important;
     }
 
     .sched-preset-btn {
-      width: 100% !important;
-      max-width: 100% !important;
-      min-width: 0 !important;
-      font-size: 0.78rem !important;
+      flex: 1 1 auto !important;
+      min-width: fit-content !important;
+      font-size: 0.70rem !important;
       font-weight: 700 !important;
-      padding: 0.32rem 0.2rem !important;
+      padding: 0.30rem 0.36rem !important;
       text-align: center !important;
       justify-content: center !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
       white-space: nowrap !important;
       box-sizing: border-box !important;
     }
