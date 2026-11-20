@@ -2577,6 +2577,28 @@ document.addEventListener('touchmove', (e) => {
     if (dx > 8 || dy > 8) {
       singleTouchMoved = true;
     }
+
+    // Lock page-level scrolling:
+    // Only permit 1-finger touch scrolling inside designated scrollable containers (e.g. subject list, modals)
+    const scrollable = e.target.closest(
+      '.sched-sidebar-card, #sched-subject-list, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container'
+    );
+
+    if (!scrollable) {
+      e.preventDefault();
+    } else {
+      if (scrollable.scrollHeight <= scrollable.clientHeight) {
+        e.preventDefault();
+      } else {
+        const isPullingDown = e.touches[0].clientY > singleTouchStartY;
+        const isPullingUp = e.touches[0].clientY < singleTouchStartY;
+        if (isPullingDown && scrollable.scrollTop <= 0) {
+          e.preventDefault();
+        } else if (isPullingUp && (scrollable.scrollTop + scrollable.clientHeight >= scrollable.scrollHeight - 1)) {
+          e.preventDefault();
+        }
+      }
+    }
   }
 }, { passive: false });
 
@@ -2669,7 +2691,7 @@ let gestureTriggered = false;
 document.addEventListener('gesturestart', (e) => {
   e.preventDefault();
   gestureTriggered = false;
-});
+}, { passive: false });
 document.addEventListener('gesturechange', (e) => {
   e.preventDefault();
   if (gestureTriggered) return;
@@ -2683,12 +2705,12 @@ document.addEventListener('gesturechange', (e) => {
     pinchCooldownUntil = Date.now() + 650;
     resetIdleTimer();
   }
-});
+}, { passive: false });
 document.addEventListener('gestureend', (e) => {
   e.preventDefault();
   pinchCooldownUntil = Date.now() + 650;
   setTimeout(() => { gestureTriggered = false; }, 200);
-});
+}, { passive: false });
 
 // 3. Prevent browser zoom on Ctrl + Wheel and map trackpad pinch to Zen mode
 let trackpadAccum = 0;
