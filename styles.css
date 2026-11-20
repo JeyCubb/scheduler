@@ -2901,14 +2901,14 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     box-sizing: border-box !important;
   }
 
-  /* Timetable Card in Mobile Portrait & Tablet Narrow View */
+  /* Timetable Card in Mobile Portrait & Tablet Narrow View: Fits 100% with no scrolling */
   .sched-calendar-card {
     width: 100% !important;
-    flex: 1.15 1 0 !important;
+    flex: 1 1 0 !important;
     height: 0 !important;
-    min-height: 160px !important;
-    max-height: 58% !important;
-    padding: 0.2rem 0.15rem 0.1rem 0.15rem !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    padding: 0.15rem 0.15rem 0.08rem 0.15rem !important;
     border-radius: var(--radius-sm) !important;
     overflow: hidden !important;
     display: flex !important;
@@ -2924,55 +2924,32 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     height: 100% !important;
     min-height: 0 !important;
     max-height: 100% !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    touch-action: pan-y !important;
-    overscroll-behavior-y: contain !important;
-    scrollbar-width: thin !important;
-    scrollbar-color: rgba(249, 115, 22, 0.35) transparent !important;
+    overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
-    position: relative !important;
-  }
-
-  .sched-grid-wrapper::-webkit-scrollbar {
-    width: 4px !important;
-  }
-
-  .sched-grid-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(249, 115, 22, 0.35) !important;
-    border-radius: 4px !important;
-  }
-
-  .sched-grid-wrapper::-webkit-scrollbar-track {
-    background: transparent !important;
+    box-sizing: border-box !important;
   }
 
   .sched-grid-header {
     width: 100% !important;
     max-width: 100% !important;
     display: grid !important;
-    grid-template-columns: 42px repeat(5, minmax(0, 1fr)) !important;
-    gap: 1.5px !important;
-    padding-bottom: 0.15rem !important;
-    margin-bottom: 0.1rem !important;
+    grid-template-columns: 38px repeat(5, minmax(0, 1fr)) !important;
+    gap: 1px !important;
+    padding-bottom: 0.12rem !important;
+    margin-bottom: 0.06rem !important;
     box-sizing: border-box !important;
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 20 !important;
-    background: var(--bg-card) !important;
     flex-shrink: 0 !important;
   }
 
   body.sched-show-saturday .sched-grid-header {
-    grid-template-columns: 42px repeat(6, minmax(0, 1fr)) !important;
+    grid-template-columns: 38px repeat(6, minmax(0, 1fr)) !important;
   }
 
   .sched-day-label {
-    font-size: 0.78rem !important;
+    font-size: 0.74rem !important;
     font-weight: 800 !important;
-    padding: 0.1rem 0 !important;
+    padding: 0.08rem 0 !important;
     text-align: center !important;
     min-width: 0 !important;
     overflow: hidden !important;
@@ -2980,7 +2957,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   .sched-grid-header > .sched-day-label:first-child {
-    font-size: 0.72rem !important;
+    font-size: 0.68rem !important;
     letter-spacing: 0.01em !important;
     overflow: visible !important;
   }
@@ -2989,27 +2966,25 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     width: 100% !important;
     max-width: 100% !important;
     display: grid !important;
-    grid-template-columns: 42px repeat(5, minmax(0, 1fr)) !important;
-    grid-auto-rows: 20px !important;
-    gap: 1.5px !important;
-    height: auto !important;
+    grid-template-columns: 38px repeat(5, minmax(0, 1fr)) !important;
+    grid-auto-rows: minmax(0, 1fr) !important;
+    gap: 1px !important;
+    height: 100% !important;
     min-height: 0 !important;
-    max-height: none !important;
-    flex: none !important;
-    flex-basis: auto !important;
-    flex-grow: 0 !important;
-    flex-shrink: 0 !important;
+    max-height: 100% !important;
+    flex: 1 1 0 !important;
+    overflow: hidden !important;
     box-sizing: border-box !important;
   }
 
   body.sched-show-saturday .sched-grid-body {
-    grid-template-columns: 42px repeat(6, minmax(0, 1fr)) !important;
+    grid-template-columns: 38px repeat(6, minmax(0, 1fr)) !important;
   }
 
   .sched-time-label {
-    font-size: 0.58rem !important;
+    font-size: 0.52rem !important;
     font-weight: 700 !important;
-    padding-right: 0.15rem !important;
+    padding-right: 0.12rem !important;
     line-height: 1 !important;
     justify-content: flex-end !important;
     letter-spacing: -0.02em !important;
@@ -3025,9 +3000,9 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   .sched-event-block {
-    padding: 1.5px 2px !important;
-    border-radius: 3.5px !important;
-    border-left-width: 2.5px !important;
+    padding: 1px 1.5px !important;
+    border-radius: 2.5px !important;
+    border-left-width: 2px !important;
     box-shadow: 0 1px 2px rgba(0,0,0,0.35) !important;
     min-width: 0 !important;
     overflow: hidden !important;
@@ -3037,9 +3012,9 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   .sched-event-title-main {
-    font-size: 0.74rem !important;
+    font-size: 0.52rem !important;
     font-weight: 800 !important;
-    line-height: 1.12 !important;
+    line-height: 1.02 !important;
     letter-spacing: -0.01em !important;
     display: block !important;
     width: 100% !important;
@@ -3052,11 +3027,11 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   .sched-event-meta {
-    font-size: 0.50rem !important;
-    gap: 1px 2px !important;
+    font-size: 0.46rem !important;
+    gap: 1px !important;
     margin-top: auto !important;
-    padding-top: 1px !important;
-    padding-bottom: 1px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: wrap !important;
@@ -3065,20 +3040,21 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     min-width: 0 !important;
     width: 100% !important;
     overflow: visible !important;
+    line-height: 1 !important;
   }
 
   .sched-event-sec-badge {
-    font-size: 0.50rem !important;
-    padding: 0.02rem 0.15rem !important;
-    border-radius: 2px !important;
-    line-height: 1.1 !important;
+    font-size: 0.44rem !important;
+    padding: 0 0.12rem !important;
+    border-radius: 1.5px !important;
+    line-height: 1 !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
   }
 
   .sched-event-room {
-    font-size: 0.50rem !important;
-    line-height: 1.1 !important;
+    font-size: 0.46rem !important;
+    line-height: 1 !important;
     white-space: nowrap !important;
     overflow: visible !important;
     text-overflow: clip !important;
@@ -3086,13 +3062,13 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   /* ==========================================================================
-     Subject Selector "Ribbon" - Accessible & Scrollable
+     Subject Selector "Ribbon" - Guaranteed Dedicated Space & Scrollable
      ========================================================================== */
   .sched-sidebar-card {
-    flex: 0.85 1 0 !important;
-    min-height: 120px !important;
-    height: 0 !important;
-    max-height: none !important;
+    flex: 0 0 clamp(160px, 36%, 250px) !important;
+    min-height: 140px !important;
+    height: clamp(160px, 36%, 250px) !important;
+    max-height: 42% !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;

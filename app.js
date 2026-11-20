@@ -1895,8 +1895,8 @@ function fitScheduleEventTitles() {
       let maxMeta;
       let minMeta;
       if (isMobile) {
-        maxMeta = spanSteps <= 2 ? 7.5 : 8.5;
-        minMeta = 4.5;
+        maxMeta = spanSteps <= 2 ? 6.5 : 7.5;
+        minMeta = 3.6;
       } else if (isZen) {
         if (spanSteps <= 2) maxMeta = 14.5;
         else if (spanSteps <= 3) maxMeta = 17.0;
@@ -1958,7 +1958,7 @@ function fitScheduleEventTitles() {
       const maxTitleH = Math.max(10, innerCardH - metaH - 2);
 
       let currentSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || (isZen ? (isMobile ? 10 : 16) : 14);
-      const minSize = isMobile ? 5.5 : 8.0;
+      const minSize = isMobile ? 3.6 : 8.0;
 
       const words = (titleEl.innerText || titleEl.textContent).trim().split(/\s+/).filter(Boolean);
 
@@ -2580,15 +2580,15 @@ document.addEventListener('touchmove', (e) => {
 
     // Lock page-level scrolling:
     // Only permit 1-finger touch scrolling inside designated scrollable containers:
-    // subjects list, schedule timetable grid, modals, and popups
+    // subjects list, modals, and popups (schedule timetable fits 100% with no scrolling)
     const scrollTarget = e.target.closest(
-      '.sched-sidebar-card, #sched-subject-list, .sched-grid-wrapper, .sched-grid-body, .sched-calendar-card, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container'
+      '.sched-sidebar-card, #sched-subject-list, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container'
     );
 
     if (!scrollTarget) {
       e.preventDefault();
     } else {
-      const scrollable = scrollTarget.closest('.sched-sidebar-card, .sched-grid-wrapper, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container') || scrollTarget;
+      const scrollable = scrollTarget.closest('.sched-sidebar-card, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container') || scrollTarget;
       if (scrollable.scrollHeight <= scrollable.clientHeight) {
         e.preventDefault();
       } else {
