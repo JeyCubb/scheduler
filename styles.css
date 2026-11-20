@@ -4183,7 +4183,7 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
    MOBILE LANDSCAPE OPTIMIZATION (iPhone 11 & Mobile Phones in Landscape)
    Targets devices with orientation: landscape and max-height <= 520px
    ========================================================================== */
-@media (orientation: landscape) and (max-height: 520px) {
+@media (orientation: landscape) and (max-height: 520px) and (min-width: 640px) {
   html, body {
     height: 100% !important;
     height: 100dvh !important;

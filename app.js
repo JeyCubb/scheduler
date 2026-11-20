@@ -1856,9 +1856,9 @@ const titleMeasureCtx = titleMeasureCanvas.getContext('2d');
 
 function isCompactLandscape() {
   if (typeof window !== 'undefined' && window.matchMedia) {
-    return window.matchMedia('(orientation: landscape) and (max-height: 520px)').matches;
+    return window.matchMedia('(orientation: landscape) and (max-height: 520px) and (min-width: 640px)').matches;
   }
-  return window.innerWidth > window.innerHeight && window.innerHeight <= 520;
+  return window.innerWidth > window.innerHeight && window.innerHeight <= 520 && window.innerWidth >= 640;
 }
 
 function isMobileLayout() {
