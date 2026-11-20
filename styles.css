@@ -3065,10 +3065,10 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
      Subject Selector "Ribbon" - Guaranteed Dedicated Space & Scrollable
      ========================================================================== */
   .sched-sidebar-card {
-    flex: 0 0 clamp(125px, 28%, 180px) !important;
-    min-height: 120px !important;
-    height: clamp(125px, 28%, 180px) !important;
-    max-height: 32% !important;
+    flex: 0 0 clamp(150px, 34%, 220px) !important;
+    min-height: 140px !important;
+    height: clamp(150px, 34%, 220px) !important;
+    max-height: 38% !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -3101,8 +3101,8 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     flex-direction: column !important;
     width: 100% !important;
     height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
+    min-height: fit-content !important;
+    flex-shrink: 0 !important;
     overflow: visible !important;
     gap: 0.15rem !important;
     padding: 0 !important;
@@ -3113,8 +3113,9 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   .sched-course-row {
     width: 100% !important;
     max-width: 100% !important;
+    min-height: fit-content !important;
     box-sizing: border-box !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     padding: 0.2rem 0.28rem 0.22rem 0.28rem !important;
     border-radius: 6px !important;
     gap: 0.15rem !important;
@@ -3556,9 +3557,13 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   #sched-subject-list {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: min-content !important;
     gap: 0.25rem 0.35rem !important;
     align-content: start !important;
     width: 100% !important;
+    height: auto !important;
+    min-height: fit-content !important;
+    flex-shrink: 0 !important;
     box-sizing: border-box !important;
   }
 
@@ -3566,11 +3571,15 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     margin-bottom: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
+    min-height: fit-content !important;
     padding: 0.2rem 0.28rem 0.22rem 0.28rem !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: space-between !important;
+    justify-content: flex-start !important;
+    gap: 0.18rem !important;
+    overflow: visible !important;
+    flex-shrink: 0 !important;
   }
 
   .sched-course-row.is-retake {
