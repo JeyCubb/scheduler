@@ -1894,14 +1894,14 @@ function fitScheduleEventTitles() {
 
       let maxMeta;
       let minMeta;
-      if (isZen) {
+      if (isMobile) {
+        maxMeta = spanSteps <= 2 ? 7.5 : 8.5;
+        minMeta = 4.5;
+      } else if (isZen) {
         if (spanSteps <= 2) maxMeta = 14.5;
         else if (spanSteps <= 3) maxMeta = 17.0;
         else maxMeta = 19.0;
         minMeta = 9.0;
-      } else if (isMobile) {
-        maxMeta = spanSteps <= 2 ? 7.5 : 8.0;
-        minMeta = 4.5;
       } else {
         // Regular Desktop & iPad
         const isTablet = window.innerWidth <= 1199;
@@ -1926,6 +1926,12 @@ function fitScheduleEventTitles() {
       const innerCardW = Math.max(0, card.clientWidth - padLeft - padRight);
 
       const checkMetaOverflow = () => {
+        const isWrapped = window.getComputedStyle(metaEl).flexWrap === 'wrap';
+        if (isWrapped) {
+          if (badgeEl && badgeEl.offsetWidth > innerCardW + 0.5) return true;
+          if (roomEl && roomEl.offsetWidth > innerCardW + 0.5) return true;
+          return false;
+        }
         if (metaEl.scrollWidth > innerCardW + 0.5) return true;
         if (roomEl && roomEl.scrollWidth > roomEl.clientWidth + 0.5) return true;
         return false;
@@ -1951,8 +1957,8 @@ function fitScheduleEventTitles() {
       const metaH = metaEl ? metaEl.offsetHeight : 0;
       const maxTitleH = Math.max(10, innerCardH - metaH - 2);
 
-      let currentSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || (isZen ? 16 : 14);
-      const minSize = (isMobile && !isZen) ? 5.5 : 8.0;
+      let currentSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || (isZen ? (isMobile ? 10 : 16) : 14);
+      const minSize = isMobile ? 5.5 : 8.0;
 
       const words = (titleEl.innerText || titleEl.textContent).trim().split(/\s+/).filter(Boolean);
 
