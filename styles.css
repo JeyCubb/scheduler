@@ -2901,33 +2901,52 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     box-sizing: border-box !important;
   }
 
-  /* Timetable Card Pinned at the Top */
+  /* Timetable Card in Mobile Portrait & Tablet Narrow View */
   .sched-calendar-card {
     width: 100% !important;
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    flex: none !important;
-    flex-basis: auto !important;
-    flex-grow: 0 !important;
-    flex-shrink: 0 !important;
+    flex: 1.15 1 0 !important;
+    height: 0 !important;
+    min-height: 160px !important;
+    max-height: 58% !important;
     padding: 0.2rem 0.15rem 0.1rem 0.15rem !important;
     border-radius: var(--radius-sm) !important;
     overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
   }
 
   .sched-grid-wrapper {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
-    height: auto !important;
+    flex: 1 1 0 !important;
+    height: 100% !important;
     min-height: 0 !important;
-    max-height: none !important;
-    overflow: hidden !important;
-    flex: none !important;
-    flex-basis: auto !important;
-    flex-grow: 0 !important;
-    flex-shrink: 0 !important;
+    max-height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-y !important;
+    overscroll-behavior-y: contain !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(249, 115, 22, 0.35) transparent !important;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+  }
+
+  .sched-grid-wrapper::-webkit-scrollbar {
+    width: 4px !important;
+  }
+
+  .sched-grid-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(249, 115, 22, 0.35) !important;
+    border-radius: 4px !important;
+  }
+
+  .sched-grid-wrapper::-webkit-scrollbar-track {
+    background: transparent !important;
   }
 
   .sched-grid-header {
@@ -2939,6 +2958,11 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     padding-bottom: 0.15rem !important;
     margin-bottom: 0.1rem !important;
     box-sizing: border-box !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 20 !important;
+    background: var(--bg-card) !important;
+    flex-shrink: 0 !important;
   }
 
   body.sched-show-saturday .sched-grid-header {
@@ -3062,11 +3086,11 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   /* ==========================================================================
-     Subject Selector "Ribbon" - Vertically Smaller & The Only Scrolling Area
+     Subject Selector "Ribbon" - Accessible & Scrollable
      ========================================================================== */
   .sched-sidebar-card {
-    flex: 1 1 0 !important;
-    min-height: 0 !important;
+    flex: 0.85 1 0 !important;
+    min-height: 120px !important;
     height: 0 !important;
     max-height: none !important;
     width: 100% !important;

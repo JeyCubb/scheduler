@@ -2579,14 +2579,16 @@ document.addEventListener('touchmove', (e) => {
     }
 
     // Lock page-level scrolling:
-    // Only permit 1-finger touch scrolling inside designated scrollable containers (e.g. subject list, modals)
-    const scrollable = e.target.closest(
-      '.sched-sidebar-card, #sched-subject-list, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container'
+    // Only permit 1-finger touch scrolling inside designated scrollable containers:
+    // subjects list, schedule timetable grid, modals, and popups
+    const scrollTarget = e.target.closest(
+      '.sched-sidebar-card, #sched-subject-list, .sched-grid-wrapper, .sched-grid-body, .sched-calendar-card, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container'
     );
 
-    if (!scrollable) {
+    if (!scrollTarget) {
       e.preventDefault();
     } else {
+      const scrollable = scrollTarget.closest('.sched-sidebar-card, .sched-grid-wrapper, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container') || scrollTarget;
       if (scrollable.scrollHeight <= scrollable.clientHeight) {
         e.preventDefault();
       } else {
