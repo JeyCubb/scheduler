@@ -1700,18 +1700,10 @@ function renderScheduleGrid() {
   const numDays = hasSaturday ? 6 : 5;
 
   gridEl.innerHTML = '';
-  const isMob = isMobileLayout();
-  const isZen = document.body.classList.contains('sched-focus-autohide');
-  if (isMob && !isZen) {
-    const requiredH = totalSteps * 20 + Math.max(0, totalSteps - 1) * 1.5;
-    gridEl.style.gridTemplateRows = `repeat(${totalSteps}, 20px)`;
-    gridEl.style.height = `${requiredH}px`;
-    gridEl.style.minHeight = `${requiredH}px`;
-  } else {
-    gridEl.style.gridTemplateRows = `repeat(${totalSteps}, minmax(0, 1fr))`;
-    gridEl.style.height = '100%';
-    gridEl.style.minHeight = '';
-  }
+  gridEl.style.gridTemplateRows = `repeat(${totalSteps}, minmax(0, 1fr))`;
+  gridEl.style.height = '100%';
+  gridEl.style.minHeight = '0';
+  gridEl.style.maxHeight = '100%';
 
   // Time labels and slot lines
   for (let step = 0; step < totalSteps; step++) {
@@ -2811,21 +2803,14 @@ function exitFocusMode() {
   isZenForced = false;
   if (document.body.classList.contains('sched-focus-autohide')) {
     document.body.classList.remove('sched-focus-autohide');
-    const isMob = isMobileLayout();
     const gridEl = document.getElementById('sched-calendar-grid');
     if (gridEl) {
       const timeLabels = gridEl.querySelectorAll('.sched-time-label');
       const totalSteps = timeLabels.length || 17;
-      if (isMob) {
-        const requiredH = totalSteps * 20 + Math.max(0, totalSteps - 1) * 1.5;
-        gridEl.style.gridTemplateRows = `repeat(${totalSteps}, 20px)`;
-        gridEl.style.height = `${requiredH}px`;
-        gridEl.style.minHeight = `${requiredH}px`;
-      } else {
-        gridEl.style.gridTemplateRows = `repeat(${totalSteps}, minmax(0, 1fr))`;
-        gridEl.style.height = '100%';
-        gridEl.style.minHeight = '';
-      }
+      gridEl.style.gridTemplateRows = `repeat(${totalSteps}, minmax(0, 1fr))`;
+      gridEl.style.height = '100%';
+      gridEl.style.minHeight = '0';
+      gridEl.style.maxHeight = '100%';
     }
     requestAnimationFrame(() => {
       fitScheduleEventTitles();

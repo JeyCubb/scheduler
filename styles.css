@@ -3065,10 +3065,10 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
      Subject Selector "Ribbon" - Guaranteed Dedicated Space & Scrollable
      ========================================================================== */
   .sched-sidebar-card {
-    flex: 0 0 clamp(160px, 36%, 250px) !important;
-    min-height: 140px !important;
-    height: clamp(160px, 36%, 250px) !important;
-    max-height: 42% !important;
+    flex: 0 0 clamp(125px, 28%, 180px) !important;
+    min-height: 120px !important;
+    height: clamp(125px, 28%, 180px) !important;
+    max-height: 32% !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
