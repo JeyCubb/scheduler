@@ -207,6 +207,193 @@ const SCHEDULE_COURSES = [
         ]
       }
     ]
+  },
+  {
+    code: 'EE 024',
+    title: 'Electrical Machines 2',
+    units: 4,
+    color: '#d97706',
+    border: '#fbbf24',
+    isEE: true,
+    sections: [
+      {
+        id: 'EE32S1',
+        desc: 'Tu/Th 7:30–10:30 AM',
+        room: '2D / Q-5324',
+        slots: [
+          { day: 1, start: 450, end: 630, room: '2D' },
+          { day: 3, start: 450, end: 630, room: 'Q-5324' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'CPE 006',
+    title: 'Microprocessor Systems',
+    units: 4,
+    color: '#7c3aed',
+    border: '#a78bfa',
+    isEE: true,
+    sections: [
+      {
+        id: 'EE32S1',
+        desc: 'Tu/Th 10:30 AM–1:30 PM',
+        room: 'Q-5307A / Q-5424',
+        slots: [
+          { day: 1, start: 630, end: 810, room: 'Q-5307A' },
+          { day: 3, start: 630, end: 810, room: 'Q-5424' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'EE 025',
+    title: 'Electrical Apparatus and Devices',
+    units: 3,
+    color: '#e11d48',
+    border: '#fda4af',
+    isEE: true,
+    sections: [
+      {
+        id: 'EE32S1',
+        desc: 'Tu 1:30–3:30 PM (Lec) & Th 1:30–4:30 PM (Lab)',
+        room: 'Q-5326',
+        slots: [
+          { day: 1, start: 810, end: 930, room: 'Q-5326', tag: 'LEC' },
+          { day: 3, start: 810, end: 990, room: 'Q-5326', tag: 'LAB' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'EE 301',
+    title: 'Integration Course for Electrical Engineering',
+    units: 2,
+    color: '#059669',
+    border: '#6ee7b7',
+    isEE: true,
+    sections: [
+      {
+        id: 'EE32S1',
+        desc: 'Tue 6:00–8:00 PM',
+        room: 'Q-5405',
+        slots: [
+          { day: 1, start: 1080, end: 1200, room: 'Q-5405' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'COE 002A',
+    title: 'Introduction to Intellectual Property',
+    units: 1,
+    color: '#10b981',
+    border: '#34d399',
+    isEE: true,
+    sections: [
+      {
+        id: 'EE32S1',
+        desc: 'Wed 1:30–4:30 PM',
+        room: 'Q-5328',
+        slots: [
+          { day: 2, start: 810, end: 990, room: 'Q-5328' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'CADD 001B',
+    title: 'Computer-Aided Drafting & Design',
+    units: 1,
+    color: '#db2777',
+    border: '#f472b6',
+    isEE: true,
+    sections: [
+      {
+        id: 'EE32S1',
+        desc: 'Fri 7:30–10:30 AM',
+        room: 'Q-3205',
+        slots: [
+          { day: 4, start: 450, end: 630, room: 'Q-3205' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'EE 028',
+    title: 'Control Systems Analysis',
+    units: 2,
+    color: '#0284c7',
+    border: '#38bdf8',
+    isEE: true,
+    sections: [
+      {
+        id: 'EE32S1',
+        desc: 'Fri 10:30 AM–12:30 PM',
+        room: 'Q-5405',
+        slots: [
+          { day: 4, start: 630, end: 750, room: 'Q-5405' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'EE 027',
+    title: 'Electrical Equipment, Law, Codes, and Professional Ethics',
+    units: 2,
+    color: '#0d9488',
+    border: '#2dd4bf',
+    isEE: true,
+    sections: [
+      {
+        id: 'EE32S1',
+        desc: 'Mo/Fr 12:30–1:30 PM',
+        room: 'Q-5405',
+        slots: [
+          { day: 0, start: 750, end: 810, room: 'Q-5405' },
+          { day: 4, start: 750, end: 810, room: 'Q-5405' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'EE 026',
+    title: 'Research Methods',
+    units: 2,
+    color: '#4f46e5',
+    border: '#818cf8',
+    isEE: true,
+    sections: [
+      {
+        id: 'EE32S1',
+        desc: 'Mo 2:30–3:30 PM & Fr 2:30–4:30 PM',
+        room: 'Q-5405',
+        slots: [
+          { day: 0, start: 870, end: 930, room: 'Q-5405' },
+          { day: 4, start: 870, end: 990, room: 'Q-5405' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'CEC 001',
+    title: 'Project Construction & Management',
+    units: 3,
+    color: '#15803d',
+    border: '#4ade80',
+    isEE: true,
+    sections: [
+      {
+        id: 'EE32S1',
+        desc: 'Mo/We/Fr 4:30–5:30 PM',
+        room: 'Q-5412',
+        slots: [
+          { day: 0, start: 990, end: 1050, room: 'Q-5412' },
+          { day: 2, start: 990, end: 1050, room: 'Q-5412' },
+          { day: 4, start: 990, end: 1050, room: 'Q-5412' }
+        ]
+      }
+    ]
   }
 ];
 
@@ -959,6 +1146,9 @@ function applySchedulePreset(preset) {
   } else if (preset === 'Andrei') {
     currentSchedulePreset = 'Andrei';
     localStorage.setItem('tip_sched_active_preset', 'Andrei');
+  } else if (preset === 'Lype') {
+    currentSchedulePreset = 'Lype';
+    localStorage.setItem('tip_sched_active_preset', 'Lype');
   } else if (isA) {
     currentSchedulePreset = 'S1';
     localStorage.setItem('tip_sched_active_preset', 'S1');
@@ -972,14 +1162,14 @@ function applySchedulePreset(preset) {
   if (activeSemesterId === '3rd-2nd') {
     if (isA) {
       courses.forEach(c => {
-        if (c.isRetake || c.isAdvance || c.code === 'ME 523' || c.code === 'ME 320') return;
+        if (c.isRetake || c.isAdvance || c.isEE || c.code === 'ME 523' || c.code === 'ME 320') return;
         const match = c.sections.find(s => s.id === 'ME32S1');
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
       });
     } else if (isB) {
       courses.forEach(c => {
-        if (c.isRetake || c.isAdvance || c.code === 'ME 523' || c.code === 'ME 320') return;
+        if (c.isRetake || c.isAdvance || c.isEE || c.code === 'ME 523' || c.code === 'ME 320') return;
         const match = c.sections.find(s => s.id === 'ME32S2');
         if (match) userScheduleSelection[c.code] = match.id;
         else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
@@ -1023,6 +1213,14 @@ function applySchedulePreset(preset) {
         else if (c.code === 'ME 411') userScheduleSelection[c.code] = 'ME32S2';
         else if (c.code === 'ME 320') userScheduleSelection[c.code] = 'ME31S1';
         else if (c.code === 'ME 523') userScheduleSelection[c.code] = 'ME41S1';
+      });
+    } else if (preset === 'Lype') {
+      courses.forEach(c => {
+        if (c.isEE) {
+          const match = c.sections.find(s => s.id === 'EE32S1');
+          if (match) userScheduleSelection[c.code] = match.id;
+          else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
+        }
       });
     }
   } else if (activeSemesterId === '4th-summer') {
@@ -1507,6 +1705,8 @@ function renderScheduleSidebar() {
   const courses = getActiveCourses();
   const sem = getActiveSemester();
   listEl.innerHTML = '';
+  const activePreset = currentSchedulePreset || localStorage.getItem('tip_sched_active_preset') || '';
+  listEl.setAttribute('data-active-preset', activePreset);
 
   if (courses.length === 0) {
     listEl.innerHTML = `
@@ -1527,7 +1727,7 @@ function renderScheduleSidebar() {
     const selectedSec = userScheduleSelection[course.code];
     const hasConflict = conflicts.courseCodes.has(course.code);
     const row = document.createElement('div');
-    row.className = 'sched-course-row' + (selectedSec ? ' active' : '') + (hasConflict ? ' has-conflict' : '') + (course.isRetake ? ' is-retake' : '') + (course.isAdvance ? ' is-advance' : '');
+    row.className = 'sched-course-row' + (selectedSec ? ' active' : '') + (hasConflict ? ' has-conflict' : '') + (course.isRetake ? ' is-retake' : '') + (course.isAdvance ? ' is-advance' : '') + (course.isEE ? ' is-ee' : '');
     row.dataset.courseCode = course.code;
 
     let pillsHtml = '';
@@ -1645,6 +1845,7 @@ Section: ${sec.id} (${sec.desc})${sec.room ? `\nRoom: ${sec.room}` : ''}${countT
         <div class="sched-course-subgroup">
           <span class="sched-course-code-grey">${course.code}</span>
           <span class="sched-course-units-grey">&bull; ${course.units} ${course.units === 1 ? 'Unit' : 'Units'}</span>
+          ${course.isRetake ? '<span class="sched-course-badge-type is-retake-badge">Retake</span>' : (course.isAdvance ? '<span class="sched-course-badge-type is-advance-badge">Advance</span>' : (course.isEE ? '<span class="sched-course-badge-type is-ee-badge">EE</span>' : ''))}
         </div>
       </div>
       <div class="sched-pills-row">${pillsHtml}</div>
@@ -2005,11 +2206,21 @@ function updateScheduleStats() {
   let enrolledUnits = 0;
   let count = 0;
 
+  const isLypeActive = currentSchedulePreset === 'Lype' || (courses.some(c => c.isEE && userScheduleSelection[c.code]));
+  if (isLypeActive) {
+    const eeCourses = courses.filter(c => c.isEE);
+    regularCourseCount = eeCourses.length;
+    totalAvailableUnits = eeCourses.reduce((sum, c) => sum + c.units, 0);
+  } else {
+    courses.forEach(c => {
+      if (!c.isRetake && !c.isAdvance && !c.isEE) {
+        regularCourseCount++;
+        totalAvailableUnits += c.units;
+      }
+    });
+  }
+
   courses.forEach(c => {
-    if (!c.isRetake && !c.isAdvance) {
-      regularCourseCount++;
-      totalAvailableUnits += c.units;
-    }
     if (userScheduleSelection[c.code]) {
       enrolledUnits += c.units;
       count++;
@@ -2028,6 +2239,7 @@ function updateScheduleStats() {
   const btnMarinell = document.getElementById('btn-preset-marinell');
   const btnJoshuaKarl = document.getElementById('btn-preset-joshua-karl');
   const btnAndrei = document.getElementById('btn-preset-andrei');
+  const btnLype = document.getElementById('btn-preset-lype');
   const semBadge = document.getElementById('sched-presets-sem-badge');
   if (semBadge && sem) {
     semBadge.textContent = sem.name;
@@ -2071,12 +2283,23 @@ function updateScheduleStats() {
     btnAndrei.style.opacity = hasAndrei ? '' : '0.4';
     btnAndrei.style.pointerEvents = hasAndrei ? '' : 'none';
   }
+  if (btnLype) {
+    const hasLype = hasPresets && is3rd2nd;
+    btnLype.style.display = hasLype ? '' : 'none';
+    btnLype.style.opacity = hasLype ? '' : '0.4';
+    btnLype.style.pointerEvents = hasLype ? '' : 'none';
+  }
 
   // Detect active preset for corner button label and active highlight
   let activePresetName = null;
   if (is3rd2nd) {
     const s = userScheduleSelection;
-    if (s['ECE 006'] === 'ME32S2' && s['EMAN 001'] === 'ME32S2' && s['ME 007'] === 'ME32S2' &&
+    if (s['EE 024'] === 'EE32S1' && s['CPE 006'] === 'EE32S1' && s['EE 025'] === 'EE32S1' &&
+        s['EE 301'] === 'EE32S1' && s['COE 002A'] === 'EE32S1' && s['CADD 001B'] === 'EE32S1' &&
+        s['EE 028'] === 'EE32S1' && s['EE 027'] === 'EE32S1' && s['EE 026'] === 'EE32S1' &&
+        s['CEC 001'] === 'EE32S1') {
+      activePresetName = 'Lype';
+    } else if (s['ECE 006'] === 'ME32S2' && s['EMAN 001'] === 'ME32S2' && s['ME 007'] === 'ME32S2' &&
         s['ME 401'] === 'ME32S2' && s['ME 404'] === 'ME32S2' && s['ME 406'] === 'ME32S2' &&
         s['ME 407'] === 'ME32S2' && s['ME 409'] === 'ME32S2' && s['ME 411'] === 'ME32S2' &&
         s['ME 320'] === 'ME31S1' && s['ME 523'] === 'ME41S1') {
@@ -2092,7 +2315,7 @@ function updateScheduleStats() {
                s['ECE 006'] === 'ME32S3') {
       activePresetName = 'Marinell';
     } else {
-      const regular = courses.filter(c => !c.isRetake && !c.isAdvance && c.code !== 'ME 523' && c.code !== 'ME 320');
+      const regular = courses.filter(c => !c.isRetake && !c.isAdvance && !c.isEE && c.code !== 'ME 523' && c.code !== 'ME 320');
       if (regular.length > 0 && regular.every(c => s[c.code] === 'ME32S1') && Object.keys(s).length === regular.length) {
         activePresetName = 'S1';
       } else if (regular.length > 0 && regular.every(c => s[c.code] === 'ME32S2') && Object.keys(s).length === regular.length) {
@@ -2102,7 +2325,7 @@ function updateScheduleStats() {
   }
 
   // Highlight active preset in toolbar buttons
-  [btnA, btnB, btnC, btnMarinell, btnJoshuaKarl, btnAndrei].forEach(b => {
+  [btnA, btnB, btnC, btnMarinell, btnJoshuaKarl, btnAndrei, btnLype].forEach(b => {
     if (b) b.classList.remove('is-active-preset');
   });
   if (activePresetName === 'S1' && btnA) btnA.classList.add('is-active-preset');
@@ -2111,6 +2334,7 @@ function updateScheduleStats() {
   else if (activePresetName === 'Joshua & Karl' && btnJoshuaKarl) {
     btnJoshuaKarl.classList.add('is-active-preset');
   } else if (activePresetName === 'Andrei' && btnAndrei) btnAndrei.classList.add('is-active-preset');
+  else if (activePresetName === 'Lype' && btnLype) btnLype.classList.add('is-active-preset');
 
   // Update Zen Mode Top Row Schedule Name
   const zenBanner = document.getElementById('sched-zen-preset-banner');
@@ -2132,7 +2356,7 @@ function updateScheduleStats() {
     const popupItems = zenPopup.querySelectorAll('.sched-zen-popup-item[data-preset]');
     popupItems.forEach(item => {
       const p = item.dataset.preset;
-      if (['Marinell', 'Joshua & Karl', 'Andrei'].includes(p)) {
+      if (['Marinell', 'Joshua & Karl', 'Andrei', 'Lype'].includes(p)) {
         item.style.display = is3rd2nd ? '' : 'none';
       }
       const isMatch = (p === activePresetName) || (p === currentSchedulePreset);
@@ -2387,6 +2611,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnMarinell = document.getElementById('btn-preset-marinell');
   const btnJoshuaKarl = document.getElementById('btn-preset-joshua-karl');
   const btnAndrei = document.getElementById('btn-preset-andrei');
+  const btnLype = document.getElementById('btn-preset-lype');
   const btnClr = document.getElementById('btn-sched-clear-all');
 
   if (btnA) btnA.addEventListener('click', () => applySchedulePreset('A'));
@@ -2395,6 +2620,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnMarinell) btnMarinell.addEventListener('click', () => applySchedulePreset('Marinell'));
   if (btnJoshuaKarl) btnJoshuaKarl.addEventListener('click', () => applySchedulePreset('Joshua & Karl'));
   if (btnAndrei) btnAndrei.addEventListener('click', () => applySchedulePreset('Andrei'));
+  if (btnLype) btnLype.addEventListener('click', () => applySchedulePreset('Lype'));
   if (btnClr) btnClr.addEventListener('click', () => {
     userScheduleSelection = {};
     currentSchedulePreset = null;

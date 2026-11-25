@@ -659,6 +659,45 @@ body.sched-show-saturday .sched-grid-body {
   opacity: 0.85;
 }
 
+.sched-course-badge-type {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+.sched-course-badge-type.is-retake-badge {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.sched-course-badge-type.is-advance-badge {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.sched-course-badge-type.is-ee-badge {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+.sched-course-row.is-ee {
+  order: 150;
+}
+
+#sched-subject-list[data-active-preset="Lype"] .sched-course-row.is-ee {
+  order: -1;
+}
+
 /* ==========================================================================
    Section Pills (Elevated 3-Card Grid Matching Original Grade Calculator)
    ========================================================================== */
@@ -2117,6 +2156,14 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 
   .sched-course-row.is-advance {
     order: 101 !important;
+  }
+
+  .sched-course-row.is-ee {
+    order: 150 !important;
+  }
+
+  #sched-subject-list[data-active-preset="Lype"] .sched-course-row.is-ee {
+    order: -1 !important;
   }
 
   .sched-course-title-main {
@@ -3588,6 +3635,14 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 
   .sched-course-row.is-advance {
     order: 101 !important;
+  }
+
+  .sched-course-row.is-ee {
+    order: 150 !important;
+  }
+
+  #sched-subject-list[data-active-preset="Lype"] .sched-course-row.is-ee {
+    order: -1 !important;
   }
 
   .sched-course-row[data-course-code="ME 007"] .pill-day,
