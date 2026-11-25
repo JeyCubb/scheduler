@@ -1723,7 +1723,10 @@ function renderScheduleSidebar() {
   const conflicts = getScheduleConflicts();
   const isLight = document.documentElement.getAttribute('data-theme') === 'light';
 
-  courses.forEach(course => {
+  const isLypeActive = currentSchedulePreset === 'Lype' || (courses.some(c => c.isEE && userScheduleSelection[c.code]));
+  const displayCourses = courses.filter(c => isLypeActive ? Boolean(c.isEE) : !c.isEE);
+
+  displayCourses.forEach(course => {
     const selectedSec = userScheduleSelection[course.code];
     const hasConflict = conflicts.courseCodes.has(course.code);
     const row = document.createElement('div');
