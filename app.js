@@ -1394,6 +1394,7 @@ window.closeRemoveModal = closeRemoveModal;
 let isSemModalOpen = false;
 
 function openSemesterModal() {
+  if (isLypeSelected()) return;
   const modalEl = document.getElementById('sched-sem-modal');
   const listEl = document.getElementById('sched-sem-options-list');
   if (!modalEl || !listEl) return;
@@ -2250,6 +2251,25 @@ function updateScheduleStats() {
   const statUnits = document.getElementById('sched-stat-units');
   if (statCourses) statCourses.textContent = `${count} / ${regularCourseCount}`;
   if (statUnits) statUnits.textContent = `${enrolledUnits} / ${totalAvailableUnits}`;
+
+  const semTrigger = document.getElementById('sched-sem-selector-trigger');
+  if (semTrigger) {
+    if (isLypeActive) {
+      semTrigger.removeAttribute('role');
+      semTrigger.removeAttribute('tabindex');
+      semTrigger.removeAttribute('title');
+      semTrigger.removeAttribute('aria-label');
+      semTrigger.style.cursor = 'default';
+      semTrigger.style.pointerEvents = 'none';
+    } else {
+      semTrigger.setAttribute('role', 'button');
+      semTrigger.setAttribute('tabindex', '0');
+      semTrigger.setAttribute('title', 'Switch Semester');
+      semTrigger.setAttribute('aria-label', 'Switch Semester');
+      semTrigger.style.removeProperty('cursor');
+      semTrigger.style.removeProperty('pointer-events');
+    }
+  }
 
   // Dynamic preset button labels and states across all terms
   const btnA = document.getElementById('btn-preset-choice-a');
