@@ -1462,7 +1462,15 @@ window.switchSemester = switchSemester;
 window.openSemesterModal = openSemesterModal;
 window.closeSemesterModal = closeSemesterModal;
 
+function isLypeSelected() {
+  if (currentSchedulePreset === 'Lype') return true;
+  const s = userScheduleSelection;
+  return Boolean(s && s['EE 024'] === 'EE32S1');
+}
+
 function renderScheduleView() {
+  const isLype = isLypeSelected();
+  document.body.classList.toggle('sched-lype-active', isLype);
   renderScheduleSidebar();
   renderScheduleGrid();
   updateScheduleStats();
@@ -1701,6 +1709,12 @@ function formatPillDesc(desc) {
 function renderScheduleSidebar() {
   const listEl = document.getElementById('sched-subject-list');
   if (!listEl) return;
+
+  const isLype = isLypeSelected();
+  if (isLype) {
+    listEl.innerHTML = '';
+    return;
+  }
 
   const courses = getActiveCourses();
   const sem = getActiveSemester();
@@ -2077,6 +2091,8 @@ function fitScheduleEventTitles() {
   const isMobile = isMobileLayout();
   const isCompactLand = isCompactLandscape();
   const isZen = document.body.classList.contains('sched-focus-autohide');
+  const isLype = document.body.classList.contains('sched-lype-active');
+  const isExpanded = isZen || isLype;
   const cards = document.querySelectorAll('.sched-event-block');
 
   cards.forEach(card => {
@@ -2104,7 +2120,7 @@ function fitScheduleEventTitles() {
       } else if (isMobile) {
         maxMeta = spanSteps <= 2 ? 6.5 : 7.5;
         minMeta = 3.6;
-      } else if (isZen) {
+      } else if (isExpanded) {
         if (spanSteps <= 2) maxMeta = 14.5;
         else if (spanSteps <= 3) maxMeta = 17.0;
         else maxMeta = 19.0;
@@ -2164,7 +2180,7 @@ function fitScheduleEventTitles() {
       const metaH = metaEl ? metaEl.offsetHeight : 0;
       const maxTitleH = Math.max(6, innerCardH - metaH - 2);
 
-      const defaultSize = isZen
+      const defaultSize = isExpanded
         ? (isMobile || isCompactLand ? 10 : 16)
         : (isCompactLand ? 8.5 : (isMobile ? 10 : 14));
       let currentSize = parseFloat(window.getComputedStyle(titleEl).fontSize) || defaultSize;

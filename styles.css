@@ -2321,6 +2321,16 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   }
 
   /* Balanced, High-Legibility Typography & Expanded Layout in Desktop Zen Mode */
+  body.sched-lype-active .sched-grid-header,
+  body.sched-lype-active .sched-grid-body {
+    grid-template-columns: 100px repeat(5, minmax(0, 1fr)) !important;
+  }
+
+  body.sched-lype-active.sched-show-saturday .sched-grid-header,
+  body.sched-lype-active.sched-show-saturday .sched-grid-body {
+    grid-template-columns: 100px repeat(6, minmax(0, 1fr)) !important;
+  }
+
   body.sched-focus-autohide .sched-grid-header,
   body.sched-focus-autohide .sched-grid-body {
     grid-template-columns: 105px repeat(5, minmax(0, 1fr)) !important;
@@ -4644,3 +4654,20 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
 
 
 
+
+/* ==========================================================================
+   Lype Preset: Full-Width Timetable (Entire Subjects & Sections Panel Hidden)
+   ========================================================================== */
+body.sched-lype-active .sched-sidebar-card {
+  display: none !important;
+}
+
+body.sched-lype-active .sched-main-layout {
+  gap: 0 !important;
+}
+
+body.sched-lype-active .sched-calendar-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  flex: 1 1 100% !important;
+}
