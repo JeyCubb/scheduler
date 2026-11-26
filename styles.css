@@ -4683,3 +4683,437 @@ body.sched-lype-active #sched-sem-selector-trigger:active {
   background: transparent !important;
   transform: none !important;
 }
+
+
+/* ==========================================================================
+   TIMESLOT SUBJECTS & SECTIONS POPUP MODAL STYLES
+   ========================================================================== */
+.sched-grid-slot {
+  cursor: pointer !important;
+}
+
+.sched-grid-slot:hover {
+  background: rgba(14, 165, 233, 0.12) !important;
+  border-color: rgba(14, 165, 233, 0.35) !important;
+}
+
+[data-theme="light"] .sched-grid-slot:hover {
+  background: rgba(14, 165, 233, 0.1) !important;
+  border-color: rgba(14, 165, 233, 0.45) !important;
+}
+
+.sched-time-label {
+  cursor: pointer !important;
+  transition: color 0.12s ease, background 0.12s ease;
+}
+
+.sched-time-label:hover {
+  color: var(--accent-color, #f97316) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+[data-theme="light"] .sched-time-label:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.sched-day-header {
+  cursor: pointer !important;
+  transition: color 0.12s ease;
+}
+
+.sched-day-header:hover {
+  color: var(--accent-color, #f97316) !important;
+}
+
+.sched-slot-modal-card {
+  max-width: 500px !important;
+  width: min(500px, 94vw) !important;
+  max-height: 86vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.sched-slot-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.sched-slot-nav-arrows {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.sched-slot-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 27px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-primary, #fff);
+  cursor: pointer;
+  transition: all 0.12s ease;
+  padding: 0;
+}
+
+[data-theme="light"] .sched-slot-nav-btn {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #1e293b;
+}
+
+.sched-slot-nav-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.16);
+  transform: scale(1.05);
+}
+
+[data-theme="light"] .sched-slot-nav-btn:hover:not(:disabled) {
+  background: #e2e8f0;
+}
+
+.sched-slot-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.sched-slot-subtitle {
+  font-size: 0.84rem;
+  color: #38bdf8;
+  font-weight: 600;
+  margin-top: 0.12rem;
+  letter-spacing: 0.01em;
+}
+
+[data-theme="light"] .sched-slot-subtitle {
+  color: #0284c7;
+}
+
+.sched-slot-day-pills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.45rem 1rem 0.45rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(0, 0, 0, 0.15);
+  flex-wrap: wrap;
+}
+
+[data-theme="light"] .sched-slot-day-pills {
+  background: #f8fafc;
+  border-bottom-color: #e2e8f0;
+}
+
+.sched-slot-day-pill {
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted, #94a3b8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+[data-theme="light"] .sched-slot-day-pill {
+  background: #ffffff;
+  color: #64748b;
+  border-color: #cbd5e1;
+}
+
+.sched-slot-day-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary, #fff);
+}
+
+[data-theme="light"] .sched-slot-day-pill:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.sched-slot-day-pill.is-active {
+  background: var(--accent-color, #f97316) !important;
+  color: #ffffff !important;
+  border-color: var(--accent-color, #f97316) !important;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.35);
+}
+
+.sched-slot-modal-card .sched-modal-body {
+  overflow-y: auto !important;
+  max-height: calc(86vh - 140px) !important;
+  padding: 0.85rem 1.1rem 1.1rem 1.1rem !important;
+  scrollbar-width: thin;
+}
+
+.sched-slot-summary-bar {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted, #94a3b8);
+  margin-bottom: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sched-slot-classes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+.sched-slot-item-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.75rem 0.95rem;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 4px solid var(--course-border, #38bdf8);
+  border-radius: 9px;
+  transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
+  position: relative;
+}
+
+[data-theme="light"] .sched-slot-item-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.sched-slot-item-card.is-enrolled {
+  background: rgba(34, 197, 94, 0.08) !important;
+  border-color: rgba(34, 197, 94, 0.35) !important;
+  border-left-color: #22c55e !important;
+}
+
+[data-theme="light"] .sched-slot-item-card.is-enrolled {
+  background: rgba(34, 197, 94, 0.08) !important;
+  border-color: rgba(34, 197, 94, 0.45) !important;
+}
+
+.sched-slot-item-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+[data-theme="light"] .sched-slot-item-card:hover {
+  border-color: #94a3b8;
+}
+
+.sched-slot-item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.sched-slot-item-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  flex: 1;
+}
+
+.sched-slot-item-code {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--course-color, #38bdf8);
+}
+
+.sched-slot-item-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary, #fff);
+  line-height: 1.25;
+}
+
+[data-theme="light"] .sched-slot-item-title {
+  color: #0f172a;
+}
+
+.sched-slot-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.sched-slot-sec-badge {
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 0.18rem 0.5rem;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--text-primary, #fff);
+  white-space: nowrap;
+}
+
+[data-theme="light"] .sched-slot-sec-badge {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.sched-slot-tag-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  letter-spacing: 0.03em;
+}
+
+.sched-slot-item-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text-muted, #94a3b8);
+}
+
+.sched-slot-detail-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.sched-slot-item-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 0.5rem;
+}
+
+[data-theme="light"] .sched-slot-item-bottom {
+  border-top-color: #f1f5f9;
+}
+
+.sched-slot-status-pill {
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.sched-slot-status-pill.is-enrolled {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+.sched-slot-status-pill.is-conflict {
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+}
+
+.sched-slot-status-pill.is-available {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+}
+
+.sched-slot-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.12s ease;
+}
+
+.sched-slot-action-btn.btn-enroll {
+  background: var(--accent-color, #f97316);
+  color: #fff;
+}
+
+.sched-slot-action-btn.btn-enroll:hover {
+  filter: brightness(1.12);
+  transform: scale(1.02);
+}
+
+.sched-slot-action-btn.btn-remove {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.sched-slot-action-btn.btn-remove:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #ffffff;
+}
+
+.sched-slot-action-btn.btn-switch {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.sched-slot-action-btn.btn-switch:hover {
+  background: rgba(56, 189, 248, 0.25);
+  color: #ffffff;
+}
+
+.sched-slot-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.2rem 1rem;
+  color: var(--text-muted, #94a3b8);
+  gap: 0.4rem;
+}
+
+.sched-slot-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted, #94a3b8);
+  margin-bottom: 0.35rem;
+}
+
+[data-theme="light"] .sched-slot-empty-icon {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.sched-slot-empty-title {
+  font-size: 0.96rem;
+  font-weight: 600;
+  color: var(--text-primary, #fff);
+}
+
+[data-theme="light"] .sched-slot-empty-title {
+  color: #1e293b;
+}
+
+.sched-slot-empty-desc {
+  font-size: 0.82rem;
+  max-width: 320px;
+  line-height: 1.45;
+}

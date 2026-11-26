@@ -2002,6 +2002,292 @@ function formatEventTitleHtml(title, tag) {
   return title;
 }
 
+// ==========================================================================
+// TIMESLOT SUBJECTS & SECTIONS POPUP CONTROLLER
+// ==========================================================================
+const DAY_FULL_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const DAY_SHORT_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+let currentSlotDay = 0;
+let currentSlotTimeMin = 450;
+let isSlotModalOpen = false;
+
+function getSectionsAtSlot(day, timeMin, duration = 30) {
+  const slotStart = timeMin;
+  const slotEnd = timeMin + duration;
+  const courses = getActiveCourses();
+  const isLype = isLypeSelected();
+  const filteredCourses = courses.filter(c => {
+    if (activeSemesterId === '3rd-2nd') {
+      return isLype ? Boolean(c.isEE) : !c.isEE;
+    }
+    return true;
+  });
+
+  const matches = [];
+
+  filteredCourses.forEach(course => {
+    course.sections.forEach(section => {
+      const overlappingSlots = (section.slots || []).filter(slot => {
+        return slot.day === day && slot.start < slotEnd && slot.end > slotStart;
+      });
+
+      if (overlappingSlots.length > 0) {
+        const isEnrolled = userScheduleSelection[course.code] === section.id;
+        const conflicts = getSectionConflictsWithSchedule(course.code, section);
+        matches.push({
+          course,
+          section,
+          overlappingSlots,
+          isEnrolled,
+          hasConflict: conflicts.length > 0,
+          conflicts
+        });
+      }
+    });
+  });
+
+  // Sort: currently enrolled first, then by course code, then section id
+  matches.sort((a, b) => {
+    if (a.isEnrolled && !b.isEnrolled) return -1;
+    if (!a.isEnrolled && b.isEnrolled) return 1;
+    if (a.course.code !== b.course.code) return a.course.code.localeCompare(b.course.code);
+    return a.section.id.localeCompare(b.section.id);
+  });
+
+  return matches;
+}
+
+function getSectionConflictsWithSchedule(courseCode, section) {
+  const activeEvents = [];
+  const courses = getActiveCourses();
+  courses.forEach(c => {
+    if (c.code === courseCode) return; // Swapping sections of the same subject is not considered a collision with itself
+    const secId = userScheduleSelection[c.code];
+    if (!secId) return;
+    const sec = c.sections.find(s => s.id === secId);
+    if (!sec) return;
+    sec.slots.forEach(slot => {
+      activeEvents.push({
+        code: c.code,
+        title: c.title,
+        sectionId: sec.id,
+        day: slot.day,
+        start: slot.start,
+        end: slot.end,
+        room: slot.room || sec.room || ''
+      });
+    });
+  });
+
+  const conflicts = [];
+  (section.slots || []).forEach(slot => {
+    activeEvents.forEach(ev => {
+      if (slot.day === ev.day && Math.max(slot.start, ev.start) < Math.min(slot.end, ev.end)) {
+        const overlapStart = Math.max(slot.start, ev.start);
+        const overlapEnd = Math.min(slot.end, ev.end);
+        const dayName = DAY_SHORT_NAMES[slot.day] || '';
+        conflicts.push({
+          withCode: ev.code,
+          withTitle: ev.title,
+          withSection: ev.sectionId,
+          timeStr: `${dayName} ${formatTimeMinutes(overlapStart)}–${formatTimeMinutes(overlapEnd)}`
+        });
+      }
+    });
+  });
+
+  return conflicts;
+}
+
+function openSlotModal(day, timeMin) {
+  const modalEl = document.getElementById('sched-slot-modal');
+  if (!modalEl) return;
+
+  currentSlotDay = Math.max(0, Math.min(5, day));
+  currentSlotTimeMin = Math.max(420, Math.min(1260, Math.floor(timeMin / 30) * 30));
+
+  exitFocusMode();
+  isModalOpen = true;
+  isSlotModalOpen = true;
+  modalEl.classList.add('is-open');
+  modalEl.setAttribute('aria-hidden', 'false');
+
+  renderSlotModalContent(currentSlotDay, currentSlotTimeMin);
+}
+
+function closeSlotModal() {
+  const modalEl = document.getElementById('sched-slot-modal');
+  if (modalEl) {
+    modalEl.classList.remove('is-open');
+    modalEl.setAttribute('aria-hidden', 'true');
+  }
+  isSlotModalOpen = false;
+  if (!isSemModalOpen && !pendingRemoveCourseCode) {
+    isModalOpen = false;
+  }
+  resetIdleTimer();
+}
+
+function navigateSlotTime(deltaMin) {
+  currentSlotTimeMin = Math.max(420, Math.min(1260, currentSlotTimeMin + deltaMin));
+  renderSlotModalContent(currentSlotDay, currentSlotTimeMin);
+}
+
+function setSlotDay(newDay) {
+  currentSlotDay = Math.max(0, Math.min(5, newDay));
+  renderSlotModalContent(currentSlotDay, currentSlotTimeMin);
+}
+
+function renderSlotModalContent(day, timeMin) {
+  const modalEl = document.getElementById('sched-slot-modal');
+  if (!modalEl) return;
+
+  const titleEl = document.getElementById('sched-slot-title');
+  const subtitleEl = document.getElementById('sched-slot-subtitle');
+  const pillsEl = document.getElementById('sched-slot-day-pills');
+  const summaryEl = document.getElementById('sched-slot-summary-bar');
+  const listEl = document.getElementById('sched-slot-classes-list');
+  const prevBtn = document.getElementById('sched-slot-prev-btn');
+  const nextBtn = document.getElementById('sched-slot-next-btn');
+
+  const dayName = DAY_FULL_NAMES[day] || 'Day';
+  const timeStartStr = formatTimeMinutes(timeMin);
+  const timeEndStr = formatTimeMinutes(timeMin + 30);
+
+  if (titleEl) titleEl.textContent = dayName;
+  if (subtitleEl) subtitleEl.textContent = `${timeStartStr} – ${timeEndStr}`;
+
+  if (prevBtn) prevBtn.disabled = timeMin <= 420;
+  if (nextBtn) nextBtn.disabled = timeMin >= 1260;
+
+  // Render Day Selector Pills
+  if (pillsEl) {
+    pillsEl.innerHTML = DAY_SHORT_NAMES.map((dName, idx) => {
+      const isActive = idx === day;
+      return `<button type="button" class="sched-slot-day-pill${isActive ? ' is-active' : ''}" data-day="${idx}">${dName}</button>`;
+    }).join('');
+
+    pillsEl.onclick = (e) => {
+      const pill = e.target.closest('.sched-slot-day-pill');
+      if (pill && pill.dataset.day !== undefined) {
+        setSlotDay(parseInt(pill.dataset.day, 10));
+      }
+    };
+  }
+
+  // Get matching courses & sections for this day & time
+  const matches = getSectionsAtSlot(day, timeMin, 30);
+
+  if (summaryEl) {
+    if (matches.length === 0) {
+      summaryEl.innerHTML = `<span>0 Subjects Scheduled</span>`;
+    } else {
+      const enrolledCount = matches.filter(m => m.isEnrolled).length;
+      summaryEl.innerHTML = `
+        <span>${matches.length} ${matches.length === 1 ? 'Subject' : 'Subjects'} Available</span>
+        ${enrolledCount > 0 ? `<span style="color: #22c55e;">${enrolledCount} Enrolled</span>` : ''}
+      `;
+    }
+  }
+
+  if (listEl) {
+    if (matches.length === 0) {
+      listEl.innerHTML = `
+        <div class="sched-slot-empty">
+          <div class="sched-slot-empty-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div class="sched-slot-empty-title">No Classes Scheduled</div>
+          <div class="sched-slot-empty-desc">No subjects or sections are scheduled on <strong>${dayName}</strong> at <strong>${timeStartStr}</strong>.</div>
+        </div>
+      `;
+      return;
+    }
+
+    listEl.innerHTML = matches.map(m => {
+      const { course, section, isEnrolled, hasConflict, conflicts } = m;
+      const cColor = course.border || course.color || '#38bdf8';
+      const cCode = course.code;
+      const secId = section.id;
+      const units = course.units;
+      const secSchedule = section.desc || '';
+      const secRoom = section.room ? `Room ${section.room}` : '';
+      const enrolledCount = (section.enlisted !== undefined) ? `${section.enlisted} / ${section.total || 45} Students` : '';
+
+      let conflictWarning = '';
+      if (hasConflict && !isEnrolled) {
+        const first = conflicts[0];
+        conflictWarning = `Conflicts with ${first.withCode} (${first.withSection})`;
+      }
+
+      return `
+        <div class="sched-slot-item-card${isEnrolled ? ' is-enrolled' : ''}" style="--course-color: ${cColor}; --course-border: ${cColor};">
+          <div class="sched-slot-item-top">
+            <div class="sched-slot-item-title-group">
+              <span class="sched-slot-item-code">${cCode}</span>
+              <span class="sched-slot-item-title">${course.title}</span>
+            </div>
+            <div class="sched-slot-badges-row">
+              <span class="sched-slot-sec-badge">${secId}</span>
+              ${units ? `<span class="sched-slot-sec-badge" style="font-weight: 500;">${units} ${units === 1 ? 'Unit' : 'Units'}</span>` : ''}
+            </div>
+          </div>
+
+          <div class="sched-slot-item-details">
+            ${secSchedule ? `<span class="sched-slot-detail-item">📅 ${secSchedule}</span>` : ''}
+            ${secRoom ? `<span class="sched-slot-detail-item">📍 ${secRoom}</span>` : ''}
+            ${enrolledCount ? `<span class="sched-slot-detail-item">👥 ${enrolledCount}</span>` : ''}
+          </div>
+
+          <div class="sched-slot-item-bottom">
+            <div class="sched-slot-item-status-wrapper">
+              ${isEnrolled ? `
+                <span class="sched-slot-status-pill is-enrolled">✓ Currently Enrolled</span>
+              ` : (hasConflict ? `
+                <span class="sched-slot-status-pill is-conflict" title="${conflictWarning}">⚠️ ${conflictWarning}</span>
+              ` : `
+                <span class="sched-slot-status-pill is-available">Available</span>
+              `)}
+            </div>
+
+            <button type="button" class="sched-slot-action-btn ${isEnrolled ? 'btn-remove' : (hasConflict ? 'btn-switch' : 'btn-enroll')}"
+              data-course-code="${cCode}" data-section-id="${secId}">
+              ${isEnrolled ? 'Remove' : (userScheduleSelection[cCode] ? 'Switch Section' : 'Add to Schedule')}
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Attach click listeners to action buttons
+    listEl.querySelectorAll('.sched-slot-action-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const code = btn.dataset.courseCode;
+        const secId = btn.dataset.sectionId;
+        if (!code || !secId) return;
+
+        if (userScheduleSelection[code] === secId) {
+          delete userScheduleSelection[code];
+        } else {
+          userScheduleSelection[code] = secId;
+          enforcePrerequisiteRules(code);
+        }
+        saveScheduleCreatorState();
+        renderScheduleView();
+        renderSlotModalContent(currentSlotDay, currentSlotTimeMin);
+      });
+    });
+  }
+}
+window.openSlotModal = openSlotModal;
+window.closeSlotModal = closeSlotModal;
+
 function renderScheduleGrid() {
   const gridEl = document.getElementById('sched-calendar-grid');
   if (!gridEl) return;
@@ -2042,7 +2328,11 @@ function renderScheduleGrid() {
     timeEl.className = 'sched-time-label';
     timeEl.style.gridColumn = '1';
     timeEl.style.gridRow = `${step + 1}`;
+    timeEl.title = `Click to view classes at ${displayH}:${m === 0 ? '00' : m} ${ampm}`;
     timeEl.innerHTML = `<span class="time-hm">${displayH}:${m === 0 ? '00' : m}</span><span class="time-ampm"> ${ampm}</span>`;
+    timeEl.addEventListener('click', () => {
+      openSlotModal(currentSlotDay || 0, currMin);
+    });
     gridEl.appendChild(timeEl);
 
     for (let d = 0; d < numDays; d++) {
@@ -2050,6 +2340,13 @@ function renderScheduleGrid() {
       slotEl.className = 'sched-grid-slot';
       slotEl.style.gridColumn = `${d + 2}`;
       slotEl.style.gridRow = `${step + 1}`;
+      slotEl.dataset.day = d;
+      slotEl.dataset.timeMin = currMin;
+      slotEl.title = `${DAY_FULL_NAMES[d]} ${displayH}:${m === 0 ? '00' : m} ${ampm} — Click to view classes`;
+      slotEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openSlotModal(d, currMin);
+      });
       gridEl.appendChild(slotEl);
     }
   }
@@ -2112,10 +2409,27 @@ function renderScheduleGrid() {
 
     card.title = `${ev.title}\nSection: ${ev.sectionId}${ev.room ? `\nRoom: ${ev.room}` : ''}\nTime: ${formatTimeMinutes(ev.start)} - ${formatTimeMinutes(ev.end)}${conflictText}\n\n(Double-click to remove from schedule)`;
 
-    // Double-click to prompt subject removal from timetable
+    // Single-click to open timeslot classes popup; double-click to prompt subject removal
+    let cardClickTimer = null;
+    card.addEventListener('click', (e) => {
+      const rect = card.getBoundingClientRect();
+      const clickRatio = Math.max(0, Math.min(1, (e.clientY - rect.top) / (rect.height || 1)));
+      const clickedExactMin = ev.start + clickRatio * (ev.end - ev.start);
+      const clickedSlotMin = Math.floor(clickedExactMin / 30) * 30;
+
+      if (e.detail === 1) {
+        cardClickTimer = setTimeout(() => {
+          openSlotModal(ev.day, clickedSlotMin);
+        }, 220);
+      } else if (e.detail === 2) {
+        clearTimeout(cardClickTimer);
+      }
+    });
+
     card.addEventListener('dblclick', (e) => {
       e.preventDefault();
       e.stopPropagation();
+      clearTimeout(cardClickTimer);
       promptRemoveSubject(ev.code);
     });
 
@@ -2151,6 +2465,7 @@ function renderScheduleGrid() {
       }
     }, { passive: true });
 
+    let cardTouchTimer = null;
     card.addEventListener('touchend', (e) => {
       if (cardTouchMoved || (typeof pinchCooldownUntil !== 'undefined' && Date.now() < pinchCooldownUntil)) {
         lastTapTime = 0;
@@ -2160,10 +2475,19 @@ function renderScheduleGrid() {
       if (now - lastTapTime < 320) {
         e.preventDefault();
         e.stopPropagation();
+        clearTimeout(cardTouchTimer);
         promptRemoveSubject(ev.code);
         lastTapTime = 0;
       } else {
         lastTapTime = now;
+        const touchY = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : cardTouchStartY;
+        const rect = card.getBoundingClientRect();
+        const clickRatio = Math.max(0, Math.min(1, (touchY - rect.top) / (rect.height || 1)));
+        const clickedExactMin = ev.start + clickRatio * (ev.end - ev.start);
+        const clickedSlotMin = Math.floor(clickedExactMin / 30) * 30;
+        cardTouchTimer = setTimeout(() => {
+          openSlotModal(ev.day, clickedSlotMin);
+        }, 320);
       }
     }, { passive: false });
 
@@ -2840,6 +3164,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Timeslot Classes Modal Handlers
+  const slotModal = document.getElementById('sched-slot-modal');
+  const slotCloseBtn = document.getElementById('sched-slot-modal-close-btn');
+  const slotPrevBtn = document.getElementById('sched-slot-prev-btn');
+  const slotNextBtn = document.getElementById('sched-slot-next-btn');
+
+  if (slotCloseBtn) slotCloseBtn.addEventListener('click', closeSlotModal);
+  if (slotPrevBtn) slotPrevBtn.addEventListener('click', () => navigateSlotTime(-30));
+  if (slotNextBtn) slotNextBtn.addEventListener('click', () => navigateSlotTime(30));
+  if (slotModal) {
+    slotModal.addEventListener('click', (e) => {
+      if (!e.target.closest('.sched-modal-card')) {
+        closeSlotModal();
+      }
+    });
+  }
+
+  // Make day headers clickable to view classes on that day
+  const dayHeaders = document.querySelectorAll('.sched-day-header');
+  dayHeaders.forEach((dh, idx) => {
+    dh.title = `Click to view classes on ${DAY_FULL_NAMES[idx] || 'this day'}`;
+    dh.addEventListener('click', () => {
+      if (document.body.classList.contains('sched-focus-autohide')) return;
+      openSlotModal(idx, currentSlotTimeMin || 450);
+    });
+  });
+
   renderScheduleView();
 });
 
@@ -2994,7 +3345,9 @@ document.addEventListener('touchend', (e) => {
         singleTouchTarget.closest('#sched-zen-preset-banner') ||
         singleTouchTarget.closest('#sched-zen-presets-popup') ||
         singleTouchTarget.closest('.sched-grid-header') ||
-        singleTouchTarget.closest('.sched-event-block')
+        singleTouchTarget.closest('.sched-event-block') ||
+        singleTouchTarget.closest('.sched-grid-slot') ||
+        singleTouchTarget.closest('#sched-slot-modal')
       );
       if (isPopupOpen) {
         if (!isZenInteractive) {
@@ -3019,6 +3372,7 @@ document.addEventListener('touchend', (e) => {
       e.preventDefault();
       closeRemoveModal();
       closeSemesterModal();
+      closeSlotModal();
       lastTouchEndTime = 0;
       return;
     }
@@ -3110,6 +3464,7 @@ window.addEventListener('keydown', (e) => {
       e.stopPropagation();
       closeRemoveModal();
       closeSemesterModal();
+      closeSlotModal();
       return;
     }
     if (e.key === 'Enter') {
@@ -3133,6 +3488,30 @@ window.addEventListener('keydown', (e) => {
 
   if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
     e.preventDefault();
+  }
+
+  // Timeslot navigation when slot modal is open
+  if (isSlotModalOpen) {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      navigateSlotTime(-30);
+      return;
+    }
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      navigateSlotTime(30);
+      return;
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSlotDay((currentSlotDay - 1 + 6) % 6);
+      return;
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setSlotDay((currentSlotDay + 1) % 6);
+      return;
+    }
   }
 
   // Preset cycling via Arrow keys (disregarding Clear All)
