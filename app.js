@@ -1132,6 +1132,112 @@ function saveScheduleCreatorState() {
 
 let currentSchedulePreset = localStorage.getItem('tip_sched_active_preset') || null;
 
+function getActivePresetName() {
+  if (activeSemesterId === '3rd-2nd') {
+    const s = userScheduleSelection;
+    if (s['EE 024'] === 'EE32S1' && s['CPE 006'] === 'EE32S1' && s['EE 025'] === 'EE32S1' &&
+        s['EE 301'] === 'EE32S1' && s['COE 002A'] === 'EE32S1' && s['CADD 001B'] === 'EE32S1' &&
+        s['EE 028'] === 'EE32S1' && s['EE 027'] === 'EE32S1' && s['EE 026'] === 'EE32S1' &&
+        s['CEC 001'] === 'EE32S1') {
+      return 'Lype';
+    }
+    if (s['ECE 006'] === 'ME32S2' && s['EMAN 001'] === 'ME32S2' && s['ME 007'] === 'ME32S2' &&
+        s['ME 401'] === 'ME32S2' && s['ME 404'] === 'ME32S2' && s['ME 406'] === 'ME32S2' &&
+        s['ME 407'] === 'ME32S2' && s['ME 409'] === 'ME32S2' && s['ME 411'] === 'ME32S2' &&
+        s['ME 320'] === 'ME31S1' && s['ME 523'] === 'ME41S1') {
+      return 'Andrei';
+    }
+    if (s['ECE 006'] === 'ME32S1' && s['EMAN 001'] === 'ME32S3' && s['GEE 002'] === 'ME32S1' &&
+        s['GEE 003'] === 'ME32S1' && s['ME 007'] === 'ME32S1' && s['ME 401'] === 'ME32S3' &&
+        s['ME 403'] === 'ME31S1' && s['ME 404'] === 'ME32S1' && s['ME 411'] === 'ME32S1' &&
+        s['ME 523'] === 'ME41S1') {
+      return 'Joshua & Karl';
+    }
+    if (s['ME 403'] === 'ME31S1' && s['ME 411'] === 'ME32S1' && s['ME 404'] === 'ME32S1' &&
+        s['EMAN 001'] === 'ME32S3' && s['ME 007'] === 'ME32S1' && s['GEE 002'] === 'ME32S1' &&
+        s['GEE 003'] === 'ME32S1' && s['ME 401'] === 'ME32S3' && s['ME 223'] === 'ME22S3' &&
+        s['ECE 006'] === 'ME32S3') {
+      return 'Marinell';
+    }
+    const courses = getActiveCourses();
+    const regular = courses.filter(c => !c.isRetake && !c.isAdvance && !c.isEE && c.code !== 'ME 523' && c.code !== 'ME 320');
+    if (regular.length > 0 && regular.every(c => s[c.code] === 'ME32S1') && Object.keys(s).length === regular.length) {
+      return 'S1';
+    }
+    if (regular.length > 0 && regular.every(c => s[c.code] === 'ME32S2') && Object.keys(s).length === regular.length) {
+      return 'S2';
+    }
+  } else {
+    if (currentSchedulePreset === 'A' || currentSchedulePreset === 'S1') return 'Choice A';
+    if (currentSchedulePreset === 'B' || currentSchedulePreset === 'S2') return 'Choice B';
+    if (currentSchedulePreset === 'C') return 'Choice C';
+    return currentSchedulePreset || null;
+  }
+  return currentSchedulePreset || null;
+}
+
+function getPresetCycleList() {
+  if (activeSemesterId === '3rd-2nd') {
+    return ['S1', 'S2', 'Marinell', 'Joshua & Karl', 'Andrei', 'Lype'];
+  }
+  if (activeSemesterId === '4th-1st' || activeSemesterId === '4th-2nd') {
+    return ['A', 'B', 'C'];
+  }
+  if (activeSemesterId === '4th-summer') {
+    return ['A', 'B'];
+  }
+  return ['A', 'B'];
+}
+
+function cycleSchedulePreset(direction) {
+  const list = getPresetCycleList();
+  if (!list || list.length === 0) return;
+
+  const current = getActivePresetName();
+  let currentIndex = list.findIndex(p => {
+    if (p === current) return true;
+    if ((p === 'A' || p === 'S1') && (current === 'A' || current === 'S1' || current === 'Choice A')) return true;
+    if ((p === 'B' || p === 'S2') && (current === 'B' || current === 'S2' || current === 'Choice B')) return true;
+    if (p === 'C' && (current === 'C' || current === 'Choice C')) return true;
+    return false;
+  });
+
+  let nextIndex;
+  if (currentIndex === -1) {
+    nextIndex = direction > 0 ? 0 : list.length - 1;
+  } else {
+    nextIndex = (currentIndex + direction + list.length) % list.length;
+  }
+
+  const nextPreset = list[nextIndex];
+  applySchedulePreset(nextPreset);
+
+  // If in normal (non-focus) mode, prevent idle timer from abruptly auto-hiding during interaction
+  if (!document.body.classList.contains('sched-focus-autohide')) {
+    clearTimeout(idleTimeout);
+    if (!isModalOpen) {
+      idleTimeout = setTimeout(() => enterFocusMode(false), IDLE_DELAY_MS);
+    }
+  }
+
+  // Smooth scroll active item into view inside Zen popup if open
+  const zenPopup = document.getElementById('sched-zen-presets-popup');
+  if (zenPopup && zenPopup.classList.contains('is-open')) {
+    const activeItem = zenPopup.querySelector(`.sched-zen-popup-item[data-preset="${nextPreset}"]`);
+    if (activeItem && typeof activeItem.scrollIntoView === 'function') {
+      activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }
+
+  // Also ensure toolbar button is visible if in toolbar mode
+  const activeBtn = document.querySelector('.sched-preset-btn.is-active-preset');
+  if (activeBtn && typeof activeBtn.scrollIntoView === 'function') {
+    activeBtn.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+  }
+}
+window.cycleSchedulePreset = cycleSchedulePreset;
+window.getActivePresetName = getActivePresetName;
+
 function applySchedulePreset(preset) {
   const courses = getActiveCourses();
   userScheduleSelection = {};
@@ -2330,38 +2436,7 @@ function updateScheduleStats() {
   }
 
   // Detect active preset for corner button label and active highlight
-  let activePresetName = null;
-  if (is3rd2nd) {
-    const s = userScheduleSelection;
-    if (s['EE 024'] === 'EE32S1' && s['CPE 006'] === 'EE32S1' && s['EE 025'] === 'EE32S1' &&
-        s['EE 301'] === 'EE32S1' && s['COE 002A'] === 'EE32S1' && s['CADD 001B'] === 'EE32S1' &&
-        s['EE 028'] === 'EE32S1' && s['EE 027'] === 'EE32S1' && s['EE 026'] === 'EE32S1' &&
-        s['CEC 001'] === 'EE32S1') {
-      activePresetName = 'Lype';
-    } else if (s['ECE 006'] === 'ME32S2' && s['EMAN 001'] === 'ME32S2' && s['ME 007'] === 'ME32S2' &&
-        s['ME 401'] === 'ME32S2' && s['ME 404'] === 'ME32S2' && s['ME 406'] === 'ME32S2' &&
-        s['ME 407'] === 'ME32S2' && s['ME 409'] === 'ME32S2' && s['ME 411'] === 'ME32S2' &&
-        s['ME 320'] === 'ME31S1' && s['ME 523'] === 'ME41S1') {
-      activePresetName = 'Andrei';
-    } else if (s['ECE 006'] === 'ME32S1' && s['EMAN 001'] === 'ME32S3' && s['GEE 002'] === 'ME32S1' &&
-               s['GEE 003'] === 'ME32S1' && s['ME 007'] === 'ME32S1' && s['ME 401'] === 'ME32S3' &&
-               s['ME 403'] === 'ME31S1' && s['ME 404'] === 'ME32S1' && s['ME 411'] === 'ME32S1' &&
-               s['ME 523'] === 'ME41S1') {
-      activePresetName = 'Joshua & Karl';
-    } else if (s['ME 403'] === 'ME31S1' && s['ME 411'] === 'ME32S1' && s['ME 404'] === 'ME32S1' &&
-               s['EMAN 001'] === 'ME32S3' && s['ME 007'] === 'ME32S1' && s['GEE 002'] === 'ME32S1' &&
-               s['GEE 003'] === 'ME32S1' && s['ME 401'] === 'ME32S3' && s['ME 223'] === 'ME22S3' &&
-               s['ECE 006'] === 'ME32S3') {
-      activePresetName = 'Marinell';
-    } else {
-      const regular = courses.filter(c => !c.isRetake && !c.isAdvance && !c.isEE && c.code !== 'ME 523' && c.code !== 'ME 320');
-      if (regular.length > 0 && regular.every(c => s[c.code] === 'ME32S1') && Object.keys(s).length === regular.length) {
-        activePresetName = 'S1';
-      } else if (regular.length > 0 && regular.every(c => s[c.code] === 'ME32S2') && Object.keys(s).length === regular.length) {
-        activePresetName = 'S2';
-      }
-    }
-  }
+  const activePresetName = getActivePresetName();
 
   // Highlight active preset in toolbar buttons
   [btnA, btnB, btnC, btnMarinell, btnJoshuaKarl, btnAndrei, btnLype].forEach(b => {
@@ -2886,6 +2961,25 @@ document.addEventListener('touchend', (e) => {
 
   const now = Date.now();
 
+  // Check horizontal swipe gesture on calendar timetable to cycle presets
+  if (singleTouchMoved && !isModalOpen && (now - singleTouchStartTime < 400)) {
+    const endTouch = e.changedTouches && e.changedTouches[0];
+    if (endTouch) {
+      const deltaX = endTouch.clientX - singleTouchStartX;
+      const deltaY = endTouch.clientY - singleTouchStartY;
+      const isScrollableTarget = singleTouchTarget && singleTouchTarget.closest && (
+        singleTouchTarget.closest('#sched-subject-list') ||
+        singleTouchTarget.closest('.sched-modal-card') ||
+        singleTouchTarget.closest('.sched-zen-presets-popup')
+      );
+      if (!isScrollableTarget && Math.abs(deltaX) > 55 && Math.abs(deltaY) < 45) {
+        cycleSchedulePreset(deltaX < 0 ? 1 : -1);
+        lastTouchEndTime = 0;
+        return;
+      }
+    }
+  }
+
   if (singleTouchMoved) {
     lastTouchEndTime = 0;
     return;
@@ -3040,6 +3134,22 @@ window.addEventListener('keydown', (e) => {
   if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
     e.preventDefault();
   }
+
+  // Preset cycling via Arrow keys (disregarding Clear All)
+  const zenPopup = document.getElementById('sched-zen-presets-popup');
+  const isZenPopupOpen = Boolean(zenPopup && zenPopup.classList.contains('is-open'));
+
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || (isZenPopupOpen && (e.key === 'ArrowUp' || e.key === 'ArrowDown'))) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    const targetTag = e.target && e.target.tagName;
+    if (targetTag === 'INPUT' || targetTag === 'TEXTAREA' || (e.target && e.target.isContentEditable)) return;
+    if (isModalOpen) return;
+
+    e.preventDefault();
+    const isPrev = e.key === 'ArrowLeft' || e.key === 'ArrowUp';
+    cycleSchedulePreset(isPrev ? -1 : 1);
+    return;
+  }
 });
 
 // 5. Prevent double-click zoom
@@ -3140,7 +3250,11 @@ window.addEventListener('keydown', (e) => {
     'Tab',
     'PrintScreen',
     'Snapshot',
-    'F11'
+    'F11',
+    'ArrowLeft',
+    'ArrowRight',
+    'ArrowUp',
+    'ArrowDown'
   ];
   if (ignoredKeys.includes(e.key) || e.key.toLowerCase() === 's' || e.altKey || e.metaKey) {
     return;
