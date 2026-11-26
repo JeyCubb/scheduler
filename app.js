@@ -3278,14 +3278,17 @@ document.addEventListener('touchmove', (e) => {
     // Lock page-level scrolling:
     // Only permit 1-finger touch scrolling inside designated scrollable containers:
     // subjects list, modals, and popups (schedule timetable fits 100% with no scrolling)
-    const scrollTarget = e.target.closest(
-      '.sched-sidebar-card, #sched-subject-list, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container'
-    );
+    const modalBodyTarget = e.target.closest('.sched-modal-body, .sched-modal-card, #sched-slot-modal, #sched-sem-modal, #sched-remove-modal');
+    const scrollTarget = modalBodyTarget
+      ? (modalBodyTarget.classList.contains('sched-modal-body') ? modalBodyTarget : modalBodyTarget.querySelector('.sched-modal-body') || modalBodyTarget)
+      : e.target.closest(
+          '.sched-sidebar-card, #sched-subject-list, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container'
+        );
 
     if (!scrollTarget) {
       e.preventDefault();
     } else {
-      const scrollable = scrollTarget.closest('.sched-sidebar-card, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container') || scrollTarget;
+      const scrollable = scrollTarget.closest('.sched-modal-body, .sched-sidebar-card, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container, #sched-subject-list') || scrollTarget;
       if (scrollable.scrollHeight <= scrollable.clientHeight) {
         e.preventDefault();
       } else {

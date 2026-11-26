@@ -4728,10 +4728,16 @@ body.sched-lype-active #sched-sem-selector-trigger:active {
 .sched-slot-modal-card {
   max-width: 500px !important;
   width: min(500px, 94vw) !important;
-  max-height: 86vh !important;
+  max-height: min(86vh, calc(100dvh - 36px)) !important;
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
+  touch-action: pan-y !important;
+}
+
+.sched-slot-modal-card .sched-modal-header,
+.sched-slot-modal-card .sched-slot-day-pills {
+  flex-shrink: 0 !important;
 }
 
 .sched-slot-header-nav {
@@ -4846,10 +4852,28 @@ body.sched-lype-active #sched-sem-selector-trigger:active {
 }
 
 .sched-slot-modal-card .sched-modal-body {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  max-height: calc(86vh - 130px) !important;
   overflow-y: auto !important;
-  max-height: calc(86vh - 140px) !important;
-  padding: 0.85rem 1.1rem 1.1rem 1.1rem !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y !important;
+  overscroll-behavior-y: contain !important;
+  padding: 0.85rem 1.1rem 1.25rem 1.1rem !important;
   scrollbar-width: thin;
+}
+
+.sched-slot-modal-card * {
+  touch-action: pan-y;
+}
+
+.sched-slot-modal-card button,
+.sched-slot-modal-card .sched-slot-action-btn,
+.sched-slot-modal-card .sched-slot-day-pill,
+.sched-slot-modal-card .sched-slot-nav-btn,
+.sched-slot-modal-card .sched-modal-close-btn {
+  touch-action: manipulation !important;
 }
 
 .sched-slot-summary-bar {
