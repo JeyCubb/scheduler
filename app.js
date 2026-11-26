@@ -166,7 +166,8 @@ const SCHEDULE_COURSES = [
     border: '#a3e635',
     isRetake: true,
     sections: [
-      { id: 'ME22S3', enlisted: 0, total: 30, desc: 'Tu/Th 1:30–4:30 PM (Lab)', room: 'Q-2105', slots: [{ day: 1, start: 810, end: 990, room: 'Q-2105', tag: 'LAB' }, { day: 3, start: 810, end: 990, room: 'Q-2105', tag: 'LAB' }] }
+      { id: 'ME22S3', enlisted: 0, total: 30, desc: 'Tu/Th 1:30–4:30 PM (Lab)', room: 'Q-2105', slots: [{ day: 1, start: 810, end: 990, room: 'Q-2105', tag: 'LAB' }, { day: 3, start: 810, end: 990, room: 'Q-2105', tag: 'LAB' }] },
+      { id: 'Requested', enlisted: 0, total: 30, desc: 'Tu/Th 4:30–7:30 PM (Lab)', room: 'Q-2105', slots: [{ day: 1, start: 990, end: 1170, room: 'Q-2105', tag: 'LAB' }, { day: 3, start: 990, end: 1170, room: 'Q-2105', tag: 'LAB' }] }
     ]
   },
   {
