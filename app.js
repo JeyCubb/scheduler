@@ -3440,14 +3440,6 @@ document.addEventListener('touchmove', (e) => {
       const scrollable = scrollTarget.closest('.sched-modal-body, .sched-sidebar-card, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container') || scrollTarget;
       if (scrollable.scrollHeight <= scrollable.clientHeight) {
         e.preventDefault();
-      } else {
-        const isPullingDown = e.touches[0].clientY > singleTouchStartY;
-        const isPullingUp = e.touches[0].clientY < singleTouchStartY;
-        if (isPullingDown && scrollable.scrollTop <= 0) {
-          e.preventDefault();
-        } else if (isPullingUp && (scrollable.scrollTop + scrollable.clientHeight >= scrollable.scrollHeight - 1)) {
-          e.preventDefault();
-        }
       }
     }
   }

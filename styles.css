@@ -592,8 +592,6 @@ body.sched-show-saturday .sched-grid-body {
   border-radius: 8px !important;
   margin-bottom: 0.35rem !important;
   transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-  scroll-snap-align: start !important;
-  scroll-snap-stop: always !important;
 }
 
 .sched-course-row:last-child {
@@ -2072,7 +2070,6 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: thin !important;
     scrollbar-color: rgba(249, 115, 22, 0.45) transparent !important;
-    scroll-behavior: smooth !important;
     overscroll-behavior-y: contain !important;
     padding: 0.35rem 0.65rem !important;
     gap: 0.35rem !important;
