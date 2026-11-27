@@ -2910,8 +2910,9 @@ function updateScheduleStats() {
   [btnA, btnB, btnC, btnMarinell, btnJoshuaKarl, btnAndrei, btnLype].forEach(b => {
     if (b) b.classList.remove('is-active-preset');
   });
-  if ((activePresetName === 'S1' || activePresetName === 'ME31S1') && btnA) btnA.classList.add('is-active-preset');
-  else if (activePresetName === 'S2' && btnB) btnB.classList.add('is-active-preset');
+  if ((activePresetName === 'S1' || activePresetName === 'ME31S1' || activePresetName === 'Choice A') && btnA) btnA.classList.add('is-active-preset');
+  else if ((activePresetName === 'S2' || activePresetName === 'Choice B') && btnB) btnB.classList.add('is-active-preset');
+  else if (activePresetName === 'Choice C' && btnC) btnC.classList.add('is-active-preset');
   else if (activePresetName === 'Marinell' && btnMarinell) btnMarinell.classList.add('is-active-preset');
   else if (activePresetName === 'Joshua & Karl' && btnJoshuaKarl) {
     btnJoshuaKarl.classList.add('is-active-preset');

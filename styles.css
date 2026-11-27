@@ -1603,6 +1603,13 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   transform: scale(0.97);
 }
 
+.sched-preset-btn.is-active-preset {
+  background: rgba(249, 115, 22, 0.22) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 1px var(--accent-primary) inset !important;
+}
+
 .sched-btn-sub {
   font-weight: 500;
   opacity: 0.8;
@@ -1790,7 +1797,8 @@ button.brand-nav-btn.brand-nav-trigger[aria-expanded="true"] {
   color: var(--text-primary) !important;
 }
 
-[data-theme="light"] .sched-preset-btn:hover {
+[data-theme="light"] .sched-preset-btn:hover,
+[data-theme="light"] .sched-preset-btn.is-active-preset {
   background: var(--accent-primary) !important;
   color: #ffffff !important;
   border-color: var(--accent-primary) !important;
