@@ -4634,14 +4634,14 @@ body.sched-lype-active .sched-calendar-card {
   flex: 1 1 100% !important;
 }
 
-body.sched-lype-active #sched-sem-selector-trigger {
+body.sched-lype-locked #sched-sem-selector-trigger {
   cursor: default !important;
   pointer-events: none !important;
   box-shadow: none !important;
 }
 
-body.sched-lype-active #sched-sem-selector-trigger:hover,
-body.sched-lype-active #sched-sem-selector-trigger:active {
+body.sched-lype-locked #sched-sem-selector-trigger:hover,
+body.sched-lype-locked #sched-sem-selector-trigger:active {
   background: transparent !important;
   transform: none !important;
 }

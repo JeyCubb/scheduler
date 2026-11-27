@@ -355,6 +355,15 @@ const SCHEDULE_COURSES = [
           { day: 0, start: 990, end: 1050, room: 'Q-5508' },
           { day: 2, start: 990, end: 1050, room: 'Q-5508' }
         ]
+      },
+      {
+        id: 'ME41S2',
+        desc: 'Mo/We 12:30–1:30 PM',
+        room: '',
+        slots: [
+          { day: 0, start: 750, end: 810, room: '' },
+          { day: 2, start: 750, end: 810, room: '' }
+        ]
       }
     ]
   },
@@ -1289,7 +1298,7 @@ function getActivePresetName() {
     if (s['ME 403'] === 'ME31S1' && s['ME 411'] === 'ME32S1' && s['ME 404'] === 'ME32S1' &&
         s['EMAN 001'] === 'ME32S3' && s['ME 007'] === 'ME32S1' && s['GEE 002'] === 'ME32S1' &&
         s['GEE 003'] === 'ME32S1' && s['ME 401'] === 'ME32S3' && s['ME 223'] === 'ME22S3' &&
-        s['ECE 006'] === 'ME32S3') {
+        s['ECE 006'] === 'ME32S3' && s['ME 523'] === 'ME41S2') {
       return 'Marinell';
     }
     const courses = getActiveCourses();
@@ -1435,6 +1444,7 @@ function applySchedulePreset(preset) {
         else if (c.code === 'ME 401') userScheduleSelection[c.code] = 'ME32S3';
         else if (c.code === 'ME 223') userScheduleSelection[c.code] = 'ME22S3';
         else if (c.code === 'ECE 006') userScheduleSelection[c.code] = 'ME32S3';
+        else if (c.code === 'ME 523') userScheduleSelection[c.code] = 'ME41S2';
       });
     } else if (preset === 'Joshua & Karl' || preset === 'Joshua' || preset === 'Karl') {
       courses.forEach(c => {
