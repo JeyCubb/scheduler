@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Schedule Creator - Standalone Web Application
  * Connected with TIP Grade Calculator and JeyCub Terms Reviewer
  */
@@ -6,6 +6,175 @@
 // ==========================================================================
 // COURSE CATALOG & SCHEDULE SECTIONS
 // ==========================================================================
+// ==========================================================================
+// 3RD YEAR FIRST SEMESTER (24 UNITS - ME31S1 BLOCK)
+// ==========================================================================
+const COURSES_3RD_1ST = [
+  {
+    code: 'GEC 008',
+    title: 'Ethics',
+    units: 3,
+    color: '#1e40af',
+    border: '#60a5fa',
+    sections: [
+      {
+        id: 'ME31S1',
+        desc: 'Mo/We/Fr 7:30–8:30 AM',
+        room: 'Q-5504',
+        slots: [
+          { day: 0, start: 450, end: 510, room: 'Q-5504' },
+          { day: 2, start: 450, end: 510, room: 'Q-5504' },
+          { day: 4, start: 450, end: 510, room: 'Q-5504' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 301',
+    title: 'Deformable Bodies',
+    units: 3,
+    color: '#475569',
+    border: '#94a3b8',
+    sections: [
+      {
+        id: 'ME31S1',
+        desc: 'Tu/Th 7:30–9:00 AM',
+        room: 'Q-5504',
+        slots: [
+          { day: 1, start: 450, end: 540, room: 'Q-5504' },
+          { day: 3, start: 450, end: 540, room: 'Q-5504' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 403',
+    title: 'Heat Transfer',
+    units: 2,
+    color: '#854d0e',
+    border: '#eab308',
+    sections: [
+      {
+        id: 'ME31S1',
+        desc: 'We/Fr 8:30–9:30 AM',
+        room: 'Q-5504',
+        slots: [
+          { day: 2, start: 510, end: 570, room: 'Q-5504' },
+          { day: 4, start: 510, end: 570, room: 'Q-5504' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 302',
+    title: 'Fluid Mechanics',
+    units: 3,
+    color: '#15803d',
+    border: '#4ade80',
+    sections: [
+      {
+        id: 'ME31S1',
+        desc: 'Tu/Th 9:00–10:30 AM',
+        room: 'Q-5504',
+        slots: [
+          { day: 1, start: 540, end: 630, room: 'Q-5504' },
+          { day: 3, start: 540, end: 630, room: 'Q-5504' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'BOSH 001',
+    title: 'BOSH',
+    units: 3,
+    color: '#374151',
+    border: '#9ca3af',
+    sections: [
+      {
+        id: 'ME31S1',
+        desc: 'Mo/We/Fr 9:30–10:30 AM',
+        room: 'Q-5504',
+        slots: [
+          { day: 0, start: 570, end: 630, room: 'Q-5504' },
+          { day: 2, start: 570, end: 630, room: 'Q-5504' },
+          { day: 4, start: 570, end: 630, room: 'Q-5504' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'EE 001',
+    title: 'ACDC',
+    units: 3,
+    color: '#c2410c',
+    border: '#fb923c',
+    sections: [
+      {
+        id: 'ME31S1',
+        desc: 'Tu 10:30 AM–12:30 PM (Lec) & Th 10:30 AM–1:30 PM (Lab)',
+        room: 'Q-5503 / Q-5324',
+        slots: [
+          { day: 1, start: 630, end: 750, room: 'Q-5503', tag: 'LEC' },
+          { day: 3, start: 630, end: 810, room: 'Q-5324', tag: 'LAB' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ECE 001',
+    title: 'Electronics',
+    units: 3,
+    color: '#3b5998',
+    border: '#60a5fa',
+    sections: [
+      {
+        id: 'ME31S1',
+        desc: 'We 10:30 AM–12:30 PM (Lec) & Fr 10:30 AM–1:30 PM (Lab)',
+        room: 'Q-5504 / Q-5421',
+        slots: [
+          { day: 2, start: 630, end: 750, room: 'Q-5504', tag: 'LEC' },
+          { day: 4, start: 630, end: 810, room: 'Q-5421', tag: 'LAB' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 304',
+    title: 'Machine Elements',
+    units: 3,
+    color: '#2563eb',
+    border: '#60a5fa',
+    sections: [
+      {
+        id: 'ME31S1',
+        desc: 'Tu 1:30–3:30 PM (Lec) & Th 1:30–4:30 PM (Lab)',
+        room: 'Q-5504 / Q-3102A',
+        slots: [
+          { day: 1, start: 810, end: 930, room: 'Q-5504', tag: 'LEC' },
+          { day: 3, start: 810, end: 990, room: 'Q-3102A', tag: 'LAB' }
+        ]
+      }
+    ]
+  },
+  {
+    code: 'ME 320',
+    title: 'Computer Applications',
+    units: 1,
+    color: '#64748b',
+    border: '#cbd5e1',
+    sections: [
+      {
+        id: 'ME31S1',
+        desc: 'We 1:30–4:30 PM (Lab)',
+        room: 'Q-3210',
+        slots: [
+          { day: 2, start: 810, end: 990, room: 'Q-3210', tag: 'LAB' }
+        ]
+      }
+    ]
+  }
+];
+
 const SCHEDULE_COURSES = [
   {
     code: 'ME 411',
@@ -965,6 +1134,13 @@ const COURSES_4TH_2ND = [
 // ==========================================================================
 const SEMESTERS = [
   {
+    id: '3rd-1st',
+    name: '3rd Year 1st Sem',
+    shortName: '3rd Yr 1st Sem',
+    meta: '9 Subjects • 24 Units',
+    courses: COURSES_3RD_1ST
+  },
+  {
     id: '3rd-2nd',
     name: '3rd Year 2nd Sem',
     shortName: '3rd Yr 2nd Sem',
@@ -1124,6 +1300,13 @@ function getActivePresetName() {
     if (regular.length > 0 && regular.every(c => s[c.code] === 'ME32S2') && Object.keys(s).length === regular.length) {
       return 'S2';
     }
+  } else if (activeSemesterId === '3rd-1st') {
+    const courses = getActiveCourses();
+    const s = userScheduleSelection;
+    if (courses.length > 0 && courses.every(c => s[c.code] === 'ME31S1')) {
+      return 'ME31S1';
+    }
+    return currentSchedulePreset || null;
   } else {
     if (currentSchedulePreset === 'A' || currentSchedulePreset === 'S1') return 'Choice A';
     if (currentSchedulePreset === 'B' || currentSchedulePreset === 'S2') return 'Choice B';
@@ -1134,6 +1317,9 @@ function getActivePresetName() {
 }
 
 function getPresetCycleList() {
+  if (activeSemesterId === '3rd-1st') {
+    return ['ME31S1'];
+  }
   if (activeSemesterId === '3rd-2nd') {
     return ['S1', 'S2', 'Marinell', 'Joshua & Karl', 'Andrei', 'Lype'];
   }
@@ -1286,6 +1472,14 @@ function applySchedulePreset(preset) {
         }
       });
     }
+  } else if (activeSemesterId === '3rd-1st') {
+    currentSchedulePreset = 'ME31S1';
+    localStorage.setItem('tip_sched_active_preset', 'ME31S1');
+    courses.forEach(c => {
+      const match = c.sections.find(s => s.id === 'ME31S1');
+      if (match) userScheduleSelection[c.code] = match.id;
+      else if (c.sections.length > 0) userScheduleSelection[c.code] = c.sections[0].id;
+    });
   } else if (activeSemesterId === '4th-summer') {
     const targetSec = isA ? 'ME40S1' : 'ME40S2';
     courses.forEach(c => {
@@ -1518,14 +1712,21 @@ window.openSemesterModal = openSemesterModal;
 window.closeSemesterModal = closeSemesterModal;
 
 function isLypeSelected() {
+  if (activeSemesterId !== '3rd-2nd') return false;
   if (currentSchedulePreset === 'Lype') return true;
   const s = userScheduleSelection;
   return Boolean(s && s['EE 024'] === 'EE32S1');
 }
 
+function isFullWidthBlockSchedule() {
+  return isLypeSelected() || activeSemesterId === '3rd-1st';
+}
+
 function renderScheduleView() {
   const isLype = isLypeSelected();
-  document.body.classList.toggle('sched-lype-active', isLype);
+  const isFullWidth = isFullWidthBlockSchedule();
+  document.body.classList.toggle('sched-lype-active', isFullWidth);
+  document.body.classList.toggle('sched-lype-locked', isLype);
   renderScheduleSidebar();
   renderScheduleGrid();
   updateScheduleStats();
@@ -1765,8 +1966,8 @@ function renderScheduleSidebar() {
   const listEl = document.getElementById('sched-subject-list');
   if (!listEl) return;
 
-  const isLype = isLypeSelected();
-  if (isLype) {
+  const isFullWidth = isFullWidthBlockSchedule();
+  if (isFullWidth) {
     listEl.innerHTML = '';
     return;
   }
@@ -2587,7 +2788,7 @@ function updateScheduleStats() {
   let enrolledUnits = 0;
   let count = 0;
 
-  const isLypeActive = currentSchedulePreset === 'Lype' || (courses.some(c => c.isEE && userScheduleSelection[c.code]));
+  const isLypeActive = isLypeSelected();
   if (isLypeActive) {
     const eeCourses = courses.filter(c => c.isEE);
     regularCourseCount = eeCourses.length;
@@ -2644,14 +2845,16 @@ function updateScheduleStats() {
   if (semBadge && sem) {
     semBadge.textContent = sem.name;
   }
+  const is3rd1st = activeSemesterId === '3rd-1st';
   const hasPresets = courses.length > 0;
   if (btnA) {
     btnA.style.opacity = hasPresets ? '' : '0.4';
     btnA.style.pointerEvents = hasPresets ? '' : 'none';
-    let labelA = activeSemesterId === '3rd-2nd' ? 'S1' : 'Choice A';
+    let labelA = is3rd1st ? 'ME31S1' : (activeSemesterId === '3rd-2nd' ? 'S1' : 'Choice A');
     btnA.textContent = labelA;
   }
   if (btnB) {
+    btnB.style.display = is3rd1st ? 'none' : '';
     btnB.style.opacity = hasPresets ? '' : '0.4';
     btnB.style.pointerEvents = hasPresets ? '' : 'none';
     let labelB = activeSemesterId === '3rd-2nd' ? 'S2' : 'Choice B';
@@ -2697,7 +2900,7 @@ function updateScheduleStats() {
   [btnA, btnB, btnC, btnMarinell, btnJoshuaKarl, btnAndrei, btnLype].forEach(b => {
     if (b) b.classList.remove('is-active-preset');
   });
-  if (activePresetName === 'S1' && btnA) btnA.classList.add('is-active-preset');
+  if ((activePresetName === 'S1' || activePresetName === 'ME31S1') && btnA) btnA.classList.add('is-active-preset');
   else if (activePresetName === 'S2' && btnB) btnB.classList.add('is-active-preset');
   else if (activePresetName === 'Marinell' && btnMarinell) btnMarinell.classList.add('is-active-preset');
   else if (activePresetName === 'Joshua & Karl' && btnJoshuaKarl) {
@@ -2725,10 +2928,15 @@ function updateScheduleStats() {
     const popupItems = zenPopup.querySelectorAll('.sched-zen-popup-item[data-preset]');
     popupItems.forEach(item => {
       const p = item.dataset.preset;
-      if (['Marinell', 'Joshua & Karl', 'Andrei', 'Lype'].includes(p)) {
+      if (p === 'S1') {
+        const nameEl = item.querySelector('.sched-zen-popup-item-name');
+        if (nameEl) nameEl.textContent = is3rd1st ? 'ME31S1' : 'S1';
+      } else if (p === 'S2') {
+        item.style.display = is3rd1st ? 'none' : '';
+      } else if (['Marinell', 'Joshua & Karl', 'Andrei', 'Lype'].includes(p)) {
         item.style.display = is3rd2nd ? '' : 'none';
       }
-      const isMatch = (p === activePresetName) || (p === currentSchedulePreset);
+      const isMatch = (p === activePresetName) || (p === currentSchedulePreset) || (is3rd1st && p === 'S1' && activePresetName === 'ME31S1');
       if (isMatch) {
         item.classList.add('is-active-preset');
       } else {
@@ -3213,13 +3421,13 @@ document.addEventListener('touchmove', (e) => {
     const scrollTarget = modalBodyTarget
       ? (modalBodyTarget.classList.contains('sched-modal-body') ? modalBodyTarget : modalBodyTarget.querySelector('.sched-modal-body') || modalBodyTarget)
       : e.target.closest(
-          '.sched-sidebar-card, #sched-subject-list, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container'
+          '.sched-sidebar-card, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container'
         );
 
     if (!scrollTarget) {
       e.preventDefault();
     } else {
-      const scrollable = scrollTarget.closest('.sched-modal-body, .sched-sidebar-card, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container, #sched-subject-list') || scrollTarget;
+      const scrollable = scrollTarget.closest('.sched-modal-body, .sched-sidebar-card, .sched-zen-popup-list, .brand-nav-fullscreen-backdrop, .brand-nav-fullscreen-container') || scrollTarget;
       if (scrollable.scrollHeight <= scrollable.clientHeight) {
         e.preventDefault();
       } else {
