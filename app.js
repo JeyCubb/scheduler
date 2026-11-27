@@ -3217,62 +3217,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderScheduleView();
   });
 
-  // Aggressive Subject Scroll Snap
-  const sidebarCardEl = document.querySelector('.sched-sidebar-card');
-  const subjectListEl = document.getElementById('sched-subject-list');
-  const scrollContainer = sidebarCardEl || subjectListEl;
-  let isSubjectSnapping = false;
-
-  function onSubjectWheel(e) {
-    if (Math.abs(e.deltaY) < 14) return;
-    if (!scrollContainer || !subjectListEl) return;
-
-    const cards = Array.from(subjectListEl.querySelectorAll('.sched-course-row'));
-    if (!cards.length) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (isSubjectSnapping) return;
-    isSubjectSnapping = true;
-
-    const containerTop = scrollContainer.getBoundingClientRect().top;
-    const currentScrollTop = scrollContainer.scrollTop;
-
-    let targetCard = null;
-    if (e.deltaY > 0) {
-      targetCard = cards.find(card => card.getBoundingClientRect().top - containerTop > 14);
-    } else {
-      for (let i = cards.length - 1; i >= 0; i--) {
-        if (containerTop - cards[i].getBoundingClientRect().top > 14) {
-          targetCard = cards[i];
-          break;
-        }
-      }
-    }
-
-    if (targetCard) {
-      const targetScroll = currentScrollTop + (targetCard.getBoundingClientRect().top - containerTop);
-      scrollContainer.scrollTo({
-        top: Math.max(0, targetScroll),
-        behavior: 'smooth'
-      });
-    } else if (e.deltaY < 0) {
-      scrollContainer.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-
-    setTimeout(() => {
-      isSubjectSnapping = false;
-    }, 180);
-  }
-
-  if (scrollContainer) {
-    scrollContainer.addEventListener('wheel', onSubjectWheel, { passive: false, capture: true });
-  }
-
   // Remove Subject Confirmation Modal Handlers
   const modalEl = document.getElementById('sched-remove-modal');
   const cancelBtn = document.getElementById('sched-modal-btn-cancel');
