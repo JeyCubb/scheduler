@@ -1728,6 +1728,11 @@ function isLypeSelected() {
   return Boolean(s && s['EE 024'] === 'EE32S1');
 }
 
+function isAndreiSelected() {
+  if (activeSemesterId !== '3rd-2nd') return false;
+  return currentSchedulePreset === 'Andrei' || Boolean(userScheduleSelection && userScheduleSelection['ME 320']);
+}
+
 function isFullWidthBlockSchedule() {
   return isLypeSelected() || activeSemesterId === '3rd-1st';
 }
@@ -2003,8 +2008,14 @@ function renderScheduleSidebar() {
   const conflicts = getScheduleConflicts();
   const isLight = document.documentElement.getAttribute('data-theme') === 'light';
 
-  const isLypeActive = currentSchedulePreset === 'Lype' || (courses.some(c => c.isEE && userScheduleSelection[c.code]));
-  const displayCourses = courses.filter(c => isLypeActive ? Boolean(c.isEE) : !c.isEE);
+  const isLypeActive = isLypeSelected();
+  const isAndreiActive = isAndreiSelected();
+  const displayCourses = courses.filter(c => {
+    if (isLypeActive) return Boolean(c.isEE);
+    if (c.isEE) return false;
+    if (activeSemesterId === '3rd-2nd' && c.code === 'ME 320' && !isAndreiActive) return false;
+    return true;
+  });
 
   displayCourses.forEach(course => {
     const selectedSec = userScheduleSelection[course.code];
@@ -2161,9 +2172,13 @@ function getSectionsAtSlot(day, timeMin, duration = 30) {
   const slotEnd = timeMin + duration;
   const courses = getActiveCourses();
   const isLype = isLypeSelected();
+  const isAndrei = isAndreiSelected();
   const filteredCourses = courses.filter(c => {
     if (activeSemesterId === '3rd-2nd') {
-      return isLype ? Boolean(c.isEE) : !c.isEE;
+      if (isLype) return Boolean(c.isEE);
+      if (c.isEE) return false;
+      if (c.code === 'ME 320' && !isAndrei) return false;
+      return true;
     }
     return true;
   });
@@ -3033,17 +3048,74 @@ function initBrandNavPopup() {
 
   if (!trigger || !popup) return;
 
+  const HOLD_DELAY_MS = 450;
+  let holdTimer = null;
+  let longPressTriggered = false;
+  let startX = 0;
+  let startY = 0;
+
+  function clearHoldTimer() {
+    if (holdTimer !== null) {
+      clearTimeout(holdTimer);
+      holdTimer = null;
+    }
+  }
+
   function togglePopup(open) {
     const willOpen = open !== undefined ? open : !popup.classList.contains('is-open');
+    if (!willOpen) {
+      popup.classList.remove('show-finance');
+    }
     popup.classList.toggle('is-open', willOpen);
     popup.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
     trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
   }
 
+  trigger.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    clearHoldTimer();
+    longPressTriggered = false;
+    startX = e.clientX;
+    startY = e.clientY;
+
+    holdTimer = setTimeout(() => {
+      holdTimer = null;
+      longPressTriggered = true;
+      popup.classList.add('show-finance');
+      togglePopup(true);
+      if (navigator.vibrate) {
+        try { navigator.vibrate(15); } catch (_) {}
+      }
+    }, HOLD_DELAY_MS);
+  });
+
+  trigger.addEventListener('pointermove', (e) => {
+    if (holdTimer === null) return;
+    if (Math.hypot(e.clientX - startX, e.clientY - startY) > 10) {
+      clearHoldTimer();
+    }
+  });
+
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach((evt) => {
+    trigger.addEventListener(evt, clearHoldTimer);
+  });
+
+  trigger.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+  });
+
   trigger.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    togglePopup();
+    if (longPressTriggered) {
+      longPressTriggered = false;
+      return;
+    }
+    const willOpen = !popup.classList.contains('is-open');
+    if (willOpen) {
+      popup.classList.remove('show-finance');
+    }
+    togglePopup(willOpen);
   });
 
   const handleOutsideClose = (e) => {
