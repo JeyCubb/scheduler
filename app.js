@@ -1733,6 +1733,24 @@ function isAndreiSelected() {
   return currentSchedulePreset === 'Andrei' || Boolean(userScheduleSelection && userScheduleSelection['ME 320']);
 }
 
+function isMarinellSelected() {
+  if (activeSemesterId !== '3rd-2nd') return false;
+  return currentSchedulePreset === 'Marinell' || Boolean(userScheduleSelection && userScheduleSelection['ME 223']);
+}
+
+function getVisibleCourses(courses) {
+  if (activeSemesterId !== '3rd-2nd') return courses;
+  if (isLypeSelected()) return courses.filter(c => Boolean(c.isEE));
+  const showAndrei = isAndreiSelected();
+  const showMarinell = isMarinellSelected();
+  return courses.filter(c => {
+    if (c.isEE) return false;
+    if (c.code === 'ME 320' && !showAndrei) return false;
+    if (c.code === 'ME 223' && !showMarinell) return false;
+    return true;
+  });
+}
+
 function isFullWidthBlockSchedule() {
   return isLypeSelected() || activeSemesterId === '3rd-1st';
 }
@@ -2008,14 +2026,7 @@ function renderScheduleSidebar() {
   const conflicts = getScheduleConflicts();
   const isLight = document.documentElement.getAttribute('data-theme') === 'light';
 
-  const isLypeActive = isLypeSelected();
-  const isAndreiActive = isAndreiSelected();
-  const displayCourses = courses.filter(c => {
-    if (isLypeActive) return Boolean(c.isEE);
-    if (c.isEE) return false;
-    if (activeSemesterId === '3rd-2nd' && c.code === 'ME 320' && !isAndreiActive) return false;
-    return true;
-  });
+  const displayCourses = getVisibleCourses(courses);
 
   displayCourses.forEach(course => {
     const selectedSec = userScheduleSelection[course.code];
@@ -2171,17 +2182,7 @@ function getSectionsAtSlot(day, timeMin, duration = 30) {
   const slotStart = timeMin;
   const slotEnd = timeMin + duration;
   const courses = getActiveCourses();
-  const isLype = isLypeSelected();
-  const isAndrei = isAndreiSelected();
-  const filteredCourses = courses.filter(c => {
-    if (activeSemesterId === '3rd-2nd') {
-      if (isLype) return Boolean(c.isEE);
-      if (c.isEE) return false;
-      if (c.code === 'ME 320' && !isAndrei) return false;
-      return true;
-    }
-    return true;
-  });
+  const filteredCourses = getVisibleCourses(courses);
 
   const matches = [];
 
